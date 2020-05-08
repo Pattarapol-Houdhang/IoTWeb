@@ -1,0 +1,37 @@
+﻿<%@ WebHandler Language="C#" Class="SourcJson" %>
+
+using System;
+using System.Web;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+
+public class SourcJson : IHttpHandler {
+    
+    public void ProcessRequest (HttpContext context) {
+        
+        context.Response.ContentType = "text/plain";
+        decimal ct = Convert.ToDecimal(context.Request.QueryString["CycleTime"] != null ? context.Request.QueryString["CycleTime"].ToString() : "0");
+        string fac = context.Request.QueryString["Fac"] != null ? context.Request.QueryString["Fac"].ToString() : "";
+        string line = context.Request.QueryString["Line"] != null ? context.Request.QueryString["Line"].ToString() : "";
+        string mc = context.Request.QueryString["Mac"] != null ? context.Request.QueryString["Mac"].ToString() : "";
+        string modelcode = context.Request.QueryString["ModelCode"] != null ? context.Request.QueryString["ModelCode"].ToString() : "";
+        string strDate = context.Request.QueryString["strDate"] != null ? context.Request.QueryString["strDate"].ToString() : "";
+        string endDate = context.Request.QueryString["endDate"] != null ? context.Request.QueryString["endDate"].ToString() : "";
+        string target = context.Request.QueryString["target"] != null ? context.Request.QueryString["target"].ToString() : "0";
+        
+        CGetDataGraph oTarget = new CGetDataGraph();        
+        List<MDataGraph> oList = new List<MDataGraph>();
+        oList = oTarget.GetPlan(ct, fac, line, mc, modelcode, strDate, endDate);
+        var jsonSerialiser = new JavaScriptSerializer();
+        var json = jsonSerialiser.Serialize(oList);
+
+        context.Response.Write(json);
+    }
+         
+    public bool IsReusable {
+        get {
+            return false;
+        }
+    }
+
+}

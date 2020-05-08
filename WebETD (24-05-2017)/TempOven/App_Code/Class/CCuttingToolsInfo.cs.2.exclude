@@ -1,0 +1,437 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CCuttingToolsInfo
+/// </summary>
+public class CCuttingToolsInfo
+{
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    CPDData oPD = new CPDData();
+    IFormatProvider culture = CultureInfo.CreateSpecificCulture("en-US");
+    string[] PartNotCalCost = { "2RC", "2ST", "CAF", "CH", "DP", "OL", "RC", "ST", "SWT", "WT", "CGS" };
+
+    public CCuttingToolsInfo()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public DataTable GetDataCuttingTools(DateTime strDate, DateTime endDate, string BoardId)
+    {
+        strDate = strDate.Date + new TimeSpan(0, 0, 0);
+        endDate = endDate.Date + new TimeSpan(23, 59, 59);
+
+
+        DataTable dtCutting = new DataTable();
+        dtCutting.Columns.Add("No", typeof(string));
+        dtCutting.Columns.Add("Part", typeof(string));
+        dtCutting.Columns.Add("PartName", typeof(string));
+        dtCutting.Columns.Add("Qty", typeof(string));
+        dtCutting.Columns.Add("Unit", typeof(string));
+        dtCutting.Columns.Add("McCode", typeof(string));
+        dtCutting.Columns.Add("Price", typeof(string));
+        dtCutting.Columns.Add("PriceTotal", typeof(string));
+        dtCutting.Columns.Add("Date", typeof(string));
+
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT [Inv_Detail_Id],[Inv_Id],[PartLine],[Part_Code],pm.Prt_Name,[Part_Id],[Part_Status],[Last_Status]" +
+            ",[Qty],[umReq],[Qty_Convert],[umConvert],[Qty_RePart],[umRepart],[Remain],SPPart.[Model],SPPart.[MCNo]," +
+            "MM.McName,LM.LineCode,LM.LineName,LM.BoardId,[Actual_Life],[Reason],[ReasonText],[CostCerter],SPPart.[Remark]" +
+            ",SPPart.[cr_by],SPPart.[cr_dt],SPPart.[upd_by],SPPart.[upd_dt],[Full_Life],[Requestor],[expense_cd],[investment_cd]" +
+            ",[Repart],[Abnormal],[CauseEdit],[RequestStatus],[CurPrice] FROM [SP_PartOutDetail] SPPart" +
+            " LEFT JOIN [dbPDB].[dbo].[MT_MachineMstr] MM ON SPPart.MCNo = MM.McNo" +
+            " LEFT JOIN [dbPDB].[dbo].PD_LineMstr LM ON MM.LineUsed = LM.LineId" +
+            " LEFT JOIN [dbDCI].[dbo].Vi_SPPartsMstr AS pm ON[Part_Code] = pm.Prt_Code "+
+            " WHERE SPPart.cr_dt >= @strDate And SPPart.cr_dt < @endDate" +
+            " AND SPPart.RequestStatus != 'cancel' AND LM.BoardId = @BoardId";
+        sql.Parameters.Add(new SqlParameter("@strDate", strDate.ToString("yyyy-MM-dd HH:mm:ss", culture)));
+        sql.Parameters.Add(new SqlParameter("@endDate", endDate.ToString("yyyy-MM-dd HH:mm:ss", culture)));
+        sql.Parameters.Add(new SqlParameter("@BoardId", BoardId));
+        DataTable dt = oConn.SqlGet(sql, "DBDCI");
+        if (dt.Rows.Count > 0)
+        {
+            int No = 1;
+            foreach (DataRow item in dt.Rows)
+            {
+                string OldPartCode = ConvertPartCode(item["Part_Code"].ToString());
+                string[] spOldPartCode = OldPartCode.Split('-');
+                if (Array.IndexOf(PartNotCalCost, spOldPartCode[0]) != -1 && item["Prt_Name"].ToString() != "FVC 50 K")
+                {
+                    DataRow _rowCutting = dtCutting.NewRow();
+                    _rowCutting["No"] = No.ToString();
+                    _rowCutting["Part"] = item["Part_Code"].ToString();
+                    _rowCutting["PartName"] = item["Prt_Name"].ToString();
+                    _rowCutting["Qty"] = item["Qty"].ToString();
+                    _rowCutting["Unit"] = item["umReq"].ToString();
+                    _rowCutting["McCode"] = item["MCNo"].ToString();
+
+
+                    decimal qty = 0, price = 0, priceTotal = 0;
+                    try
+                    {
+                        qty = Convert.ToDecimal(item["Qty"].ToString());
+                        price = Convert.ToDecimal(item["CurPrice"].ToString());
+                    }
+                    catch { }
+
+                    priceTotal = qty * price;
+
+                    try
+                    {
+                        _rowCutting["Price"] = String.Format("{0:n}", Convert.ToDecimal(item["CurPrice"]));
+                    }
+                    catch
+                    {
+                        _rowCutting["Price"] = item["CurPrice"].ToString();
+                    }
+
+                    _rowCutting["Date"] = item["cr_dt"].ToString();
+                    _rowCutting["PriceTotal"] = String.Format("{0:n}", priceTotal);
+
+
+                    dtCutting.Rows.Add(_rowCutting);
+                    No++;
+                }
+               
+            }
+        }
+
+        return dtCutting;
+    }
+
+    public string ConvertPartCode(string _data)
+    {
+        string[] spData = new string[0];
+        string _strHead = "";
+        string _strDetail = "";
+        string _partCode = "";
+
+        try
+        {
+            // ----- splite data -----
+            spData = _data.Split('-');
+
+            // ----- Check -----
+            if (spData[0].EndsWith("2"))
+            {
+                _strHead = "2";
+            }
+            else
+            {
+                _strHead = "";
+            }
+
+            // ----- Check -----
+            int idx = spData[1].IndexOf("0");
+            _strDetail = spData[1].Insert(idx, "-");
+
+            if (spData.Length == 3)
+            {
+                _partCode = _strHead + _strDetail + "-" + spData[2];
+            }
+            else
+            {
+                _partCode = _strHead + _strDetail;
+            }
+
+        }
+        catch
+        {
+            _partCode = "";
+        }
+
+        return _partCode;
+
+    }
+
+
+    //--------------------- Get Chart CTSP of Month each Day ---------------------
+    public List<MCTSPInfo> GetChartCuttingTools(DateTime dateNow, string BoardId, string TypeShow,int Year)
+    {
+        List<MCTSPInfo> olistChart = new List<MCTSPInfo>();
+
+        //------------------- Set DateTime fot Get Data 3 Month ------------------
+        DateTime strDate = dateNow.AddMonths(-3);
+        DateTime endDate = dateNow.AddMonths(1);
+        int DayOfMonth = DateTime.DaysInMonth(dateNow.Year, dateNow.Month);
+        int DayOfMonth1 = DateTime.DaysInMonth(dateNow.AddMonths(-1).Year, dateNow.AddMonths(-1).Month); //<------------ Day of month last 1
+        int DayOfMonth2 = DateTime.DaysInMonth(dateNow.AddMonths(-2).Year, dateNow.AddMonths(-2).Month); //<------------ Day of month last 2
+
+        //------------------- Get Data From CTSP ---------------------
+        SqlCommand sql = new SqlCommand();
+
+        //----------------------- Get Data for create chart follow type show (daily,weekly,monthly,yearly) --------------------
+        if (TypeShow == "day")
+        {
+            //---------------------- Get Data for Yearly each Month and Monthly each day ----------------------
+            List<MCTSPInfo> olistMonth = new List<MCTSPInfo>();
+            List<MCTSPInfo> olistYear = new List<MCTSPInfo>();
+            DateTime dateStart = new DateTime(Year, 1, 1, 0, 0, 0);
+            DateTime dateEnd = new DateTime(Year, 12, DateTime.DaysInMonth(Year, 12), 0, 0, 0);
+            SqlCommand sqlYear = new SqlCommand();
+            sqlYear.CommandText = "SELECT [Inv_Detail_Id],[Inv_Id],[PartLine],[Part_Code],pm.Prt_Name,[Part_Id],[Part_Status],[Last_Status]" +
+                ",[Qty],[umReq],[Qty_Convert],[umConvert],[Qty_RePart],[umRepart],[Remain],SPPart.[Model],SPPart.[MCNo]," +
+                "MM.McName,LM.LineCode,LM.LineName,LM.BoardId,[Actual_Life],[Reason],[ReasonText],[CostCerter],SPPart.[Remark]" +
+                ",SPPart.[cr_by],SPPart.[cr_dt],SPPart.[upd_by],SPPart.[upd_dt],[Full_Life],[Requestor],[expense_cd],[investment_cd]" +
+                ",[Repart],[Abnormal],[CauseEdit],[RequestStatus],[CurPrice],([CurPrice] * [Qty]) As SUMPrice FROM [SP_PartOutDetail] SPPart" +
+                " LEFT JOIN [dbPDB].[dbo].[MT_MachineMstr] MM ON SPPart.MCNo = MM.McNo" +
+                " LEFT JOIN [dbPDB].[dbo].PD_LineMstr LM ON MM.LineUsed = LM.LineId" +
+                " LEFT JOIN Vi_SPPartsMstr AS pm ON [Part_Code] = pm.Prt_Code " +
+                " WHERE SPPart.cr_dt >= @strDate And SPPart.cr_dt < @endDate" +
+                " AND SPPart.RequestStatus != 'cancel' AND LM.BoardId = @BoardId ORDER BY SPPart.cr_dt ASC";
+            sqlYear.Parameters.Add(new SqlParameter("@strDate", dateStart.ToString("yyyy-MM-dd HH:mm:ss", culture)));
+            sqlYear.Parameters.Add(new SqlParameter("@endDate", dateEnd.ToString("yyyy-MM-dd HH:mm:ss", culture)));
+            sqlYear.Parameters.Add(new SqlParameter("@BoardId", BoardId));
+            DataTable dtYearly = oConn.SqlGet(sqlYear, "DBDCI");
+            if (dtYearly.Rows.Count > 0)
+            {
+                olistMonth = GetChartTypeDay(dateNow, BoardId, TypeShow, dtYearly, DayOfMonth);
+
+                olistYear = GetChartTypeMonth(dateNow, BoardId, TypeShow, dtYearly, DayOfMonth, Year);
+            }
+            //---------------------- Get Data for Yearly each Month and Monthly each day ----------------------
+
+
+            //----------------- Merge data monthly with yearly ----------------
+            if (olistMonth.Count > 0)
+            {
+                for (int i = 0; i < olistMonth.Count; i++)
+                {
+                    MCTSPInfo _itemCTSP = new MCTSPInfo();
+                    _itemCTSP.Date = olistMonth[i].Date;
+                    _itemCTSP.LDate1 = olistMonth[i].LDate1;
+                    _itemCTSP.LDate2 = olistMonth[i].LDate2;
+                    _itemCTSP.CostDay = olistMonth[i].CostDay;
+                    _itemCTSP.Cost = olistMonth[i].Cost;
+                    _itemCTSP.LCost1 = olistMonth[i].LCost1;
+                    _itemCTSP.LCost2 = olistMonth[i].LCost2;
+                    _itemCTSP.CostUnit = olistMonth[i].CostUnit;
+                    _itemCTSP.AccuMonth = olistMonth[i].AccuMonth;
+                    _itemCTSP.Avg = olistMonth[i].Avg;
+
+                    if (i <= 11)
+                    {
+                        if (olistYear.Count > 0)
+                        {
+                            _itemCTSP.DateMonth = olistYear[i].DateMonth;
+                            _itemCTSP.CostMonth = olistYear[i].CostMonth;
+                            _itemCTSP.CostUnitMonth = olistYear[i].CostUnitMonth;
+                            _itemCTSP.AvgMonth = olistYear[i].AvgMonth;
+                        }
+                    }
+
+                    olistChart.Add(_itemCTSP);
+                }
+            }
+        }
+
+        return olistChart;
+    }
+    //--------------------- Get Chart CTSP of Month each Day ---------------------
+
+
+    //--------------------- Get Chart CTSP of Year each Month ---------------------
+    private List<MCTSPInfo> GetChartTypeMonth(DateTime dateNow, string BoardId, string TypeShow, DataTable dt, int DayOfMonth, int Year)
+    {
+        DateTime startDate = new DateTime(Year, 1, 1, 0, 0, 0);
+
+        List<MCTSPInfo> olistChart = new List<MCTSPInfo>();
+
+        //------------------- Get Data for Month Now --------------------  
+        decimal AccuMonth = 0;
+        string OldPartCode = "";
+        decimal Avg = 0;
+        for (int i = 1; i <= 12; i++)
+        {
+            decimal CostMonth = 0;
+            DateTime dateNowFillstart = new DateTime(startDate.Year, i, 1, 0, 0, 0);
+            DateTime dateNowFillend = new DateTime(startDate.Year, i, DateTime.DaysInMonth(startDate.Year, i), 23, 59, 59);
+
+            //------------- Get PD Actual of Month ---------------
+            int Actual = 0;
+            if (BoardId == "301")
+            {
+                Actual = oPD.GetActualMainFac3ofMonth(dateNowFillstart.Month, Year);
+            }
+            else
+            {
+                Actual = oPD.GetActualByDate(BoardId, dateNowFillstart);
+            }
+           
+
+            //---------------------- Get Cost for Month Selected ----------------
+            DataRow[] fillMonthNow = dt.Select("cr_dt >= '" + dateNowFillstart.ToString("yyyy-MM-dd HH:mm:ss") 
+                + "' AND  cr_dt <= '" + dateNowFillend.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            if (fillMonthNow.Length > 0)
+            {
+                foreach (DataRow _row in fillMonthNow)
+                {
+                    //--------------- part not sum cutting tools cost ------------------
+                    OldPartCode = ConvertPartCode(_row["Part_Code"].ToString());
+                    string[] spOldPartCode = OldPartCode.Split('-');
+                    if (Array.IndexOf(PartNotCalCost, spOldPartCode[0]) != -1 && _row["Prt_Name"].ToString() != "FVC 50 K")
+                    {
+                        AccuMonth += Convert.ToDecimal(_row["SUMPrice"].ToString());
+                        CostMonth += Convert.ToDecimal(_row["SUMPrice"].ToString());
+                    }
+                }
+            }
+            //---------------------- Get Cost for Month Selected ----------------
+
+            MCTSPInfo _itemCTSP = new MCTSPInfo();
+            _itemCTSP.DateMonth = dateNowFillstart.ToString("MMM", culture).ToUpper();
+
+            if (i <= DateTime.Now.Month)
+            {
+                _itemCTSP.CostUnitMonth = Math.Round((CostMonth / Actual),2);
+                _itemCTSP.CostMonth = CostMonth;
+                _itemCTSP.AccuMonth = AccuMonth;
+
+                Avg += (CostMonth / Actual);
+                _itemCTSP.AvgMonth = Math.Round((Avg / i),2);
+            }
+            else
+            {
+                _itemCTSP.CostUnit = null;
+                _itemCTSP.CostDay = null;
+                _itemCTSP.Cost = null;
+                _itemCTSP.LCost1 = null;
+                _itemCTSP.LCost2 = null;
+
+                _itemCTSP.CostUnitMonth = null;
+                _itemCTSP.AvgMonth = null;
+                _itemCTSP.CostMonth = null;
+            }
+
+            olistChart.Add(_itemCTSP);
+            startDate = startDate.AddMonths(1);
+        }
+
+
+        return olistChart;
+    }
+    //--------------------- Get Chart CTSP of Year each Month ---------------------
+    
+
+    //--------------------------- Get Chart CTSP Accumulate of Type Day ----------------------------
+    private List<MCTSPInfo> GetChartTypeDay(DateTime dateNow, string BoardId, string TypeShow, DataTable dt, int DayOfMonth)
+    {
+        List<MCTSPInfo> olistChart = new List<MCTSPInfo>();
+
+        //------------------- Get Data for Month Now --------------------  
+        decimal AccuMonthNow = 0;
+        decimal AccuMonthLast1 = 0;
+        decimal AccuMonthLast2 = 0;
+
+
+        DataTable dtActual = oPD.GetDataActualOfMonth(BoardId, dateNow.Month, dateNow.Year);
+
+        for (int i = 1; i <= DayOfMonth; i++)
+        {
+            decimal CostDay = 0;
+            MCTSPInfo _itemCTSP = new MCTSPInfo();
+            DateTime dateNowFillstr = new DateTime(dateNow.Year, dateNow.Month, i, 0, 0, 0);//<---------- start date for search data ----------------
+            DateTime dateNowFill = new DateTime(dateNow.Year, dateNow.Month, i, 23, 59, 59);//<---------- end date for search data ----------------
+
+            //------------- Get PD Actual of Day ---------------
+            decimal Actual = 0;
+            Actual = oPD.GetActualByDate(BoardId, dateNowFillstr);
+
+            _itemCTSP.Date = dateNowFill.ToString("dd");
+            _itemCTSP.LDate1 = dateNow.AddMonths(-1).Month.ToString();
+            _itemCTSP.LDate2 = dateNow.AddMonths(-2).Month.ToString();
+
+            string OldPartCode = "";
+
+            //---------------------- Get Cost for Month Now ----------------
+            DataRow[] fillMonthNow = dt.Select("cr_dt >= '" + dateNowFillstr.ToString("yyyy-MM-dd HH:mm:ss") + "' AND  cr_dt <= '" + dateNowFill.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            if (fillMonthNow.Length > 0)
+            {
+                foreach (DataRow _row in fillMonthNow)
+                {
+                    //--------------- part not sum cutting tools cost ------------------
+                    OldPartCode = ConvertPartCode(_row["Part_Code"].ToString());
+                    string[] spOldPartCode = OldPartCode.Split('-');
+                    if (Array.IndexOf(PartNotCalCost, spOldPartCode[0]) != -1 && _row["Prt_Name"].ToString() != "FVC 50 K")
+                    {
+                        AccuMonthNow += Convert.ToDecimal(_row["SUMPrice"].ToString());
+                        CostDay += Convert.ToDecimal(_row["SUMPrice"].ToString());
+                    }                    
+                }
+            }
+
+            //---------------------- Get Cost for Last Month 1 --------------------
+            DataRow[] fillMonthLast1 = dt.Select("cr_dt >= '" + dateNowFillstr.AddMonths(-1).ToString("yyyy-MM-dd HH:mm:ss") + "' AND  cr_dt <= '" + dateNowFill.AddMonths(-1).ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            if (fillMonthLast1.Length > 0)
+            {
+                foreach (DataRow _row in fillMonthLast1)
+                {
+                    //--------------- part not sum cutting tools cost ------------------
+                    OldPartCode = ConvertPartCode(_row["Part_Code"].ToString());
+                    string[] spOldPartCode = OldPartCode.Split('-');
+                    if (Array.IndexOf(PartNotCalCost, spOldPartCode[0]) != -1 && _row["Prt_Name"].ToString() != "FVC 50 K")
+                    {
+                        AccuMonthLast1 += Convert.ToDecimal(_row["SUMPrice"].ToString());
+                    }                        
+                }
+            }
+
+            //---------------------- Get Cost for Last Month 2 --------------------
+            DataRow[] fillMonthLast2 = dt.Select("cr_dt >= '" + dateNowFillstr.AddMonths(-2).ToString("yyyy-MM-dd HH:mm:ss") + "' AND  cr_dt <= '" + dateNowFill.AddMonths(-2).ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            if (fillMonthLast2.Length > 0)
+            {
+                foreach (DataRow _row in fillMonthLast2)
+                {
+                    //--------------- part not sum cutting tools cost ------------------
+                    OldPartCode = ConvertPartCode(_row["Part_Code"].ToString());
+                    string[] spOldPartCode = OldPartCode.Split('-');
+                    if (Array.IndexOf(PartNotCalCost, spOldPartCode[0]) != -1 && _row["Prt_Name"].ToString() != "FVC 50 K")
+                    {
+                        AccuMonthLast2 += Convert.ToDecimal(_row["SUMPrice"].ToString());
+                    }                        
+                }
+            }
+
+            if (dateNowFill < DateTime.Now.AddDays(1))
+            {
+                if (Actual > 0)
+                {
+                    _itemCTSP.CostUnit = Math.Round(CostDay / Actual, 2);
+                }
+                else
+                {
+                    _itemCTSP.CostUnit = 0;
+                }
+                
+                _itemCTSP.CostDay = CostDay;
+                _itemCTSP.Cost = AccuMonthNow;
+                _itemCTSP.LCost1 = AccuMonthLast1;
+                _itemCTSP.LCost2 = AccuMonthLast2;
+            }
+            else
+            {
+                _itemCTSP.CostUnit = null;
+                _itemCTSP.CostDay = null;
+                _itemCTSP.Cost = null;
+                _itemCTSP.LCost1 = null;
+                _itemCTSP.LCost2 = null;
+            }
+
+
+
+            olistChart.Add(_itemCTSP);
+        }
+        //------------------- Get Data for Month Now --------------------
+
+        return olistChart;
+    }
+    
+    
+}

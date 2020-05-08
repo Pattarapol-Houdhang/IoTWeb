@@ -1,0 +1,85 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Template/MasterPage.master" AutoEventWireup="true" CodeFile="MasterPageEditPart.master.cs" Inherits="Template_MasterPageEditPart" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="page-header">
+        <h1>
+            <i class="icon-list"></i>
+            EDIT MODEL
+        </h1>
+    </div>
+    <div class="square-widget">
+        <div class="widget-head">
+            <table class="form-group">
+                <tr>
+                    <td width="20%">
+                        <label class="control-label pull-right">MODEL NO.</label>
+                    </td>
+                    <td width="35%">
+                        <asp:Label CssClass="form-control" ID="lblModelNo" runat="server" Text="000" Font-Size="Small"></asp:Label>
+                    </td>
+                    <td width="15%">
+                        <label class="control-label pull-right">MODEL NAME.</label>
+                    </td>
+                    <td width="35%">
+                        <asp:TextBox CssClass="form-control" ID="txtModelName" runat="server" MaxLength="10"></asp:TextBox>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="widget-container">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <table class="form-group">
+                <tr>
+                    <td width="20%">
+                        <label class="control-label pull-right">CRANK SHAFT</label>
+                    </td>
+                    <td width="35%">
+                        <asp:Button CssClass="btn btn-danger" ID="BtnEditCS" runat="server" Text="EDIT" OnClick="BtnEditCS_Click" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <label class="control-label pull-right">PISTON</label>
+                    </td>
+                    <td width="35%">
+                        <asp:Button CssClass="btn btn-danger" ID="BtnEditPT" runat="server" Text="EDIT" OnClick="BtnEditPT_Click" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <label class="control-label pull-right">CYLINDER</label>
+                    </td>
+                    <td width="35%">
+                        <asp:Button CssClass="btn btn-danger" ID="BtnEditCY" runat="server" Text="EDIT" OnClick="BtnEditCY_Click" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <label class="control-label pull-right">FRONT HEAD</label>
+                    </td>
+                    <td width="35%">
+                        <asp:Button CssClass="btn btn-danger" ID="BtnEditFH" runat="server" Text="EDIT" OnClick="BtnEditFH_Click" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <label class="control-label pull-right">REAR HEAD</label>
+                    </td>
+                    <td width="35%">
+                        <asp:Button CssClass="btn btn-danger" ID="BtnEditRH" runat="server" Text="EDIT" OnClick="BtnEditRH_Click" />
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        </div>
+    </div>
+</asp:Content>
+

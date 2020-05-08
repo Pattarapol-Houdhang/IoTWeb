@@ -1,0 +1,101 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Template/MasterPage.master" AutoEventWireup="true" CodeFile="MasterPagePart.master.cs" Inherits="Template_MasterPageOffsetDetail" %>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <%--<asp:ScriptManager runat="server"></asp:ScriptManager>--%>
+    <style type="text/css">
+        .item-block {
+            cursor: pointer;
+        }
+    </style>
+    <div class="page-header">
+        <h1>
+            <i class="icon-list"></i>
+            MODEL DETAIL
+        </h1>
+        <input type="hidden" id="hidType" name="hidType" value="" />
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-md-2">
+            <div class="item-block" data-type="crank_shaft">
+                <div class="icon-block orange-block">
+                    <span class="item-icon">
+                        <span class="contact_s1">
+                            <a href="ModelCS.aspx">
+                                <i class="icon-screen-3"></i>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+                <h3>CRANK SHAFT</h3>
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <div class="item-block" data-type="piston">
+                <div class="icon-block brown-block">
+                    <span class="item-icon">
+                        <span class="contact_s1">
+                            <a href="ModelPT.aspx">
+                                <i class="icon-screen-3"></i>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+                <h3>PISTON</h3>
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <div class="item-block" data-type="cylinder">
+                <div class="icon-block green-block">
+                    <span class="item-icon">
+                        <span class="contact_s1">
+                            <a href="ModelCY.aspx">
+                                <i class="icon-screen-3"></i>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+                <h3>CYLINDER</h3>
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <div class="item-block" data-type="front_head">
+                <div class="icon-block tur-block">
+                    <span class="item-icon">
+                        <span class="contact_s1">
+                            <a href="ModelFH.aspx">
+                                <i class="icon-screen-3"></i>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+                <h3>FRONT HEAD</h3>
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-2">
+            <div class="item-block" data-type="rear_head">
+                <div class="icon-block blue-block">
+                    <span class="item-icon">
+                        <span class="contact_s1">
+                            <a href="ModelRH.aspx">
+                                <i class="icon-screen-3"></i>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+                <h3>REAR HEAD</h3>
+            </div>
+        </div>
+    </div>
+    <div class="square-widget">
+        <div class="widget-head">
+            <!--h4 class="pull-left">OFFSET MASTER</h4-->
+        </div>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        </div>
+    </div>
+</asp:Content>
+

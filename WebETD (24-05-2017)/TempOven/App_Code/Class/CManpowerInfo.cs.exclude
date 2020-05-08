@@ -1,0 +1,125 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CManpowerInfo
+/// </summary>
+public class CManpowerInfo
+{
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    public CManpowerInfo()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public DataTable GetEmployeeWorkTimeOfMonth(string EmpCode, int Month)
+    {
+        DataTable dtWorkTime = new DataTable();
+        dtWorkTime.Columns.Add("Code", typeof(string));
+        dtWorkTime.Columns.Add("WorkDate", typeof(string));
+        dtWorkTime.Columns.Add("OT1", typeof(int));
+        dtWorkTime.Columns.Add("OT15", typeof(int));
+        dtWorkTime.Columns.Add("OT2", typeof(int));
+        dtWorkTime.Columns.Add("OT3", typeof(int));
+
+        DateTime startDate = new DateTime(DateTime.Now.Year, Month, 1);
+        DateTime endDate = startDate.AddMonths(1);
+
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT * FROM [EmployeeWorkingTime] where Code = '"+ EmpCode + "' and DatetimeIN >= '"+ startDate.ToString("yyyy-MM-dd") + "' "+
+            " AND DatetimeIN < '" + endDate.ToString("yyyy-MM-dd") + "'";
+        DataTable dt = oConn.SqlGet(sql, "DBDCI");
+        if (dt.Rows.Count > 0)
+        {
+            foreach (DataRow item in dt.Rows)
+            {
+                DataRow _row = dtWorkTime.NewRow();
+                _row["Code"] = item["Code"].ToString();
+                _row["WorkDate"] = Convert.ToDateTime(item["DatetimeIN"].ToString()).ToString("yyyy-MM-dd");
+
+
+                //-------------- Calculate OT --------------------
+                DateTime NormalStart = new DateTime(Convert.ToDateTime(item["SystemIN"].ToString()).Year, Convert.ToDateTime(item["SystemIN"].ToString()).Month, Convert.ToDateTime(item["SystemIN"].ToString()).Day, 18, 15, 0);
+                DateTime NormalEnd = new DateTime(Convert.ToDateTime(item["SystemIN"].ToString()).Year, Convert.ToDateTime(item["SystemIN"].ToString()).Month, Convert.ToDateTime(item["SystemIN"].ToString()).Day, 20, 00, 0);
+                if (item["WorkType"].ToString() == "D" && NormalStart < DateTime.Now)
+                {                                    
+                    if (item["WorkShift"].ToString() == "D")
+                    {
+                        NormalEnd = new DateTime(Convert.ToDateTime(item["SystemIN"].ToString()).Year, Convert.ToDateTime(item["SystemIN"].ToString()).Month, Convert.ToDateTime(item["SystemIN"].ToString()).Day, 20, 00, 0);
+
+                        TimeSpan WorkNormalOT = NormalEnd.Subtract(NormalStart);
+                        _row["OT1"] = 0;
+                        _row["OT15"] = WorkNormalOT.TotalMinutes;
+                        _row["OT2"] = 0;
+                        _row["OT3"] = 0;
+                    }
+                    else
+                    {
+                        _row["OT1"] = 0;
+                        _row["OT15"] = 0;
+                        _row["OT2"] = 0;
+                        _row["OT3"] = 0;
+                    }                                        
+                }
+                else if (item["WorkType"].ToString() == "H" && NormalStart < DateTime.Now)
+                {
+                    DateTime WorkStart = new DateTime(Convert.ToDateTime(item["SystemIN"].ToString()).Year, Convert.ToDateTime(item["SystemIN"].ToString()).Month
+                        , Convert.ToDateTime(item["SystemIN"].ToString()).Day, 8, 0, 0);
+                    DateTime WorkEnd = new DateTime(WorkStart.Year, WorkStart.Month, WorkStart.Day, 17, 45, 0);
+                    if (item["WorkShift"].ToString() == "D")
+                    {
+                        NormalEnd = new DateTime(Convert.ToDateTime(item["SystemIN"].ToString()).Year, Convert.ToDateTime(item["SystemIN"].ToString()).Month
+                            , Convert.ToDateTime(item["SystemIN"].ToString()).Day, 20, 00, 0);
+
+                        TimeSpan WorkNormal = WorkEnd.Subtract(WorkStart);
+                        TimeSpan WorkOT = NormalEnd.Subtract(NormalStart);
+                        _row["OT1"] = WorkNormal.TotalMinutes - 60;
+                        _row["OT15"] = 0;
+                        _row["OT2"] = 0;
+                        _row["OT3"] = WorkOT.TotalMinutes;
+                    }
+                    else
+                    {
+                        _row["OT1"] = 0;
+                        _row["OT15"] = 0;
+                        _row["OT2"] = 0;
+                        _row["OT3"] = 0;
+                    }
+                }
+                else
+                {
+                    _row["OT1"] = 0;
+                    _row["OT15"] = 0;
+                    _row["OT2"] = 0;
+                    _row["OT3"] = 0;
+                }
+                
+                dtWorkTime.Rows.Add(_row);
+            }
+        }
+
+        return dtWorkTime;
+    }
+
+    public bool CheckEmployeeOnBase(string Code)
+    {
+        bool Emp = false;
+
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT * FROM [Employee] WHERE CODE = '"+Code+"'";
+        DataTable dt = oConn.SqlGet(sql, "DBDCI");
+        if (dt.Rows.Count > 0)
+        {
+            Emp = true;
+        }
+
+
+        return Emp;
+    }
+}

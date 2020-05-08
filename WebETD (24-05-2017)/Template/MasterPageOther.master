@@ -1,0 +1,1040 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageOther.master.cs" Inherits="Template_MasterPageOther" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <%--<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7" />--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Admin Panel Template" />
+
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+
+    <title>DCI IoT System</title>
+    <link rel="icon" href="<%= ResolveUrl("~/images/daikin.ico") %>">
+
+   <%-- <script src="../StyleMax/js/jquery-1.8.3.min.js"></script>--%>
+
+    <!-- Bootstrap CSS -->
+    <link href="<%= ResolveUrl("~/StyleMax/css/bootstrap.min.css") %>" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="<%= ResolveUrl("~/StyleMax/css/bootstrap-theme.css") %>" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="<%= ResolveUrl("~/StyleMax/css/elegant-icons-style.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/StyleMax/css/font-awesome.min.css") %>" rel="stylesheet" />
+    <!-- full calendar css-->
+    <link href="<%= ResolveUrl("~/StyleMax/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/StyleMax/assets/fullcalendar/fullcalendar/fullcalendar.css") %>" rel="stylesheet" />
+    <!-- easy pie chart-->
+    <link href="<%= ResolveUrl("~/StyleMax/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css") %>" rel="stylesheet" type="text/css" media="screen" />
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="<%= ResolveUrl("~/StyleMax/css/owl.carousel.css") %>" type="text/css">
+    <link href="<%= ResolveUrl("~/StyleMax/css/jquery-jvectormap-1.2.2.css") %>" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="<%= ResolveUrl("~/StyleMax/css/fullcalendar.css") %>">
+    <link href="<%= ResolveUrl("~/StyleMax/css/widgets.css") %>" rel="stylesheet">
+    <link href="<%= ResolveUrl("~/StyleMax/css/style.css") %>" rel="stylesheet">
+    <link href="<%= ResolveUrl("~/StyleMax/css/style-responsive.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/StyleMax/css/xcharts.min.css") %>" rel=" stylesheet">
+    <link href="<%= ResolveUrl("~/StyleMax/css/jquery-ui-1.10.4.min.css") %>" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../StyleMax/css/slide/bootstrapslide.css" rel="stylesheet" />
+
+
+    <!-- javascripts -->
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery-ui-1.10.4.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery-1.8.3.min.js") %>"></script>
+        <script type="text/javascript" src="<%= ResolveUrl("~/StyleMax/js/jquery-ui-1.9.2.custom.min.js") %>"></script>
+        <!-- bootstrap -->
+        <script src="<%= ResolveUrl("~/StyleMax/js/bootstrap.min.js") %>"></script>
+        <!-- nice scroll -->
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.scrollTo.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.nicescroll.js") %>" type="text/javascript"></script>
+        <!-- charts scripts -->
+        <script src="<%= ResolveUrl("~/StyleMax/assets/jquery-knob/js/jquery.knob.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.sparkline.js") %>" type="text/javascript"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/owl.carousel.js") %>"></script>
+        <!-- jQuery full calendar -->
+        
+        <script src="<%= ResolveUrl("~/StyleMax/js/fullcalendar.min.js") %>"></script>
+        <!-- Full Google Calendar - Calendar -->
+        <script src="<%= ResolveUrl("~/StyleMax/assets/fullcalendar/fullcalendar/fullcalendar.js") %>"></script>
+        <!--script for this page only-->
+        <script src="<%= ResolveUrl("~/StyleMax/js/calendar-custom.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.rateit.min.js") %>"></script>
+        <!-- custom select -->
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.customSelect.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/assets/chart-master/Chart.js") %>"></script>
+
+        <!--custome script for all page-->
+        <script src="<%= ResolveUrl("~/StyleMax/js/scripts.js") %>"></script>
+        <!-- custom script for this page-->
+        <script src="<%= ResolveUrl("~/StyleMax/js/sparkline-chart.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/easy-pie-chart.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery-jvectormap-1.2.2.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery-jvectormap-world-mill-en.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/xcharts.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.autosize.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.placeholder.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/gdp-data.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/morris.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/sparklines.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/charts.js") %>"></script>
+        <script src="<%= ResolveUrl("~/StyleMax/js/jquery.slimscroll.min.js") %>"></script>
+    
+    <link href="<%= ResolveUrl("~/StyleMax/js/daterangepicker.css") %>" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header class="header dark-bg">
+            <div class="nav" id="top_menu">
+                <table width="100%">
+                    <tr>
+                        <td width="80%" align="left">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <!--logo start-->
+                                        <a href="<%= ResolveUrl("~/Default.aspx") %>" class="logo" style="text-transform: none !important; font-weight: bold !important">
+                                            <span class="lite">DCI </span> IoT System 
+                                            <span style="font-size: 8px; color: #fff;">version 1.0.0 (AKONE)</span>
+                                        </a>
+                                        <!--logo end-->
+                                    </td>
+                                    <td>
+                                        <ul id="topMenu-nav-horizontal" >
+                                            <%= GetPermissionTopSecret() %>
+                                            <li><a href="<%= ResolveUrl("~/Cost/CostDIExpSummary.aspx") %>">Direct Expense</a>
+                                                <ul>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostDIExpProduction.aspx") %>">Production</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostDIExpITEC.aspx") %>">IT & EC</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostDIExpQC.aspx") %>">QC</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="<%= ResolveUrl("~/Cost/CostINExpSummary.aspx") %>">Indirect Expense</a>
+                                                <ul>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostINExpProduction.aspx") %>">Production</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostINExpProcurement.aspx") %>">Procurement</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostINExpPartSupply.aspx") %>">Production Control & SCM</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostINExpEngineering.aspx") %>">Engineering</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostINExpITEC.aspx") %>">IT & EC</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostINExpQuality.aspx") %>">Quality Control</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostINExpDesign.aspx") %>">Design Development</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="<%= ResolveUrl("~/Cost/CostSGAExpSummary.aspx") %>">SGA Expense</a>
+                                                <ul>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostSGAExpPartSupply.aspx") %>">Production Control & SCM</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostSGAExpITEC.aspx") %>">IT & EC</a></li>
+                                                    <li><a href="<%= ResolveUrl("~/Cost/CostSGAExpAdmin.aspx") %>">Administration</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="20%" align="right" >
+                            <span class="btnSetting" style="font-weight:bold; cursor:pointer; color: #fff;" >SETTING <img class="btnSetting img-rotate" src="<%= ResolveClientUrl("~/images/edit.png") %>" border="0" title="Setting" width="48" height="48" /></span>
+                            <%=GetUserProfile() %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </header>
+        <!--header end-->
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+        <div class="main-container">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <div id="dgComment">
+            <div id="dgCommentHeader">
+                <table width="100%">
+                    <tr>
+                        <td width="90%" align="center"><span class="lblCommentTitle">COMMENT OF AKONE</span></td>
+                        <td width="10%" align="right"><img class="btnCommentClose img-rotate" src="<%= ResolveClientUrl("~/images/mini-icon-close.png") %>" border="0" title="Close" width="16" height="16" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="dgCommentContent">
+                <table class="tblComment" width="100%">
+                    <tr>
+                        <td class="tblCommentHr">APRIL</td><td class="tblCommentHr">MAY</td><td class="tblCommentHr">JUNE</td><td class="tblCommentHr">JULY</td>
+                    </tr>
+                    <tr>
+                        <td class="tblCommentTd"><textarea name="txtCmmt1" id="txtCmmt1" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt2" id="txtCmmt2" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt3" id="txtCmmt3" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt4" id="txtCmmt4" class="txtCmmt" ></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="tblCommentHr">AUGUST</td><td class="tblCommentHr">SEPTEMBER</td><td class="tblCommentHr">OCTOBER</td><td class="tblCommentHr">NOVEMBER</td>
+                    </tr>
+                    <tr>
+                        <td class="tblCommentTd"><textarea name="txtCmmt5" id="txtCmmt5" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt6" id="txtCmmt6" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt7" id="txtCmmt7" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt8" id="txtCmmt8" class="txtCmmt" ></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="tblCommentHr">DECEMBER</td><td class="tblCommentHr">JANUARY</td><td class="tblCommentHr">FEBRUARY</td><td class="tblCommentHr">MARCH</td>
+                    </tr>
+                    <tr>
+                        <td class="tblCommentTd"><textarea name="txtCmmt9" id="txtCmmt9" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt10" id="txtCmmt10" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt11" id="txtCmmt11" class="txtCmmt" ></textarea></td>
+                        <td class="tblCommentTd"><textarea name="txtCmmt12" id="txtCmmt12" class="txtCmmt" ></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <span class="lblError">Data is Saved.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" colspan="2">
+                            <input type="button" id="btnCommentSave" name="btnCommentSave" class="btnOK" value="SAVE" />
+                            <input type="hidden" name="hideCommentCode" id="hideCommentCode" value="" />
+                            <input type="hidden" name="hideCommentYear" id="hideCommentYear" value="" />
+                        </td>
+                        <td align="right" colspan="2">
+                            <input type="button" id="btnCommentClose" name="btnCommentClose" class="btnError btnCommentClose" value="CLOSE" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="dgCommentData">
+            <div id="dgCommentDataHeader">
+                <table width="100%">
+                    <tr>
+                        <td width="90%" align="center"><span class="lblCommentTitle">COMMENT OF AKONE</span> : <span class="lblCommentTitleMonth"></span></td>
+                        <td width="10%" align="right"><img class="btnCommentDataClose img-rotate" src="<%= ResolveClientUrl("~/images/mini-icon-close.png") %>" border="0" title="Close" width="16" height="16" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="dgCommentDataContent">
+                <table class="tblComment" width="100%">
+                    <tr>
+                        <td colspan="2">
+                            <textarea name="txtCmmtData" id="txtCmmtData" style="width: 100%; height: 200px;" ></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <span class="lblError">Data is Saved.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" >
+                            <input type="button" id="btnCommentDataSave" name="btnCommentSave" class="btnOK" value="SAVE" />
+                            <input type="hidden" name="hideCommentDataCode" id="hideCommentDataCode" value="" />
+                            <input type="hidden" name="hideCommentDataYear" id="hideCommentDataYear" value="" />
+                            <input type="hidden" name="hideCommentDataMonth" id="hideCommentDataMonth" value="" />
+                        </td>
+                        <td align="right" >
+                            <input type="button" id="btnCommentDataClose" name="btnCommentDataClose" class="btnError btnCommentDataClose" value="CLOSE" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
+        <div id="dgSetting">
+            <div id="dgSettingHeader">
+                <table width="100%">
+                    <tr>
+                        <td width="90%" align="center"><span>TARGET SETTING</span></td>
+                        <td width="10%" align="right"><img class="btnSettingClose img-rotate" src="<%= ResolveClientUrl("~/images/mini-icon-close.png") %>" border="0" title="Close" width="16" height="16" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="dgSettingContent">
+                <table class="tblSetting" width="100%">
+                    <tr>
+                        <td>Setting Of : </td>
+                        <td>
+                            <select id="selType" name="selType">
+                                <option value="0"> -- Type -- </option>
+                                    <option value="ALL_EXPENSE">ALL_EXPENSE </option>
+                                    <option value="DIRECT_EXPENSE">DIRECT_EXPENSE </option>
+                                    <option value=".DIRECT_EXPENSE_PD">.DIRECT_EXPENSE_PD </option>
+                                    <option value="..DIRECT_EXPENSE_PDM1YC">..DIRECT_EXPENSE_PDM1YC </option>
+                                    <option value="..DIRECT_EXPENSE_PDA1YC">..DIRECT_EXPENSE_PDA1YC </option>
+                                    <option value="..DIRECT_EXPENSE_PDM2YC">..DIRECT_EXPENSE_PDM2YC </option>
+                                    <option value="..DIRECT_EXPENSE_PDA2YC">..DIRECT_EXPENSE_PDA2YC </option>
+                                    <option value="..DIRECT_EXPENSE_PDMSCR">..DIRECT_EXPENSE_PDMSCR </option>
+                                    <option value="..DIRECT_EXPENSE_PDASCR">..DIRECT_EXPENSE_PDASCR </option>
+                                    <option value="..DIRECT_EXPENSE_PDMF3">..DIRECT_EXPENSE_PDMF3 </option>
+                                    <option value="..DIRECT_EXPENSE_PDAF3">..DIRECT_EXPENSE_PDAF3 </option>
+                                    <option value="..DIRECT_EXPENSE_PDMOT">..DIRECT_EXPENSE_PDMOT </option>
+                                    <option value="..DIRECT_EXPENSE_PDAL5">..DIRECT_EXPENSE_PDAL5 </option>
+                                    <option value="..DIRECT_EXPENSE_ODM">..DIRECT_EXPENSE_ODM </option>
+                                    <option value="..DIRECT_EXPENSE_MTM">..DIRECT_EXPENSE_MTM </option>
+                                    <option value="..DIRECT_EXPENSE_MTA">..DIRECT_EXPENSE_MTA </option>
+                                    <option value=".DIRECT_EXPENSE_EC">.DIRECT_EXPENSE_EC </option>
+                                    <option value="..DIRECT_EXPENSE_UT">..DIRECT_EXPENSE_UT </option>
+                                    <option value="..DIRECT_EXPENSE_WC">..DIRECT_EXPENSE_WC </option>
+                                    <option value=".DIRECT_EXPENSE_QC">.DIRECT_EXPENSE_QC </option>
+                                    <option value="INDIRECT_EXPENSE">INDIRECT_EXPENSE </option>
+                                    <option value=".INDIRECT_EXPENSE_PD">.INDIRECT_EXPENSE_PD </option>
+                                    <option value="..INDIRECT_EXPENSE_PDM1YC">..INDIRECT_EXPENSE_PDM1YC </option>
+                                    <option value="..INDIRECT_EXPENSE_PDA1YC">..INDIRECT_EXPENSE_PDA1YC </option>
+                                    <option value="..INDIRECT_EXPENSE_PDM2YC">..INDIRECT_EXPENSE_PDM2YC </option>
+                                    <option value="..INDIRECT_EXPENSE_PDA2YC">..INDIRECT_EXPENSE_PDA2YC </option>
+                                    <option value="..INDIRECT_EXPENSE_PDMSCR">..INDIRECT_EXPENSE_PDMSCR </option>
+                                    <option value="..INDIRECT_EXPENSE_PDASCR">..INDIRECT_EXPENSE_PDASCR </option>
+                                    <option value="..INDIRECT_EXPENSE_PDMF3">..INDIRECT_EXPENSE_PDMF3 </option>
+                                    <option value="..INDIRECT_EXPENSE_PDAF3">..INDIRECT_EXPENSE_PDAF3 </option>
+                                    <option value="..INDIRECT_EXPENSE_ODM">..INDIRECT_EXPENSE_ODM </option>
+                                    <option value="..INDIRECT_EXPENSE_PDMOT">..INDIRECT_EXPENSE_PDMOT </option>
+                                    <option value="..INDIRECT_EXPENSE_PDAL5">..INDIRECT_EXPENSE_PDAL5 </option>
+                                    <option value="..INDIRECT_EXPENSE_MTM">..INDIRECT_EXPENSE_MTM </option>
+                                    <option value="..INDIRECT_EXPENSE_MTA">..INDIRECT_EXPENSE_MTA </option>
+                                    <option value="..INDIRECT_EXPENSE_TD">..INDIRECT_EXPENSE_TD </option>
+                                    <option value=".INDIRECT_EXPENSE_PROCUREMENT">.INDIRECT_EXPENSE_PROCUREMENT </option>
+                                    <option value="..INDIRECT_EXPENSE_PU">..INDIRECT_EXPENSE_PU </option>
+                                    <option value="..INDIRECT_EXPENSE_SPU">..INDIRECT_EXPENSE_SPU </option>
+                                    <option value="..INDIRECT_EXPENSE_SP">..INDIRECT_EXPENSE_SP </option>
+                                    <option value=".INDIRECT_EXPENSE_PC">.INDIRECT_EXPENSE_PC </option>
+                                    <option value="..INDIRECT_EXPENSE_IM">..INDIRECT_EXPENSE_IM </option>
+                                    <option value="..INDIRECT_EXPENSE_PS">..INDIRECT_EXPENSE_PS </option>
+                                    <option value="..INDIRECT_EXPENSE_DC">..INDIRECT_EXPENSE_DC </option>
+                                    <option value=".INDIRECT_EXPENSE_EN">.INDIRECT_EXPENSE_EN </option>
+                                    <option value="..INDIRECT_EXPENSE_ENA">..INDIRECT_EXPENSE_ENA </option>
+                                    <option value="..INDIRECT_EXPENSE_ENM">..INDIRECT_EXPENSE_ENM </option>
+                                    <option value="..INDIRECT_EXPENSE_ENMOT">..INDIRECT_EXPENSE_ENMOT </option>
+                                    <option value=".INDIRECT_EXPENSE_EC">.INDIRECT_EXPENSE_EC </option>
+                                    <option value="..INDIRECT_EXPENSE_UT">..INDIRECT_EXPENSE_UT </option>
+                                    <option value="..INDIRECT_EXPENSE_WC">..INDIRECT_EXPENSE_WC </option>
+                                    <option value=".INDIRECT_EXPENSE_QC">.INDIRECT_EXPENSE_QC </option>
+                                    <option value="..INDIRECT_EXPENSE_QA">..INDIRECT_EXPENSE_QA </option>
+                                    <option value="..INDIRECT_EXPENSE_QC">..INDIRECT_EXPENSE_QC </option>
+                                    <option value="..INDIRECT_EXPENSE_QS">..INDIRECT_EXPENSE_QS </option>
+                                    <option value=".INDIRECT_EXPENSE_DD">.INDIRECT_EXPENSE_DD </option>
+                                    <option value="..INDIRECT_EXPENSE_DD">..INDIRECT_EXPENSE_DD </option>
+                                    <option value="..INDIRECT_EXPENSE_CD">..INDIRECT_EXPENSE_CD </option>
+                                    <option value=".INDIRECT_EXPENSE_GA">.INDIRECT_EXPENSE_GA </option>
+                                    <option value="SGA_EXPENSE">SGA_EXPENSE </option>
+                                    <option value=".SGA_EXPENSE_PC">.SGA_EXPENSE_PC </option>
+                                    <option value="..SGA_EXPENSE_PN">..SGA_EXPENSE_PN </option>
+                                    <option value="..SGA_EXPENSE_DL">..SGA_EXPENSE_DL </option>
+                                    <option value="..SGA_EXPENSE_WH">..SGA_EXPENSE_WH </option>
+                                    <option value=".SGA_EXPENSE_ITEC">.SGA_EXPENSE_ITEC </option>
+                                    <option value="..SGA_EXPENSE_IT">..SGA_EXPENSE_IT </option>
+                                    <option value="..SGA_EXPENSE_UT">..SGA_EXPENSE_UT </option>
+                                    <option value=".SGA_EXPENSE_ADMIN">.SGA_EXPENSE_ADMIN </option>
+                                    <option value="..SGA_EXPENSE_HR">..SGA_EXPENSE_HR </option>
+                                    <option value="..SGA_EXPENSE_GA">..SGA_EXPENSE_GA </option>
+                                    <option value="..SGA_EXPENSE_AC">..SGA_EXPENSE_AC </option>
+                                    <option value=".SGA_EXPENSE_CC">.SGA_EXPENSE_CC </option>
+                                    <option value=".SGA_EXPENSE_TD">.SGA_EXPENSE_TD </option>
+                                    <option value=".SGA_EXPENSE_SA">.SGA_EXPENSE_SA </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Setting Year : </td>
+                        <td>
+                            <select id="selYear" name="selYear">
+                                <option value="2015"> 2015 </option>
+                                <option value="2016"> 2016 </option>
+                                <option value="2017"> 2017 </option>
+                                <option value="2018"> 2018 </option>
+                                <option value="2019"> 2019 </option>
+                                <option value="2020"> 2020 </option>
+                                <option value="2021"> 2021 </option>
+                                <option value="2022"> 2022 </option>
+                                <option value="2023"> 2023 </option>
+                                <option value="2024"> 2024 </option>
+                                <option value="2025"> 2025 </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>April - March : </td>
+                        <td>
+                            <input type="text" id="txtSettingStart" name="txtSettingStart" value="" maxlength="8" style="width: 50px;" />
+                            <input type="text" id="txtSettingEnd" name="txtSettingEnd" value="" maxlength="8" style="width: 50px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <span class="lblError">Data is Saved.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <input type="button" id="btnSettingSave" name="btnSettingSave" class="btnOK" value="SAVE" />
+                        </td>
+                        <td align="right">
+                            <input type="button" id="btnSettingClose" name="btnSettingClose" class="btnError btnSettingClose" value="CLOSE" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- container section start -->
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $(".txtComment").attr('readonly', true);
+
+                //******** Comment By Month *********
+                $("#dgCommentData").draggable({ cancel: "#dgCommentDataContent" });
+                $("#dgCommentDataContent").disableSelection();
+
+                $(".txtComment").click(function () {
+                    var _positLeft = ($(window).width() - $("#dgCommentData").width()) / 2;
+                    var _positTop = ($(window).height() - $("#dgCommentData").height()) / 2;
+
+                    var _CommtCode = $(this).data("costcenter");
+                    var _CommtMonthCode = $(this).data("month");
+                    var _CommtYear = new Date().getFullYear();
+
+                    $("#hideCommentDataCode").val(_CommtCode);
+                    $("#hideCommentDataYear").val(_CommtYear);
+                    $("#hideCommentDataMonth").val(_CommtMonthCode);
+
+                    var _Title = getCommentTitle(_CommtCode);
+                    var _TitleMonth = getCommentMonth(_CommtMonthCode);
+                    $(".lblCommentTitle").text("COMMENT OF " + _Title);
+                    $(".lblCommentTitleMonth").text(_TitleMonth);
+
+                    
+                    //--- Comment Data ---
+                    loadCommentFormMonthData(_CommtCode, _CommtYear, _CommtMonthCode);
+
+                    $("#btnCommentDataSave, #btnCommentDataClose, #txtCmmtData").prop('disabled', false);
+
+
+                    $("#dgCommentData").css({ top: _positTop, left: _positLeft }).fadeIn(300);
+                });
+                $(".btnCommentDataClose").click(function () {
+                    $("#btnCommentDataSave, #btnCommentDataClose, #txtCmmtData").prop('disabled', true);
+                    $("#dgCommentData").fadeOut(300);
+                });
+
+                $("#btnCommentDataSave").click(function () {
+                    var _CommtCode = $("#hideCommentDataCode").val();
+                    var _CommtYear = $("#hideCommentDataYear").val();
+                    var _CommtMonth = $("#hideCommentDataMonth").val();
+                    var _CommtText = $("#txtCmmtData").val();
+
+
+                    $.ajax({
+                        async: true,
+                        type: "GET",
+                        url: "BudgetCostComment.ashx",
+                        data: {
+                            pMode: "addMonth",
+                            pCmmtCode: _CommtCode,
+                            pYear: _CommtYear,
+                            pMonth: _CommtMonth,
+                            pBy: "AUKIT.K",
+                            pCmmtText: _CommtText
+                        },
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "text",
+                        async: false,
+                        beforeSend: function () {
+                            $("#btnCommentSave, #btnCommentClose, #txtCmmtData").prop('disabled', true);
+                        },
+                        success: function (response) {
+                            $(".lblError").fadeIn(0, function () {
+                                $(".lblError").fadeOut(3000);
+                            });
+
+                            loadCommentData(_CommtCode, _CommtYear);
+                            $("#btnCommentSave, #btnCommentClose, #txtCmmtData").prop('disabled', false);
+                        }
+                    });
+                });
+
+
+
+
+
+
+
+                
+                //******** Comment All Month *********
+                $("#dgComment").draggable({ cancel: "#dgCommentContent" });
+                $("#dgCommentContent").disableSelection();
+
+                $(".btnAddComment").click(function () {
+                    var _positLeft = ($(window).width() - $("#dgComment").width()) / 2;
+                    var _positTop = ($(window).height() - $("#dgComment").height()) / 2;
+
+                    var _CommtCode = $(this).data("comment");
+                    var _CommtYear = new Date().getFullYear();
+
+                    $("#hideCommentCode").val(_CommtCode);
+                    $("#hideCommentYear").val(_CommtYear);
+
+                    var _Title = getCommentTitle(_CommtCode);
+                    $(".lblCommentTitle").text("COMMENT OF " + _Title);
+
+                    //--- Comment Data ---
+                    loadCommentFormData(_CommtCode, _CommtYear);
+
+                    $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', false);
+
+
+                    $("#dgComment").css({ top: _positTop, left: _positLeft }).fadeIn(300);
+                });
+                $(".btnCommentClose").click(function () {
+                    $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', true);
+                    $("#dgComment").fadeOut(300);
+                });
+
+                $("#btnCommentSave").click(function () {
+                    var _CommtCode = $("#hideCommentCode").val();
+                    var _CommtYear = $("#hideCommentYear").val();
+                    var _CommtText = "";
+                    _CommtText += $("#txtCmmt1").val() +"|";
+                    _CommtText += $("#txtCmmt2").val() + "|";
+                    _CommtText += $("#txtCmmt3").val() + "|";
+                    _CommtText += $("#txtCmmt4").val() + "|";
+                    _CommtText += $("#txtCmmt5").val() + "|";
+                    _CommtText += $("#txtCmmt6").val() + "|";
+                    _CommtText += $("#txtCmmt7").val() + "|";
+                    _CommtText += $("#txtCmmt8").val() + "|";
+                    _CommtText += $("#txtCmmt9").val() + "|";
+                    _CommtText += $("#txtCmmt10").val() + "|";
+                    _CommtText += $("#txtCmmt11").val() + "|";
+                    _CommtText += $("#txtCmmt12").val();
+
+
+                    $.ajax({
+                        async: true,
+                        type: "GET",
+                        url: "BudgetCostComment.ashx",
+                        data: {
+                            pMode: "add",
+                            pCmmtCode: _CommtCode,
+                            pYear: _CommtYear,
+                            pBy: "AUKIT.K",
+                            pCmmtText : _CommtText
+                        },
+                        contentType: "text/plain; charset=utf-8",
+                        dataType: "text",
+                        async: false,
+                        beforeSend: function () {
+                            $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', true);
+                        },
+                        success: function (response) {
+                            $(".lblError").fadeIn(0, function () {
+                                $(".lblError").fadeOut(3000);
+                            });
+
+                            loadCommentData(_CommtCode, _CommtYear);
+                            $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', false);
+                        }
+                    });
+                });
+
+                
+
+                
+                
+                //******** Setting Target *********
+                $("#dgSetting").draggable({ cancel: "#dgSettingContent" });
+                $("#dgSettingHeader, #dgSettingContent").disableSelection();
+
+                $(".btnSetting").click(function () {
+                    var _positLeft = ($(window).width() - $("#dgSetting").width()) / 2;
+                    var _positTop = ($(window).height() - $("#dgSetting").height()) / 2;
+                    
+                    $("#selType").val("0");
+                    $("#selYear").val(new Date().getFullYear());
+                    $("#txtSettingStart").val("");
+                    $("#txtSettingEnd").val("");
+                    $("#selType, #selYear, #txtSettingStart, #txtSettingEnd,  #btnSettingSave, #btnSettingClose").prop('disabled', false);
+                    $("#dgSetting").css({ top: _positTop, left: _positLeft }).fadeIn(300);
+                });
+                $(".btnSettingClose").click(function () {
+                    $("#selType").val("0");
+                    $("#selYear").val(new Date().getFullYear());
+                    $("#txtSettingStart").val("");
+                    $("#txtSettingEnd").val("");
+                    $("#selType, #selYear, #txtSettingStart, #txtSettingEnd,  #btnSettingSave, #btnSettingClose").prop('disabled', true);
+                    $("#dgSetting").fadeOut(300);
+
+                    location.reload();
+                });
+
+
+                $("#btnSettingSave").click(function () {
+                    if ($("#selType").val() != "0" ) {
+                        $.ajax({
+                            async: true,
+                            type: "GET",
+                            url: "BudgetCostTarget.ashx",
+                            data: 'pMode=add&pType=' + $("#selType").val() + '&pYear=' + $("#selYear").val() + '&pBy=AUKIT.K&pStart=' + $("#txtSettingStart").val() + '&pEnd=' + $("#txtSettingEnd").val(),
+                            contentType: "text/plain; charset=utf-8",
+                            dataType: "text",
+                            async: false,
+                            beforeSend: function () {
+                                $("#selType, #selYear, #txtSettingStart, #txtSettingEnd,  #btnSettingSave, #btnSettingClose").prop('disabled', true);
+                            },
+                            success: function (response) {
+                                if (response == "insert" || response == "update") {
+                                    $("#selType").val("0");
+                                    $("#selYear").val(new Date().getFullYear());
+                                    $("#txtSettingStart").val("");
+                                    $("#txtSettingEnd").val("");
+
+                                    $(".lblError").fadeIn(0, function () {
+                                        $(".lblError").fadeOut(3000);
+                                    });
+                                }
+                                $("#selType, #selYear, #txtSettingStart, #txtSettingEnd,  #btnSettingSave, #btnSettingClose").prop('disabled', false);
+                            }
+                        });
+                    }
+                });
+                $("#selType, #selYear").change(function () {
+                    if ($("#selType").val() != "0") {
+                        loadSettingData();
+                    }
+                });
+                
+
+                //------ Load Comment ------
+                var _CurrentPage = document.location.pathname.match(/[^\/]+$/)[0];
+                runComment(_CurrentPage);
+
+
+
+            });
+
+
+            function runComment(_Page) {
+                var _CommtYear = new Date().getFullYear(); 
+                switch (_Page) {
+                    //************* SUMMARY *************
+                    case "CostSummary.aspx":
+                        loadCommentData("ALL_EXPENSE", _CommtYear);
+                        loadCommentData("DIRECT_EXPENSE", _CommtYear);
+                        loadCommentData("INDIRECT_EXPENSE", _CommtYear);
+                        loadCommentData("SGA_EXPENSE", _CommtYear);
+                        break;
+
+                    //************* DIRECT *************
+                    case "CostDIExpSummary.aspx":
+                        loadCommentData("DIRECT_EXPENSE", _CommtYear);
+                        loadCommentData(".DIRECT_EXPENSE_PD", _CommtYear);
+                        loadCommentData(".DIRECT_EXPENSE_EC", _CommtYear);
+                        loadCommentData(".DIRECT_EXPENSE_QC", _CommtYear);
+                        loadCommentData(".DIRECT_EXPENSE_DCICENTER", _CommtYear);
+                        break;
+                    case "CostDIExpQC.aspx":
+                        loadCommentData(".DIRECT_EXPENSE_QC", _CommtYear);
+                        break;
+                    case "CostDIExpProduction.aspx":
+                        loadCommentData(".DIRECT_EXPENSE_PD", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDM1YC", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDA1YC", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDM2YC", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDA2YC", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDMSCR", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDASCR", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDMF3", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDAF3", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDMOT", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_PDAL5", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_ODM", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_MTM", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_MTA", _CommtYear);
+                        break;
+                    case "CostDIExpITEC.aspx":
+                        loadCommentData(".DIRECT_EXPENSE_EC", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_UT", _CommtYear);
+                        loadCommentData("..DIRECT_EXPENSE_WC", _CommtYear);
+                        break;
+
+
+
+                    //************* INDIRECT *************
+                    case "CostINExpSummary.aspx":
+                        loadCommentData("INDIRECT_EXPENSE", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_PD", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_PROC", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_PC", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_EN", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_EC", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_QC", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_DD", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_GA", _CommtYear);
+                        loadCommentData(".INDIRECT_EXPENSE_DCICENTER", _CommtYear);
+                        break;
+                    case "CostINExpQuality.aspx":
+                        loadCommentData(".INDIRECT_EXPENSE_QC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_QA", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_QC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_QS", _CommtYear);
+                        break;
+                    case "CostINExpProduction.aspx":
+                        loadCommentData(".INDIRECT_EXPENSE_PD", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDM1YC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDA1YC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDM2YC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDA2YC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDMSCR", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDASCR", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDMF3", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDAF3", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDMOT", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PDAL5", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_ODM", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_MTM", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_MTA", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_TD", _CommtYear);
+                        break;
+                    case "CostINExpProcurement.aspx":
+                        loadCommentData(".INDIRECT_EXPENSE_PROC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PU", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_SPU", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_SP", _CommtYear);
+                        break;
+                    case "CostINExpPartSupply.aspx":
+                        loadCommentData(".INDIRECT_EXPENSE_PC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_IM", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_PS", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_DC", _CommtYear);
+                        break;
+                    case "CostINExpITEC.aspx":
+                        loadCommentData(".INDIRECT_EXPENSE_EC", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_UT", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_WC", _CommtYear);
+                        break;
+                    case "CostINExpEngineering.aspx":
+                        loadCommentData(".INDIRECT_EXPENSE_EN", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_ENA", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_ENM", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_ENMOT", _CommtYear);
+                        break;
+                    case "CostINExpDesign.aspx":
+                        loadCommentData(".INDIRECT_EXPENSE_DD", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_DD", _CommtYear);
+                        loadCommentData("..INDIRECT_EXPENSE_CD", _CommtYear);
+                        break;
+
+
+
+                    //************ SGA ************
+                    case "CostSGAExpSummary.aspx": 
+                        loadCommentData("SGA_EXPENSE", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_PC", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_ITEC", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_ADMIN", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_CSR", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_TD", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_SA", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_DCICENTER", _CommtYear);
+                        break;
+                    case "CostSGAExpPartSupply.aspx":
+                        loadCommentData(".SGA_EXPENSE_PC", _CommtYear);
+                        loadCommentData("..SGA_EXPENSE_PN", _CommtYear);
+                        loadCommentData("..SGA_EXPENSE_DL", _CommtYear);
+                        loadCommentData("..SGA_EXPENSE_WH", _CommtYear);
+                        break;
+                    case "CostSGAExpITEC.aspx":
+                        loadCommentData(".SGA_EXPENSE_ITEC", _CommtYear);
+                        loadCommentData(".SGA_EXPENSE_IT", _CommtYear);
+                        loadCommentData("..SGA_EXPENSE_UT", _CommtYear);
+                        break;
+                    case "CostSGAExpAdmin.aspx":
+                        loadCommentData(".SGA_EXPENSE_ADMIN", _CommtYear);
+                        loadCommentData("..SGA_EXPENSE_HR", _CommtYear);
+                        loadCommentData("..SGA_EXPENSE_GA", _CommtYear);
+                        loadCommentData("SGA_EXPENSE_WH", _CommtYear);
+                        break;
+                        
+                }
+            }
+
+
+            function getCommentTitle(_CommtCode) {
+                var _Title = "";
+                switch (_CommtCode) {
+                    case "ALL_EXPENSE": _Title = "EXPENSE"; break;
+                    case "DIRECT_EXPENSE": _Title = "DIRECT EXPENSE"; break;
+                    case ".DIRECT_EXPENSE_PD": _Title = "DIRECT EXPENSE PRODUCTION"; break;
+                    case "..DIRECT_EXPENSE_PDM1YC": _Title = "DIRECT EXPENSE PDM1YC"; break;
+                    case "..DIRECT_EXPENSE_PDA1YC": _Title = "DIRECT EXPENSE PDA1YC"; break;
+                    case "..DIRECT_EXPENSE_PDM2YC": _Title = "DIRECT EXPENSE PDM2YC"; break;
+                    case "..DIRECT_EXPENSE_PDA2YC": _Title = "DIRECT EXPENSE PDA2YC"; break;
+                    case "..DIRECT_EXPENSE_PDMSCR": _Title = "DIRECT EXPENSE PDMSCR"; break;
+                    case "..DIRECT_EXPENSE_PDASCR": _Title = "DIRECT EXPENSE PDASCR"; break;
+                    case "..DIRECT_EXPENSE_PDMF3": _Title = "DIRECT EXPENSE PDMF3"; break;
+                    case "..DIRECT_EXPENSE_PDAF3": _Title = "DIRECT EXPENSE PDAF3"; break;
+                    case "..DIRECT_EXPENSE_PDMOT": _Title = "DIRECT EXPENSE PDMOT"; break;
+                    case "..DIRECT_EXPENSE_PDAL5": _Title = "DIRECT EXPENSE PDAL5"; break;
+                    case "..DIRECT_EXPENSE_ODM": _Title = "DIRECT EXPENSE ODM"; break;
+                    case "..DIRECT_EXPENSE_MTM": _Title = "DIRECT EXPENSE MTM"; break;
+                    case "..DIRECT_EXPENSE_MTA": _Title = "DIRECT EXPENSE_MTA"; break;
+                    case ".DIRECT_EXPENSE_EC": _Title = "DIRECT EXPENSE IT & EC"; break;
+                    case "..DIRECT_EXPENSE_UT": _Title = "DIRECT EXPENSE UT"; break;
+                    case "..DIRECT_EXPENSE_WC": _Title = "DIRECT EXPENSE WC"; break;
+                    case ".DIRECT_EXPENSE_QC": _Title = "DIRECT EXPENSE QC"; break;
+                    case "INDIRECT_EXPENSE": _Title = "INDIRECT EXPENSE"; break;
+                    case ".INDIRECT_EXPENSE_PD": _Title = "INDIRECT EXPENSE PD"; break;
+                    case "..INDIRECT_EXPENSE_PDM1YC": _Title = "INDIRECT EXPENSE PDM1YC"; break;
+                    case "..INDIRECT_EXPENSE_PDA1YC": _Title = "INDIRECT EXPENSE PDA1YC"; break;
+                    case "..INDIRECT_EXPENSE_PDM2YC": _Title = "INDIRECT EXPENSE PDM2YC"; break;
+                    case "..INDIRECT_EXPENSE_PDA2YC": _Title = "INDIRECT EXPENSE PDA2YC"; break;
+                    case "..INDIRECT_EXPENSE_PDMSCR": _Title = "INDIRECT EXPENSE PDMSCR"; break;
+                    case "..INDIRECT_EXPENSE_PDASCR": _Title = "INDIRECT EXPENSE PDASCR"; break;
+                    case "..INDIRECT_EXPENSE_PDMF3": _Title = "INDIRECT EXPENSE PDMF3"; break;
+                    case "..INDIRECT_EXPENSE_PDAF3": _Title = "INDIRECT EXPENSE PDAF3"; break;
+                    case "..INDIRECT_EXPENSE_ODM": _Title = "INDIRECT EXPENSE_ODM"; break;
+                    case "..INDIRECT_EXPENSE_PDMOT": _Title = "INDIRECT EXPENSE PDMOT"; break;
+                    case "..INDIRECT_EXPENSE_PDAL5": _Title = "INDIRECT EXPENSE PDAL5"; break;
+                    case "..INDIRECT_EXPENSE_MTM": _Title = "INDIRECT EXPENSE MTM"; break;
+                    case "..INDIRECT_EXPENSE_MTA": _Title = "INDIRECT EXPENSE MTA"; break;
+                    case "..INDIRECT_EXPENSE_TD": _Title = "INDIRECT EXPENSE TRAINNING"; break;
+                    case ".INDIRECT_EXPENSE_PROC": _Title = "INDIRECT EXPENSE PROCUREMENT"; break;
+                    case "..INDIRECT_EXPENSE_PU": _Title = "INDIRECT EXPENSE PU"; break;
+                    case "..INDIRECT_EXPENSE_SPU": _Title = "INDIRECT EXPENSE SPU"; break;
+                    case "..INDIRECT_EXPENSE_SP": _Title = "INDIRECT EXPENSE SP"; break;
+                    case ".INDIRECT_EXPENSE_PC": _Title = "INDIRECT EXPENSE PRODUCTION CONTROL & SCM"; break;
+                    case "..INDIRECT_EXPENSE_IM": _Title = "INDIRECT EXPENSE IM"; break;
+                    case "..INDIRECT_EXPENSE_PS": _Title = "INDIRECT EXPENSE PS"; break;
+                    case "..INDIRECT_EXPENSE_DC": _Title = "INDIRECT EXPENSE DC"; break;
+                    case ".INDIRECT_EXPENSE_EN": _Title = "INDIRECT EXPENSE EN"; break;
+                    case "..INDIRECT_EXPENSE_ENA": _Title = "INDIRECT EXPENSE ENA"; break;
+                    case "..INDIRECT_EXPENSE_ENM": _Title = "INDIRECT EXPENSE ENM"; break;
+                    case "..INDIRECT_EXPENSE_ENMOT": _Title = "INDIRECT EXPENSE ENMOT"; break;
+                    case ".INDIRECT_EXPENSE_EC": _Title = "INDIRECT EXPENSE IT & EC"; break;
+                    case "..INDIRECT_EXPENSE_UT": _Title = "INDIRECT EXPENSE UT"; break;
+                    case "..INDIRECT_EXPENSE_WC": _Title = "INDIRECT EXPENSE WC"; break;
+                    case ".INDIRECT_EXPENSE_QC": _Title = "INDIRECT EXPENSE QUALITY CONTROL"; break;
+                    case "..INDIRECT_EXPENSE_QA": _Title = "INDIRECT EXPENSE QA"; break;
+                    case "..INDIRECT_EXPENSE_QC": _Title = "INDIRECT EXPENSE QC"; break;
+                    case "..INDIRECT_EXPENSE_QS": _Title = "INDIRECT EXPENSE QS"; break;
+                    case ".INDIRECT_EXPENSE_DD": _Title = "INDIRECT EXPENSE DESIGN DEVELOPMENT"; break;
+                    case "..INDIRECT_EXPENSE_DD": _Title = "INDIRECT EXPENSE DD"; break;
+                    case "..INDIRECT_EXPENSE_CD": _Title = "INDIRECT EXPENSE CD"; break;
+                    case ".INDIRECT_EXPENSE_GA": _Title = "INDIRECT EXPENSE GA"; break;
+                    case "SGA_EXPENSE": _Title = "SGA EXPENSE"; break;
+                    case ".SGA_EXPENSE_PC": _Title = "SGA EXPENSE PRODUCTION CONTROL & SCM"; break;
+                    case "..SGA_EXPENSE_PN": _Title = "SGA EXPENSE PN"; break;
+                    case "..SGA_EXPENSE_DL": _Title = "SGA_EXPENSE DL"; break;
+                    case "..SGA_EXPENSE_WH": _Title = "SGA_EXPENSE WH"; break;
+                    case ".SGA_EXPENSE_ITEC": _Title = "SGA_EXPENSE IT & EC"; break;
+                    case "..SGA_EXPENSE_IT": _Title = "SGA_EXPENSE IT"; break;
+                    case "..SGA_EXPENSE_UT": _Title = "SGA_EXPENSE UT"; break;
+                    case ".SGA_EXPENSE_ADMIN": _Title = "SGA_EXPENSE ADMINISTRATION"; break;
+                    case "..SGA_EXPENSE_HR": _Title = "SGA EXPENSE HR"; break;
+                    case "..SGA_EXPENSE_GA": _Title = "SGA EXPENSE GA"; break;
+                    case "..SGA_EXPENSE_AC": _Title = "SGA EXPENSE AC"; break;
+                    case ".SGA_EXPENSE_CC": _Title = "SGA EXPENSE CC"; break;
+                    case ".SGA_EXPENSE_TD": _Title = "SGA EXPENSE TD"; break;
+                    case ".SGA_EXPENSE_SA": _Title = "SGA EXPENSE SA"; break;
+                    default: break;
+                }
+
+                return _Title;
+            }
+
+            function getCommentMonth(_MonthCode) {
+                var _Title = "";
+                switch (_MonthCode) {
+                    case "JAN": _Title = "JANUARY"; break;
+                    case "FEB": _Title = "FEBRUARY"; break;
+                    case "MAR": _Title = "MARCH"; break;
+                    case "APR": _Title = "APRIL"; break;
+                    case "MAY": _Title = "MAY"; break;
+                    case "JUN": _Title = "JUNE"; break;
+                    case "JUL": _Title = "JULY"; break;
+                    case "AUG": _Title = "AUGUEST"; break;
+                    case "SEP": _Title = "SEPTEMBER"; break;
+                    case "OCT": _Title = "OCTOBER"; break;
+                    case "NOV": _Title = "NOVEMBER"; break;
+                    case "DEC": _Title = "DECEMBER"; break;
+                    default: _Title = ""; break;
+                }
+
+                return _Title;
+            }
+
+
+            function loadSettingData() {
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    url: "BudgetCostTarget.ashx",
+                    data: 'pMode=get&pType=' + $("#selType").val() + '&pYear=' + $("#selYear").val() + '&pBy=AUKIT.K&pStart=' + $("#txtSettingStart").val() + '&pEnd=' + $("#txtSettingEnd").val(),
+                    contentType: "text/plain; charset=utf-8",
+                    dataType: "text",
+                    async: false,
+                    beforeSend: function () {
+                        $("#selType, #selYear, #txtSettingStart, #txtSettingEnd,  #btnSettingSave, #btnSettingClose").prop('disabled', true);
+                    },
+                    success: function (response) {
+                        var spData = response.split('|');
+                        $("#txtSettingStart").val(spData[0]);
+                        $("#txtSettingEnd").val(spData[1]);
+
+                        $("#selType, #selYear, #txtSettingStart, #txtSettingEnd,  #btnSettingSave, #btnSettingClose").prop('disabled', false);
+                    }
+                });
+            }
+
+            function loadCommentFormData(_CmmtCode, _CmmtYear) {
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    url: "BudgetCostComment.ashx",
+                    data: {
+                        pMode: "get",
+                        pCmmtCode: _CmmtCode,
+                        pYear: _CmmtYear,
+                        pBy: "AUKIT.K"
+                    },
+                    contentType: "text/plain; charset=utf-8",
+                    dataType: "text",
+                    async: false,
+                    beforeSend: function () {
+                        $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', true);
+                    },
+                    success: function (response) {
+                        var spData = response.split('|');
+                        $("#txtCmmt1").val(spData[0]);
+                        $("#txtCmmt2").val(spData[1]);
+                        $("#txtCmmt3").val(spData[2]);
+                        $("#txtCmmt4").val(spData[3]);
+                        $("#txtCmmt5").val(spData[4]);
+                        $("#txtCmmt6").val(spData[5]);
+                        $("#txtCmmt7").val(spData[6]);
+                        $("#txtCmmt8").val(spData[7]);
+                        $("#txtCmmt9").val(spData[8]);
+                        $("#txtCmmt10").val(spData[9]);
+                        $("#txtCmmt11").val(spData[10]);
+                        $("#txtCmmt12").val(spData[11]);
+
+                        $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', false);
+                    }
+                });
+            }
+
+            function loadCommentData(_CmmtCode, _CmmtYear) {
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    url: "BudgetCostComment.ashx",
+                    data: {
+                        pMode: "get",
+                        pCmmtCode: _CmmtCode,
+                        pYear: _CmmtYear,
+                        pBy: "AUKIT.K"
+                    },
+                    contentType: "text/plain; charset=utf-8",
+                    dataType: "text",
+                    async: false,
+                    beforeSend: function () {
+                        $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', true);
+                    },
+                    success: function (response) {
+                        var spData = response.split('|');
+
+                        $(".txtComment").each(function () {
+                            var CostCenterData = $(this).data("costcenter");
+                            var MonthData = $(this).data("month");
+
+                            if (CostCenterData == _CmmtCode) {
+                                switch(MonthData){
+                                    case "APR": $(this).val(spData[0]); break;
+                                    case "MAY": $(this).val(spData[1]); break;
+                                    case "JUN": $(this).val(spData[2]); break;
+                                    case "JUL": $(this).val(spData[3]); break;
+                                    case "AUG": $(this).val(spData[4]); break;
+                                    case "SEP": $(this).val(spData[5]); break;
+                                    case "OCT": $(this).val(spData[6]); break;
+                                    case "NOV": $(this).val(spData[7]); break;
+                                    case "DEC": $(this).val(spData[8]); break;
+                                    case "JAN": $(this).val(spData[9]); break;
+                                    case "FEB": $(this).val(spData[10]); break;
+                                    case "MAR": $(this).val(spData[11]); break;
+                                }
+                            }
+                        });
+
+                        $("#btnCommentSave, #btnCommentClose, .txtCmmt").prop('disabled', false);
+                    }
+                });
+            }
+
+
+            function loadCommentFormMonthData(_CmmtCode, _CmmtYear, _CmmtMonth) {
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    url: "BudgetCostComment.ashx",
+                    data: {
+                        pMode: "get",
+                        pCmmtCode: _CmmtCode,
+                        pYear: _CmmtYear,
+                        pBy: "AUKIT.K"
+                    },
+                    contentType: "text/plain; charset=utf-8",
+                    dataType: "text",
+                    async: false,
+                    beforeSend: function () {
+                        $("#btnCommentDataSave, #btnCommentDataClose, #txtCmmtData").prop('disabled', true);
+                    },
+                    success: function (response) {
+                        var spData = response.split('|');
+                        
+                        switch (_CmmtMonth) {
+                            case "APR": $("#txtCmmtData").val(spData[0]); break;
+                            case "MAY": $("#txtCmmtData").val(spData[1]); break;
+                            case "JUN": $("#txtCmmtData").val(spData[2]); break;
+                            case "JUL": $("#txtCmmtData").val(spData[3]); break;
+                            case "AUG": $("#txtCmmtData").val(spData[4]); break;
+                            case "SEP": $("#txtCmmtData").val(spData[5]); break;
+                            case "OCT": $("#txtCmmtData").val(spData[6]); break;
+                            case "NOV": $("#txtCmmtData").val(spData[7]); break;
+                            case "DEC": $("#txtCmmtData").val(spData[8]); break;
+                            case "JAN": $("#txtCmmtData").val(spData[9]); break;
+                            case "FEB": $("#txtCmmtData").val(spData[10]); break;
+                            case "MAR": $("#txtCmmtData").val(spData[11]); break;
+                            default: $("#txtCmmtData").val(""); break;
+                        }
+
+                        $("#btnCommentDataSave, #btnCommentDataClose, #txtCmmtData").prop('disabled', false);
+                    }
+                });
+            }
+
+        </script>
+    </form>
+    <script src="<%= ResolveUrl("~/StyleMax/js/moment.js") %>"></script>
+    <script src="<%= ResolveUrl("~/StyleMax/js/bootstrap-datepicker.js") %>"></script>
+    <script src="<%= ResolveUrl("~/StyleMax/js/daterangepicker.js") %>"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿<%@ WebHandler Language="C#" Class="CuttingToolsSrv" %>
+
+using System;
+using System.Web;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+
+public class CuttingToolsSrv : IHttpHandler {
+
+    CCuttingToolsInfo oCTSP = new CCuttingToolsInfo();
+    public void ProcessRequest (HttpContext context) {
+        context.Response.ContentType = "text/plain";
+        //context.Response.Write("Hello World");
+        string Month = context.Request.QueryString["month"] != null ? context.Request.QueryString["month"].ToString() : DateTime.Now.Month.ToString();
+        string Show = context.Request.QueryString["show"] != null ? context.Request.QueryString["show"].ToString() : "day";
+        string Board = context.Request.QueryString["board"] != null ? context.Request.QueryString["board"].ToString() : "301";
+        string Type = context.Request.QueryString["type"] != null ? context.Request.QueryString["type"].ToString() : "month";
+        string Year = context.Request.QueryString["year"] != null ? context.Request.QueryString["year"].ToString() : DateTime.Now.Year.ToString();
+        DateTime setDate = new DateTime(Convert.ToInt16(Year), Convert.ToInt16(Month), 1,0,0,0);
+
+
+        if (Show == "day")
+        {
+            List<MCTSPInfo> oList = new List<MCTSPInfo>();
+            oList = oCTSP.GetChartCuttingTools(setDate, Board,Show,Convert.ToInt16(Year));
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(oList);
+
+            context.Response.Write(json);
+        }
+        else if (Show == "month")
+        {
+            //List<MCTSPInfo> oList = new List<MCTSPInfo>();
+            //oList = oCTSP.GetChartCuttingTools(setDate, Board,Show,Convert.ToInt16(Year));
+            //var jsonSerialiser = new JavaScriptSerializer();
+            //var json = jsonSerialiser.Serialize(oList);
+
+            //context.Response.Write(json);
+        }
+
+
+
+    }
+
+    public bool IsReusable {
+        get {
+            return false;
+        }
+    }
+
+}

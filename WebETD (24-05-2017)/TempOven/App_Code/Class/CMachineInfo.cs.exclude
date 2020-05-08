@@ -1,0 +1,162 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CMachineInfo
+/// </summary>
+public class CMachineInfo
+{
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    CPDData oPD = new CPDData();
+    CTargetInfo oTar = new CTargetInfo();
+    CultureInfo cu = new CultureInfo("en-US");
+    public CMachineInfo()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public List<MMachineCostInfo> GetChartMachineCost(string ChartType, string BoardID,int Month, int Year)
+    {
+        List<MMachineCostInfo> oListMachine = new List<MMachineCostInfo>();
+
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT [McId],[McNo],[McName],[Model],[SerialNo],[BudgetNo],[InvoiceNo],[Maker],[Vender],[ReceiveDate]" +
+            ",[Status],[Price],[ElecQuantity],[Water],[Air],[Steam],[Gas],[NeedArea],[Weight],[DailyCheckSheet],[MonthlyCheckSheet]" +
+            ",[PeriodCheckSheet],[ToolEquip],[JigFixture],[Other],[LineUsed],[ProcessId],[CycleTime],[NC],[PLC],[TouchScreen],[BoiProject]" +
+            ",[BoiMachine],lm.LineCode FROM [MT_MachineMstr] mm LEFT JOIN [PD_LineMstr] lm ON mm.LineUsed = lm.LineId" +
+            " WHERE lm.BoardId = '" + BoardID + "' AND mm.Price > 0 ORDER BY mm.McNo";
+        DataTable dt = oConn.SqlGet(sql, "DBPDB");
+
+        //---------------- Calculate DP -----------------
+        double sumDPDay = 0, sumDPMonth = 0;
+        if (dt.Rows.Count > 0)
+        {
+            foreach (DataRow _row in dt.Rows)
+            {
+                //------------------ DP Day -------------------
+                double DPDay = (Convert.ToDouble(_row["Price"].ToString()) - 1) / (365 * 10);
+                sumDPDay += DPDay;
+                //------------------ DP Month -------------------
+                double DPMonth = (Convert.ToDouble(_row["Price"].ToString()) - 1) / (12 * 10);
+                sumDPMonth += DPMonth;
+            }
+        }
+
+        if (ChartType == "day")
+        {
+            double Target = oTar.GetTargetChart("Daily", "Machine Cost");
+            
+            for (int i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year,Month); i++)
+            {                
+                MMachineCostInfo _itemMac = new MMachineCostInfo();
+                _itemMac.Catagory = i.ToString("00");
+
+                int Actual = oPD.GetActualByDate(BoardID, new DateTime(DateTime.Now.Year, Month, i));
+
+                if (new DateTime(DateTime.Now.Year, Month, i).Date > DateTime.Now.Date)
+                {
+                    _itemMac.CostUnit = null;
+                }
+                else
+                {
+                    _itemMac.CostUnit = Actual > 0 ? Math.Round((sumDPDay / Actual), 2) : 0;
+                }
+                
+                _itemMac.Target = Target;
+                oListMachine.Add(_itemMac);
+            }
+        }
+        else if (ChartType == "month")
+        {            
+           
+            double Target = oTar.GetTargetChart("Monthly", "Machine Cost");
+            DateTime dateMonth = new DateTime(Year, 1, 1);
+            double sumCost = 0;
+            for (int i = 1; i <= 12; i++)
+            {
+                int Actual = oPD.GetActualMainFac3ofMonth(i, Year);
+                MMachineCostInfo _itemMac = new MMachineCostInfo();
+                _itemMac.Catagory = dateMonth.ToString("MMM",cu).ToUpper();
+
+                if (Year == DateTime.Now.Year && dateMonth.Month > DateTime.Now.Month)
+                {
+                    _itemMac.CostUnit = null;
+                }
+                else
+                {
+                    if (dateMonth.Month == DateTime.Now.Month)
+                    {
+                        double DPThisMonth = sumDPDay * DateTime.Now.Day;
+                        _itemMac.CostUnit = Actual > 0 ? Math.Round((DPThisMonth / Actual), 2) : 0;
+                    }
+                    else
+                    {
+                        _itemMac.CostUnit = Actual > 0 ? Math.Round((sumDPMonth / Actual), 2) : 0;
+                    }
+                    sumCost += Convert.ToDouble(_itemMac.CostUnit);
+                    _itemMac.Average = sumCost / i;
+
+                }
+                
+                _itemMac.Target = Target;
+                oListMachine.Add(_itemMac);
+
+                dateMonth = dateMonth.AddMonths(1);
+            }
+        }
+
+        return oListMachine;
+    }
+
+    public DataTable GetMachineByBoardID (string BoardID)
+    {
+        DataTable dtMachine = new DataTable();
+        dtMachine.Columns.Add("No", typeof(string));
+        dtMachine.Columns.Add("Line", typeof(string));
+        dtMachine.Columns.Add("McName", typeof(string));
+        dtMachine.Columns.Add("McNo", typeof(string));
+        dtMachine.Columns.Add("Price", typeof(string));
+        dtMachine.Columns.Add("ReceiveDate", typeof(string));
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT [McId],[McNo],[McName],[Model],[SerialNo],[BudgetNo],[InvoiceNo],[Maker],[Vender],[ReceiveDate]"+
+            ",[Status],[Price],[ElecQuantity],[Water],[Air],[Steam],[Gas],[NeedArea],[Weight],[DailyCheckSheet],[MonthlyCheckSheet]"+
+            ",[PeriodCheckSheet],[ToolEquip],[JigFixture],[Other],[LineUsed],[ProcessId],[CycleTime],[NC],[PLC],[TouchScreen],[BoiProject]"+
+            ",[BoiMachine],lm.LineCode FROM [MT_MachineMstr] mm LEFT JOIN [PD_LineMstr] lm ON mm.LineUsed = lm.LineId" +
+            " WHERE lm.BoardId = '"+BoardID+ "' AND mm.Price > 0 ORDER BY mm.McNo";
+        DataTable dt = oConn.SqlGet(sql, "DBPDB");
+        if (dt.Rows.Count > 0)
+        {
+            int No = 1;
+            foreach (DataRow item in dt.Rows)
+            {
+                DataRow _rowMC = dtMachine.NewRow();
+                _rowMC["No"] = No.ToString();
+                _rowMC["Line"] = item["LineCode"].ToString();
+                _rowMC["McName"] = item["McName"].ToString();
+                _rowMC["McNo"] = item["McNo"].ToString();
+                _rowMC["ReceiveDate"] = Convert.ToDateTime(item["ReceiveDate"]).ToString("yyyy-MM-dd");
+                try
+                {
+                    _rowMC["Price"] = String.Format("{0:n}", Convert.ToDecimal(item["Price"]));
+                }
+                catch
+                {
+                    _rowMC["Price"] = item["Price"].ToString();
+                }                
+
+                dtMachine.Rows.Add(_rowMC);
+                No++;
+            }
+        }
+
+
+        return dtMachine;
+    }
+}

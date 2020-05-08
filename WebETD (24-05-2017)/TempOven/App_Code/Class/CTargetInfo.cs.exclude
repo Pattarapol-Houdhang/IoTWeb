@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CTargetInfo
+/// </summary>
+public class CTargetInfo
+{
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    public CTargetInfo()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public double GetTargetChart(string TargetType, string TargetGroup)
+    {
+        SqlCommand sqlTarget = new SqlCommand();
+        sqlTarget.CommandText = "SELECT [Target_Id],[Target_Group],[Target_All],[Target_Min],[Target_Max],[Target_Safety],[Target_Type],[CreateDate]" +
+            " ,[CreateBy],[UpdateDate],[UpdateBy] FROM [PD_LineCost_Target] WHERE [Target_Type] = '"+ TargetType + "' AND Target_Group = '"+ TargetGroup + "'";
+        DataTable dtTarget = oConn.SqlGet(sqlTarget, "DBDCI");
+        double target = 0;
+        if (dtTarget.Rows.Count > 0)
+        {
+            target = Convert.ToDouble(dtTarget.Rows[0]["Target_All"].ToString());
+        }
+
+        return target;
+    }
+}

@@ -1,0 +1,245 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+	<title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <%--<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7" />--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Admin Panel Template" />
+
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <!-- styles -->
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/font-alpona.css" rel="stylesheet" />
+    <link href="~/css/prettify.css" rel="stylesheet" />
+    <link href="~/css/responsive-tables.css" rel="stylesheet" />
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-reset.css" rel="stylesheet" />
+    <link href="~/css/highcharts.css" rel="stylesheet" />
+
+
+    <link href="~/css/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="~/css/kendo.material.min.css" rel="stylesheet" />
+    <link href="~/css/kendo.material.mobile.min.css" rel="stylesheet" />
+
+    <link href="<%= ResolveClientUrl("~/vendors/pnotify/dist/pnotify.buttons.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveClientUrl("~/vendors/pnotify/dist/pnotify.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveClientUrl("~/vendors/pnotify/dist/pnotify.nonblock.css") %>" rel="stylesheet" />
+
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/MasterOffsetDetail.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/kendo.all.min.js") %>"></script>
+
+
+    <%--<script type="text/javascript" src="<%= ResolveUrl("~/js/highcharts.js") %>"></script>--%>
+    <script src="<%= ResolveUrl("~/Highcharts/highstock.js") %>"></script>
+    <%--<script src="Highcharts/highcharts.js"></script>--%>
+    <script src="<%= ResolveUrl("~/Highcharts/modules/exporting.js") %>"></script>
+   <%-- <script src="<%= ResolveUrl("~/vendors/jquery-sparkline/dist/jquery.sparkline.min.js") %>"></script>--%>
+
+
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/datatables/jquery.dataTables.min.js") %>"></script>
+
+    <script src="<%= ResolveClientUrl("~/vendors/pnotify/dist/pnotify.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/vendors/pnotify/dist/pnotify.buttons.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/vendors/pnotify/dist/pnotify.nonblock.js") %>"></script>
+    <!--[if lt IE 9]>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+        
+        <div class="main-wrapper">
+            <div class="scroll-top">
+                <a href="#" class="tip-top" title="Go Top"><i class="icon-arrow-up"></i></a>
+            </div>
+            <!-- TOP BAR -->
+            <div class="top-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <a href="#" class="left-toggle"><i class="icon-menu-2 "></i></a>
+                            <!-- LOGO -->
+                            <div class="branding">
+                                <%--<asp:Image ID="Image1" runat="server" Height="40px" ImageUrl="~/images/Daikin-logo.png" Width="200px" />--%>
+                                <span>
+                                    <h2 style="margin: 5px 0px;"><b><span style="color: orange;">IoT </span><span style="color: white; font-size: 20px;">System</span></b></h2>
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 clearfix responsive-notification-mnu">
+                            <ul class="notification-bar">
+                            </ul>
+                        </div>
+                        <%--<div class="col-sm-4 col-md-4 clearfix responsive-log-mnu">
+                            <div class="loged-nav pull-right">
+                                <ul class="clearfix">
+                                    <li class="log-nav dropdown pull-right">                                        
+                                        <asp:LinkButton ID="btLogin" runat="server" ForeColor="White" OnClick="btLogin_Click">Login</asp:LinkButton>                                        
+                                    </li>
+                                    <li class="log-nav dropdown pull-right">                                        
+                                        <asp:Label CssClass="pull-left loged-user-name clearfix" ID="lblLogedin" runat="server" Text="Not Login" Font-Bold="True" ForeColor="White"></asp:Label>
+                                                                              
+                                    </li>
+                                    
+                                </ul>
+
+                            </div>
+                        </div>--%>
+                        <div class="col-sm-4 col-md-4 clearfix responsive-log-mnu">
+                            <!-- ADMIN DRODOWN MENU -->
+                            <div class="loged-nav pull-right">
+                                <ul class="clearfix">
+                                    <li class="log-nav dropdown pull-right">
+                                        <%--<a class="dropdown-toggle clearfix" data-toggle="dropdown">
+                                            <span class="pull-left loged-user-name">
+                                                <asp:Label ID="lbNameLogin" runat="server" Text="Phon Yensumran"></asp:Label></span>
+                                            <span class="logged-user-thumb pull-right">
+                                                <asp:Image ID="imgLogin" CssClass="img-circle" runat="server" ImageUrl="http://dcidmc.dci.daikin.co.jp/PICTURE/40876.JPG" />
+                                            </span>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <ul class="pull-right">
+                                                <li><a href="#">Change Password</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#" class="logout-link"><i class="icon-lock-3"></i>Logout</a></li>
+                                            </ul>
+                                        </div>--%>
+                                        <%=GenLoginButton() %>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="left-bar merge-left">
+                <div class="side-navigation">
+                    <%--<ul id="ultester" class="side-navigation accordion" runat="server">
+                        
+                    </ul>--%>
+                    <%--<ul class="side-navigation accordion" id="nav-accordion">
+                        <li><a href="<%= ResolveClientUrl("~/Default.aspx") %>"><i class="icon-home"></i>Home</a></li>
+                        <li id="menuMonitoring" runat="server"><a href="#"><i class="icon-clipboard-2"></i>Monitoring</a>
+                            <ul>
+                                <li><a href="<%= ResolveClientUrl("~/DailyReport.aspx?line=line1") %>">Mecha Line 1</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/DailyReport.aspx?line=line2") %>">Mecha Line 2</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/DailyReport.aspx?line=line3") %>">Mecha Line 3</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/DailyReport.aspx?line=fac3") %>">Machine Factory 3</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/Efficiency_Report.aspx") %>">Line Efficiency</a></li>
+                            </ul>
+                        </li>
+                        <li id="menuSetting" runat="server"><a><i class="icon-tools"></i>Setting</a>
+                            <ul>
+                                <li><a href="<%= ResolveClientUrl("~/MstModel.aspx") %>">Model</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/MstProgram.aspx") %>">Program</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/MstRank.aspx") %>">Rank</a></li>
+                            </ul>
+                        </li>
+                        <li id="menuDataHistory" runat="server"><a href="#"><i class="icon-list-alt"></i>Data History</a>
+                            <ul>
+                                <li><a href="<%= ResolveClientUrl("~/MstDataHistory.aspx?line=line1") %>">Mecha Line 1</a></li>
+                                <li><a>Mecha Line 2</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/MstDataHistory.aspx?line=line3") %>">Mecha Line 3</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/MstDataHistory2.aspx?line=mef3") %>">Mecha Factory 3</a></li>
+                                <li><a href="<%= ResolveClientUrl("~/MstDataHistory.aspx?line=maf3") %>">Machine Factory 3</a></li>
+                            </ul>
+                        </li>
+                        <li id="menuManageUser" runat="server"><a><i class="icon-user"></i>Manage User</a>
+                            <ul>
+                                <li id="menuRegister" runat="server"><a href="<%= ResolveClientUrl("~/RegisterUser.aspx") %>">Register User</a></li>
+                                <li id="menuUserLogin" runat="server"><a href="<%= ResolveClientUrl("~/Login.aspx") %>">Login</a></li>
+                                <li id="menuChangePassword" runat="server"><a href="<%= ResolveClientUrl("~/ChangePassword.aspx") %>">Change Password</a></li>
+                            </ul>
+                        </li>
+
+                        <li id="menuProduction" runat="server"><a><i class="icon-stats-up"></i>Productions</a>
+                            <ul>
+                                <li id="menuPDSetting" runat="server"><a href="<%= ResolveClientUrl("~/Production/Setting/PDSettingMenu.aspx") %>">Setting</a></li>
+                                <li id="menuPDDataHistory" runat="server"><a href="<%= ResolveClientUrl("~/Production/DataHistory/PDDataHistoryMenu.aspx") %>">History</a></li>
+                                <li id="menuPDGraph" runat="server"><a href="<%= ResolveClientUrl("~/Production/Graph/PDGraphMenu.aspx") %>">Monitoring</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>--%>
+
+                    <%=GenMenu() %>
+
+                </div>
+            </div>
+            <div class="main-container">
+                <div class="container">
+                    <div class="board-widget">
+
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                © 2015 - IOT SYSTEM BY DAIKIN COMPRESSOR INDUSTRIES LTD.
+            </div>
+        </div>
+        
+        
+
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery-ui-1.10.3.custom.min.js") %>"></script>
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/bootstrap.min.js") %>"></script>
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/prettify.js") %>"></script>
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.nicescroll.js") %>"></script>
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.cookie.js") %>"></script>
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.hoverIntent.minified.js") %>"></script>
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery.dcjqaccordion.2.7.js") %>"></script>
+
+        <script type="text/javascript" src="<%= ResolveUrl("~/js/common-script.js") %>"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.carousel').carousel({
+                    interval: false,
+                    AutoPlay: false
+                });
+            });
+        </script>
+        <style type="text/css">
+            .icon-prev, .icon-next {
+                width: 150px!important;
+                height: 150px!important;
+                font-size: 150px!important;
+                top: 3%!important;
+                left: 5%!important;
+                color: #0415de;
+            }
+            .icon-prev {
+                margin-top: -100px!important;
+                margin-left: -30px!important;
+            }
+            .icon-next {
+                margin-top: -68px!important;
+                margin-left: 85px!important;
+            }
+
+        </style>
+    </form>
+</body>
+</html>

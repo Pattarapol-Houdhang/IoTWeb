@@ -1,0 +1,251 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CEnergyInfo
+/// </summary>
+public class CEnergyInfo
+{
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    CPDData oPD = new CPDData();
+    CTargetInfo oTarget = new CTargetInfo();
+    public CEnergyInfo()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public DataTable GetKWHRUnit(string BoardID)
+    {
+        decimal KwhrUnit = 0;
+
+        DataTable dtKwhAll = new DataTable();
+        dtKwhAll.Columns.Add("Kwh", typeof(decimal));
+        dtKwhAll.Columns.Add("KwhSUM", typeof(decimal));
+        dtKwhAll.Columns.Add("Avg", typeof(decimal));
+        dtKwhAll.Columns.Add("Time", typeof(string));
+
+        DateTime strDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+
+        decimal avg = 0, kwhSUM = 0;
+        int idx = 1;
+        string meterID = "''";
+
+        DataTable dtEnergy = new DataTable();
+        SqlCommand sqlEnergy = new SqlCommand();
+        //---------------- Get Energy Line Main 301 from Costy ------------
+        if (BoardID == "301")
+        {
+
+            sqlEnergy.CommandText = "SELECT TOP 1 ((SELECT TOP 1 MAX(kWh) FROM [Scada_kWh] AS SUB1" +
+                    " WHERE MONTH(StarmTime) = @month AND YEAR(StarmTime) = @year AND DAY(StarmTime) = @day AND MeterID IN('5')) -" +
+                    " (SELECT TOP 1 MIN(kWh) FROM [Scada_kWh] AS SUB1" +
+                    " WHERE MONTH(StarmTime) = @month2 AND YEAR(StarmTime) = @year2 AND DAY(StarmTime) = @day2 AND MeterID IN('5')))  AS Kwh" +
+                    " FROM [Scada_kWh] WHERE MONTH(StarmTime) = @month3 AND YEAR(StarmTime) = @year3 AND DAY(StarmTime) = @day3 AND MeterID IN('5')";
+
+            sqlEnergy.Parameters.Add(new SqlParameter("@month", strDate.Month.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@month2", strDate.Month.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@month3", strDate.Month.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@year", strDate.Year.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@year2", strDate.Year.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@year3", strDate.Year.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@day", strDate.Day.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@day2", strDate.Day.ToString()));
+            sqlEnergy.Parameters.Add(new SqlParameter("@day3", strDate.Day.ToString()));
+
+            dtEnergy = oConn.SqlGet(sqlEnergy, "DBIOTFAC3");
+        }
+        //---------------- Get Energy Line Main 301 from Costy ------------
+
+        if (dtEnergy.Rows.Count > 0)
+        {
+            decimal kwh = 0;
+            kwh = Convert.ToDecimal(dtEnergy.Rows[0]["Kwh"].ToString()) * 2;
+
+            kwhSUM = kwh;
+            avg = 0;
+
+            DataRow _rowKwh = dtKwhAll.NewRow();
+            _rowKwh["Avg"] = avg / idx;
+            _rowKwh["KwhSUM"] = kwhSUM;
+            _rowKwh["Kwh"] = kwh;
+            _rowKwh["Time"] = strDate.ToString("yyyy-MM-dd HH:mm:ss");
+            dtKwhAll.Rows.Add(_rowKwh);
+            idx++;
+        }
+
+        return dtKwhAll;
+    }
+
+    public List<MEnergyInfo> GetChartEnergy(int Month, string BoardID)
+    {
+        List<MEnergyInfo> oListEnergy = new List<MEnergyInfo>();
+
+        DateTime strDate = new DateTime(DateTime.Now.Year, Month, 1, 0, 0, 0);
+        DateTime endDate = strDate.AddMonths(1).Date + new TimeSpan(0, 0, 0);
+
+        DataTable dtActual = oPD.GetDataActualOfMonth(BoardID, Month, DateTime.Now.Year);
+
+        for (DateTime i = strDate; endDate.CompareTo(i) > 0; i = i.AddDays(1))
+        {
+            MEnergyInfo oItemEnergy = new MEnergyInfo();
+            oItemEnergy.Date = i.ToString("dd");
+            oItemEnergy.CostKwhTarget = Convert.ToDecimal(oTarget.GetTargetChart("Daily", "Energy Cost"));
+
+            DateTime dateEnd = i.Date + new TimeSpan(23, 59, 59);
+
+            DataTable dtEnergy = new DataTable();
+            SqlCommand sqlEnergy = new SqlCommand();
+
+            if (i <= DateTime.Now)
+            {
+                //---------------- Get Energy Line Main 301 from Costy ------------
+                if (BoardID == "301")
+                {
+                    sqlEnergy.CommandText = "SELECT TOP 1 ((SELECT TOP 1 MAX(kWh) FROM [Scada_kWh] AS SUB1" +
+                        " WHERE MONTH(StarmTime) = @month AND YEAR(StarmTime) = @year AND DAY(StarmTime) = @day AND MeterID IN('5')) -" +
+                        " (SELECT TOP 1 MIN(kWh) FROM [Scada_kWh] AS SUB1" +
+                        " WHERE MONTH(StarmTime) = @month2 AND YEAR(StarmTime) = @year2 AND DAY(StarmTime) = @day2 AND MeterID IN('5')))  AS Kwh" +
+                        " FROM [Scada_kWh] WHERE MONTH(StarmTime) = @month3 AND YEAR(StarmTime) = @year3 AND DAY(StarmTime) = @day3 AND MeterID IN('5')";
+
+                    sqlEnergy.Parameters.Add(new SqlParameter("@month", i.Month.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@month2", i.Month.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@month3", i.Month.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@year", i.Year.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@year2", i.Year.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@year3", i.Year.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@day", i.Day.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@day2", i.Day.ToString()));
+                    sqlEnergy.Parameters.Add(new SqlParameter("@day3", i.Day.ToString()));
+                    dtEnergy = oConn.SqlGet(sqlEnergy, "DBIOTFAC3");
+                }
+                //---------------- Get Energy Line Main 301 from Costy ------------
+
+                //------------------------- Fillter Data Actual Each Day ---------------------
+                //Tuple<int, int> resultMain = oPD.GetActualMainAssyIoT(BoardID, i);               
+                //int Actual = resultMain.Item1 + resultMain.Item2;
+
+                int Actual = 0;
+                DataRow[] _fillActual = dtActual.Select("Date = '" + i.ToString("dd") + "'");
+                if (_fillActual.Length > 0)
+                {
+                    Actual = Convert.ToInt16(_fillActual[0]["Actual"].ToString());
+                }
+                //------------------------- Fillter Data Actual Each Day ---------------------
+
+                decimal costkwh = 0, kwh = 0;
+                if (dtEnergy.Rows.Count > 0)
+                {
+                    kwh = 0;
+                    try
+                    {
+                        kwh = Convert.ToDecimal(dtEnergy.Rows[0]["Kwh"].ToString()) * 2;
+                    }
+                    catch { }
+
+                    if (Actual > 0)
+                    {
+                        costkwh = (kwh / Convert.ToDecimal(Actual)) * Convert.ToDecimal(3.86);
+                        oItemEnergy.CostKwh = Math.Round(costkwh, 2);
+                    }
+                }
+
+                oItemEnergy.CostGas = null;
+                oItemEnergy.CostWater = null;
+
+                //---------------- Hardcode set data is NULL ----------------
+                if (i.Day >= 1 && i.Day <= 22 && i.Month == 4)
+                {
+                    oItemEnergy.CostKwh = null;
+                    oItemEnergy.CostGas = null;
+                    oItemEnergy.CostWater = null;
+                }
+            }
+            else
+            {
+                oItemEnergy.CostKwh = null;
+                oItemEnergy.CostGas = null;
+                oItemEnergy.CostWater = null;
+            }
+            oListEnergy.Add(oItemEnergy);
+        }
+
+
+        return oListEnergy;
+    }
+
+
+    public List<MEnergyMonth> GetChartEnergyMonth(int Month, int Year, string BoardID)
+    {
+        string[] monthName = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+        List<MEnergyMonth> olistEnegyMonth = new List<MEnergyMonth>();
+
+        DateTime strDate = new DateTime(DateTime.Now.Year, Month, 1, 0, 0, 0);
+        DateTime endDate = strDate.AddMonths(1).Date + new TimeSpan(0, 0, 0);
+
+        for (int i = 1; i <= 12; i++)
+        {
+            int Actual = oPD.GetActualMainFac3ofMonth(i, Year);
+
+            MEnergyMonth oitemEner = new MEnergyMonth();
+            oitemEner.Month = monthName[i - 1];
+            oitemEner.TargetElec = Convert.ToDecimal(oTarget.GetTargetChart("Monthly", "Energy Cost"));
+
+            DateTime strMonth = new DateTime(Year, i, 1) + new TimeSpan(0, 0, 0);
+            DateTime endMonth = new DateTime(Year, i, DateTime.DaysInMonth(Year, i)) + new TimeSpan(23, 59, 59);
+
+            SqlCommand sqlMonth = new SqlCommand();
+            DataTable dtEnergyMonth = new DataTable();
+            //---------------- Get Energy Line Main 301 from Costy ------------
+            if (BoardID == "301")
+            {
+                sqlMonth.CommandText = "SELECT TOP 1 ((SELECT TOP 1 MAX(kWh) FROM [Scada_kWh] AS SUB1" +
+                    " WHERE MONTH(StarmTime) = @month AND YEAR(StarmTime) = @year AND MeterID IN('5')) -" +
+                    " (SELECT TOP 1 MIN(kWh) FROM [Scada_kWh] AS SUB1" +
+                    " WHERE MONTH(StarmTime) = @month2 AND YEAR(StarmTime) = @year2 AND MeterID IN('5')))  AS Kwh" +
+                    " FROM [Scada_kWh] WHERE MONTH(StarmTime) = @month3 AND YEAR(StarmTime) = @year3 AND MeterID IN('5')";
+
+                sqlMonth.Parameters.Add(new SqlParameter("@month", strMonth.Month.ToString()));
+                sqlMonth.Parameters.Add(new SqlParameter("@month2", strMonth.Month.ToString()));
+                sqlMonth.Parameters.Add(new SqlParameter("@month3", strMonth.Month.ToString()));
+                sqlMonth.Parameters.Add(new SqlParameter("@year", strMonth.Year.ToString()));
+                sqlMonth.Parameters.Add(new SqlParameter("@year2", strMonth.Year.ToString()));
+                sqlMonth.Parameters.Add(new SqlParameter("@year3", strMonth.Year.ToString()));
+                dtEnergyMonth = oConn.SqlGet(sqlMonth, "DBIOTFAC3");
+            }
+            //---------------- Get Energy Line Main 301 from Costy ------------
+
+            if (dtEnergyMonth.Rows.Count > 0)
+            {
+                if (Year == DateTime.Now.Year && i > DateTime.Now.Month)
+                {
+                    oitemEner.CostEnergy = null;
+                }
+                else
+                {
+                    decimal costEnergyMonth = 0;
+                    try
+                    {
+                        costEnergyMonth = Convert.ToDecimal(dtEnergyMonth.Rows[0]["Kwh"].ToString()) * 2;
+                        if (i == 4)
+                        {
+                            costEnergyMonth = costEnergyMonth * 2;
+                        }
+                        oitemEner.CostEnergy = Math.Round(costEnergyMonth, 2);
+                        oitemEner.CostEnergyUnit = Math.Round((costEnergyMonth / Actual), 2);
+                    }
+                    catch { }
+                }
+            }
+
+            olistEnegyMonth.Add(oitemEner);
+        }
+
+        return olistEnegyMonth;
+    }
+}

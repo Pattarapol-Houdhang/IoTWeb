@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="RecordLineOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LineOutBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrdSerial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProcCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProcStatus" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecordLineOutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecordLineOutResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecordFGHoldByPallet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HoldBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PalletNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PalletStatus" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecordFGHoldByPalletResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecordFGHoldByPalletResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecordFGHoldByPrdSerial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HoldBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrdSerial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrdStatus" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecordFGHoldByPrdSerialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecordFGHoldByPrdSerialResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHoldDataByPallet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PalletNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHoldDataByPalletResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHoldDataByPalletResult" type="tns:ArrayOfLineOutHeadInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLineOutHeadInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LineOutHeadInfo" nillable="true" type="tns:LineOutHeadInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LineOutHeadInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HoldNbr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LotUnholdNbr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LotNbr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="prd_serial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="prd_line" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="prd_model_code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="prd_model" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="pl_no" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="prd_pipe_no" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoldBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HoldDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="prd_status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequestBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RequestDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="AllowBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AllowDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="remark1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="remark2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="remark3" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetHoldDataByPrdSerial">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrdSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHoldDataByPrdSerialResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHoldDataByPrdSerialResult" type="tns:ArrayOfLineOutHeadInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLineOutMaster">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLineOutMasterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLineOutMasterResult" type="tns:LineOutMasterInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LineOutMasterInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProcessCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProcessOrder" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Factory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Line" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProcessName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UpdateBy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="remark1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="remark2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="remark3" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="ArrayOfLineOutHeadInfo" nillable="true" type="tns:ArrayOfLineOutHeadInfo" />
+      <s:element name="LineOutMasterInfo" nillable="true" type="tns:LineOutMasterInfo" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RecordLineOutSoapIn">
+    <wsdl:part name="parameters" element="tns:RecordLineOut" />
+  </wsdl:message>
+  <wsdl:message name="RecordLineOutSoapOut">
+    <wsdl:part name="parameters" element="tns:RecordLineOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPalletSoapIn">
+    <wsdl:part name="parameters" element="tns:RecordFGHoldByPallet" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPalletSoapOut">
+    <wsdl:part name="parameters" element="tns:RecordFGHoldByPalletResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPrdSerialSoapIn">
+    <wsdl:part name="parameters" element="tns:RecordFGHoldByPrdSerial" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPrdSerialSoapOut">
+    <wsdl:part name="parameters" element="tns:RecordFGHoldByPrdSerialResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPalletSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHoldDataByPallet" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPalletSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHoldDataByPalletResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPrdSerialSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHoldDataByPrdSerial" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPrdSerialSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHoldDataByPrdSerialResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLineOutMasterSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLineOutMaster" />
+  </wsdl:message>
+  <wsdl:message name="GetLineOutMasterSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLineOutMasterResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecordLineOutHttpGetIn">
+    <wsdl:part name="LineOutBy" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+    <wsdl:part name="ProcCode" type="s:string" />
+    <wsdl:part name="ProcStatus" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordLineOutHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPalletHttpGetIn">
+    <wsdl:part name="HoldBy" type="s:string" />
+    <wsdl:part name="PalletNo" type="s:string" />
+    <wsdl:part name="PalletStatus" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPalletHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPrdSerialHttpGetIn">
+    <wsdl:part name="HoldBy" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+    <wsdl:part name="PrdStatus" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPrdSerialHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPalletHttpGetIn">
+    <wsdl:part name="PalletNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPalletHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfLineOutHeadInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPrdSerialHttpGetIn">
+    <wsdl:part name="PrdSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPrdSerialHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfLineOutHeadInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetLineOutMasterHttpGetIn">
+    <wsdl:part name="ProcCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetLineOutMasterHttpGetOut">
+    <wsdl:part name="Body" element="tns:LineOutMasterInfo" />
+  </wsdl:message>
+  <wsdl:message name="RecordLineOutHttpPostIn">
+    <wsdl:part name="LineOutBy" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+    <wsdl:part name="ProcCode" type="s:string" />
+    <wsdl:part name="ProcStatus" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordLineOutHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPalletHttpPostIn">
+    <wsdl:part name="HoldBy" type="s:string" />
+    <wsdl:part name="PalletNo" type="s:string" />
+    <wsdl:part name="PalletStatus" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPalletHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPrdSerialHttpPostIn">
+    <wsdl:part name="HoldBy" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+    <wsdl:part name="PrdStatus" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecordFGHoldByPrdSerialHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPalletHttpPostIn">
+    <wsdl:part name="PalletNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPalletHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfLineOutHeadInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPrdSerialHttpPostIn">
+    <wsdl:part name="PrdSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHoldDataByPrdSerialHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfLineOutHeadInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetLineOutMasterHttpPostIn">
+    <wsdl:part name="ProcCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetLineOutMasterHttpPostOut">
+    <wsdl:part name="Body" element="tns:LineOutMasterInfo" />
+  </wsdl:message>
+  <wsdl:portType name="HoldServiceSoap">
+    <wsdl:operation name="RecordLineOut">
+      <wsdl:input message="tns:RecordLineOutSoapIn" />
+      <wsdl:output message="tns:RecordLineOutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPallet">
+      <wsdl:input message="tns:RecordFGHoldByPalletSoapIn" />
+      <wsdl:output message="tns:RecordFGHoldByPalletSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPrdSerial">
+      <wsdl:input message="tns:RecordFGHoldByPrdSerialSoapIn" />
+      <wsdl:output message="tns:RecordFGHoldByPrdSerialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPallet">
+      <wsdl:input message="tns:GetHoldDataByPalletSoapIn" />
+      <wsdl:output message="tns:GetHoldDataByPalletSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPrdSerial">
+      <wsdl:input message="tns:GetHoldDataByPrdSerialSoapIn" />
+      <wsdl:output message="tns:GetHoldDataByPrdSerialSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLineOutMaster">
+      <wsdl:input message="tns:GetLineOutMasterSoapIn" />
+      <wsdl:output message="tns:GetLineOutMasterSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="HoldServiceHttpGet">
+    <wsdl:operation name="RecordLineOut">
+      <wsdl:input message="tns:RecordLineOutHttpGetIn" />
+      <wsdl:output message="tns:RecordLineOutHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPallet">
+      <wsdl:input message="tns:RecordFGHoldByPalletHttpGetIn" />
+      <wsdl:output message="tns:RecordFGHoldByPalletHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPrdSerial">
+      <wsdl:input message="tns:RecordFGHoldByPrdSerialHttpGetIn" />
+      <wsdl:output message="tns:RecordFGHoldByPrdSerialHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPallet">
+      <wsdl:input message="tns:GetHoldDataByPalletHttpGetIn" />
+      <wsdl:output message="tns:GetHoldDataByPalletHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPrdSerial">
+      <wsdl:input message="tns:GetHoldDataByPrdSerialHttpGetIn" />
+      <wsdl:output message="tns:GetHoldDataByPrdSerialHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLineOutMaster">
+      <wsdl:input message="tns:GetLineOutMasterHttpGetIn" />
+      <wsdl:output message="tns:GetLineOutMasterHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="HoldServiceHttpPost">
+    <wsdl:operation name="RecordLineOut">
+      <wsdl:input message="tns:RecordLineOutHttpPostIn" />
+      <wsdl:output message="tns:RecordLineOutHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPallet">
+      <wsdl:input message="tns:RecordFGHoldByPalletHttpPostIn" />
+      <wsdl:output message="tns:RecordFGHoldByPalletHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPrdSerial">
+      <wsdl:input message="tns:RecordFGHoldByPrdSerialHttpPostIn" />
+      <wsdl:output message="tns:RecordFGHoldByPrdSerialHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPallet">
+      <wsdl:input message="tns:GetHoldDataByPalletHttpPostIn" />
+      <wsdl:output message="tns:GetHoldDataByPalletHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPrdSerial">
+      <wsdl:input message="tns:GetHoldDataByPrdSerialHttpPostIn" />
+      <wsdl:output message="tns:GetHoldDataByPrdSerialHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLineOutMaster">
+      <wsdl:input message="tns:GetLineOutMasterHttpPostIn" />
+      <wsdl:output message="tns:GetLineOutMasterHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HoldServiceSoap" type="tns:HoldServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RecordLineOut">
+      <soap:operation soapAction="http://tempuri.org/RecordLineOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPallet">
+      <soap:operation soapAction="http://tempuri.org/RecordFGHoldByPallet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPrdSerial">
+      <soap:operation soapAction="http://tempuri.org/RecordFGHoldByPrdSerial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPallet">
+      <soap:operation soapAction="http://tempuri.org/GetHoldDataByPallet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPrdSerial">
+      <soap:operation soapAction="http://tempuri.org/GetHoldDataByPrdSerial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineOutMaster">
+      <soap:operation soapAction="http://tempuri.org/GetLineOutMaster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HoldServiceSoap12" type="tns:HoldServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RecordLineOut">
+      <soap12:operation soapAction="http://tempuri.org/RecordLineOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPallet">
+      <soap12:operation soapAction="http://tempuri.org/RecordFGHoldByPallet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPrdSerial">
+      <soap12:operation soapAction="http://tempuri.org/RecordFGHoldByPrdSerial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPallet">
+      <soap12:operation soapAction="http://tempuri.org/GetHoldDataByPallet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPrdSerial">
+      <soap12:operation soapAction="http://tempuri.org/GetHoldDataByPrdSerial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineOutMaster">
+      <soap12:operation soapAction="http://tempuri.org/GetLineOutMaster" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HoldServiceHttpGet" type="tns:HoldServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="RecordLineOut">
+      <http:operation location="/RecordLineOut" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPallet">
+      <http:operation location="/RecordFGHoldByPallet" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPrdSerial">
+      <http:operation location="/RecordFGHoldByPrdSerial" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPallet">
+      <http:operation location="/GetHoldDataByPallet" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPrdSerial">
+      <http:operation location="/GetHoldDataByPrdSerial" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineOutMaster">
+      <http:operation location="/GetLineOutMaster" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HoldServiceHttpPost" type="tns:HoldServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="RecordLineOut">
+      <http:operation location="/RecordLineOut" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPallet">
+      <http:operation location="/RecordFGHoldByPallet" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordFGHoldByPrdSerial">
+      <http:operation location="/RecordFGHoldByPrdSerial" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPallet">
+      <http:operation location="/GetHoldDataByPallet" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHoldDataByPrdSerial">
+      <http:operation location="/GetHoldDataByPrdSerial" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineOutMaster">
+      <http:operation location="/GetLineOutMaster" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HoldService">
+    <wsdl:port name="HoldServiceSoap" binding="tns:HoldServiceSoap">
+      <soap:address location="http://websrv01.dci.daikin.co.jp/scmservice/holdservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HoldServiceSoap12" binding="tns:HoldServiceSoap12">
+      <soap12:address location="http://websrv01.dci.daikin.co.jp/scmservice/holdservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HoldServiceHttpGet" binding="tns:HoldServiceHttpGet">
+      <http:address location="http://websrv01.dci.daikin.co.jp/scmservice/holdservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HoldServiceHttpPost" binding="tns:HoldServiceHttpPost">
+      <http:address location="http://websrv01.dci.daikin.co.jp/scmservice/holdservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

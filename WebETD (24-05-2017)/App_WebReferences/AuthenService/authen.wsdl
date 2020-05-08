@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="EncryptPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input_value" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EncryptPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EncryptPasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input_value" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DecryptPasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EncryptPasswordNoKey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input_value" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EncryptPasswordNoKeyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EncryptPasswordNoKeyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptPasswordNoKey">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input_value" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptPasswordNoKeyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DecryptPasswordNoKeyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAuthen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginAuthenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAuthenResult" type="tns:UserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmpCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SupplierNO" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PasswordExpriedStatus" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="PasswordExpried" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PwdLastUpdate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="UpdateBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdateDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PasswordValidDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsLogin" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserDataById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserDataByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserDataByIdResult" type="tns:UserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserDataByUsername">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserDataByUsernameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserDataByUsernameResult" type="tns:UserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllUsers">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllUsersResult" type="tns:ArrayOfUserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUserInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="UserInfo" nillable="true" type="tns:UserInfo" />
+      <s:element name="ArrayOfUserInfo" nillable="true" type="tns:ArrayOfUserInfo" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="EncryptPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:EncryptPassword" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:EncryptPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:DecryptPassword" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:DecryptPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordNoKeySoapIn">
+    <wsdl:part name="parameters" element="tns:EncryptPasswordNoKey" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordNoKeySoapOut">
+    <wsdl:part name="parameters" element="tns:EncryptPasswordNoKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordNoKeySoapIn">
+    <wsdl:part name="parameters" element="tns:DecryptPasswordNoKey" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordNoKeySoapOut">
+    <wsdl:part name="parameters" element="tns:DecryptPasswordNoKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginAuthenSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginAuthen" />
+  </wsdl:message>
+  <wsdl:message name="LoginAuthenSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginAuthenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserDataById" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserDataByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByUsernameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserDataByUsername" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByUsernameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserDataByUsernameResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUsersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUsersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordHttpGetIn">
+    <wsdl:part name="input_value" type="s:string" />
+    <wsdl:part name="key" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordHttpGetIn">
+    <wsdl:part name="input_value" type="s:string" />
+    <wsdl:part name="key" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordNoKeyHttpGetIn">
+    <wsdl:part name="input_value" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordNoKeyHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordNoKeyHttpGetIn">
+    <wsdl:part name="input_value" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordNoKeyHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginAuthenHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginAuthenHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByIdHttpGetIn">
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByUsernameHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByUsernameHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUsersHttpGetIn" />
+  <wsdl:message name="GetAllUsersHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordHttpPostIn">
+    <wsdl:part name="input_value" type="s:string" />
+    <wsdl:part name="key" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordHttpPostIn">
+    <wsdl:part name="input_value" type="s:string" />
+    <wsdl:part name="key" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordNoKeyHttpPostIn">
+    <wsdl:part name="input_value" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptPasswordNoKeyHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordNoKeyHttpPostIn">
+    <wsdl:part name="input_value" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptPasswordNoKeyHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginAuthenHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginAuthenHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByIdHttpPostIn">
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByUsernameHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserDataByUsernameHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUsersHttpPostIn" />
+  <wsdl:message name="GetAllUsersHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserInfo" />
+  </wsdl:message>
+  <wsdl:portType name="AuthenSoap">
+    <wsdl:operation name="EncryptPassword">
+      <wsdl:input message="tns:EncryptPasswordSoapIn" />
+      <wsdl:output message="tns:EncryptPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPassword">
+      <wsdl:input message="tns:DecryptPasswordSoapIn" />
+      <wsdl:output message="tns:DecryptPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EncryptPasswordNoKey">
+      <wsdl:input message="tns:EncryptPasswordNoKeySoapIn" />
+      <wsdl:output message="tns:EncryptPasswordNoKeySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPasswordNoKey">
+      <wsdl:input message="tns:DecryptPasswordNoKeySoapIn" />
+      <wsdl:output message="tns:DecryptPasswordNoKeySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAuthen">
+      <wsdl:input message="tns:LoginAuthenSoapIn" />
+      <wsdl:output message="tns:LoginAuthenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataById">
+      <wsdl:input message="tns:GetUserDataByIdSoapIn" />
+      <wsdl:output message="tns:GetUserDataByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataByUsername">
+      <wsdl:input message="tns:GetUserDataByUsernameSoapIn" />
+      <wsdl:output message="tns:GetUserDataByUsernameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input message="tns:GetAllUsersSoapIn" />
+      <wsdl:output message="tns:GetAllUsersSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AuthenHttpGet">
+    <wsdl:operation name="EncryptPassword">
+      <wsdl:input message="tns:EncryptPasswordHttpGetIn" />
+      <wsdl:output message="tns:EncryptPasswordHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPassword">
+      <wsdl:input message="tns:DecryptPasswordHttpGetIn" />
+      <wsdl:output message="tns:DecryptPasswordHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EncryptPasswordNoKey">
+      <wsdl:input message="tns:EncryptPasswordNoKeyHttpGetIn" />
+      <wsdl:output message="tns:EncryptPasswordNoKeyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPasswordNoKey">
+      <wsdl:input message="tns:DecryptPasswordNoKeyHttpGetIn" />
+      <wsdl:output message="tns:DecryptPasswordNoKeyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAuthen">
+      <wsdl:input message="tns:LoginAuthenHttpGetIn" />
+      <wsdl:output message="tns:LoginAuthenHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataById">
+      <wsdl:input message="tns:GetUserDataByIdHttpGetIn" />
+      <wsdl:output message="tns:GetUserDataByIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataByUsername">
+      <wsdl:input message="tns:GetUserDataByUsernameHttpGetIn" />
+      <wsdl:output message="tns:GetUserDataByUsernameHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input message="tns:GetAllUsersHttpGetIn" />
+      <wsdl:output message="tns:GetAllUsersHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AuthenHttpPost">
+    <wsdl:operation name="EncryptPassword">
+      <wsdl:input message="tns:EncryptPasswordHttpPostIn" />
+      <wsdl:output message="tns:EncryptPasswordHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPassword">
+      <wsdl:input message="tns:DecryptPasswordHttpPostIn" />
+      <wsdl:output message="tns:DecryptPasswordHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EncryptPasswordNoKey">
+      <wsdl:input message="tns:EncryptPasswordNoKeyHttpPostIn" />
+      <wsdl:output message="tns:EncryptPasswordNoKeyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPasswordNoKey">
+      <wsdl:input message="tns:DecryptPasswordNoKeyHttpPostIn" />
+      <wsdl:output message="tns:DecryptPasswordNoKeyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginAuthen">
+      <wsdl:input message="tns:LoginAuthenHttpPostIn" />
+      <wsdl:output message="tns:LoginAuthenHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataById">
+      <wsdl:input message="tns:GetUserDataByIdHttpPostIn" />
+      <wsdl:output message="tns:GetUserDataByIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataByUsername">
+      <wsdl:input message="tns:GetUserDataByUsernameHttpPostIn" />
+      <wsdl:output message="tns:GetUserDataByUsernameHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input message="tns:GetAllUsersHttpPostIn" />
+      <wsdl:output message="tns:GetAllUsersHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AuthenSoap" type="tns:AuthenSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EncryptPassword">
+      <soap:operation soapAction="http://tempuri.org/EncryptPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPassword">
+      <soap:operation soapAction="http://tempuri.org/DecryptPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptPasswordNoKey">
+      <soap:operation soapAction="http://tempuri.org/EncryptPasswordNoKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPasswordNoKey">
+      <soap:operation soapAction="http://tempuri.org/DecryptPasswordNoKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAuthen">
+      <soap:operation soapAction="http://tempuri.org/LoginAuthen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataById">
+      <soap:operation soapAction="http://tempuri.org/GetUserDataById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataByUsername">
+      <soap:operation soapAction="http://tempuri.org/GetUserDataByUsername" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap:operation soapAction="http://tempuri.org/GetAllUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AuthenSoap12" type="tns:AuthenSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EncryptPassword">
+      <soap12:operation soapAction="http://tempuri.org/EncryptPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPassword">
+      <soap12:operation soapAction="http://tempuri.org/DecryptPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptPasswordNoKey">
+      <soap12:operation soapAction="http://tempuri.org/EncryptPasswordNoKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPasswordNoKey">
+      <soap12:operation soapAction="http://tempuri.org/DecryptPasswordNoKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAuthen">
+      <soap12:operation soapAction="http://tempuri.org/LoginAuthen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataById">
+      <soap12:operation soapAction="http://tempuri.org/GetUserDataById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataByUsername">
+      <soap12:operation soapAction="http://tempuri.org/GetUserDataByUsername" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap12:operation soapAction="http://tempuri.org/GetAllUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AuthenHttpGet" type="tns:AuthenHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="EncryptPassword">
+      <http:operation location="/EncryptPassword" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPassword">
+      <http:operation location="/DecryptPassword" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptPasswordNoKey">
+      <http:operation location="/EncryptPasswordNoKey" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPasswordNoKey">
+      <http:operation location="/DecryptPasswordNoKey" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAuthen">
+      <http:operation location="/LoginAuthen" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataById">
+      <http:operation location="/GetUserDataById" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataByUsername">
+      <http:operation location="/GetUserDataByUsername" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <http:operation location="/GetAllUsers" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AuthenHttpPost" type="tns:AuthenHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="EncryptPassword">
+      <http:operation location="/EncryptPassword" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPassword">
+      <http:operation location="/DecryptPassword" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptPasswordNoKey">
+      <http:operation location="/EncryptPasswordNoKey" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptPasswordNoKey">
+      <http:operation location="/DecryptPasswordNoKey" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginAuthen">
+      <http:operation location="/LoginAuthen" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataById">
+      <http:operation location="/GetUserDataById" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDataByUsername">
+      <http:operation location="/GetUserDataByUsername" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <http:operation location="/GetAllUsers" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Authen">
+    <wsdl:port name="AuthenSoap" binding="tns:AuthenSoap">
+      <soap:address location="http://websrv01.dci.daikin.co.jp/scmservice/authen.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AuthenSoap12" binding="tns:AuthenSoap12">
+      <soap12:address location="http://websrv01.dci.daikin.co.jp/scmservice/authen.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AuthenHttpGet" binding="tns:AuthenHttpGet">
+      <http:address location="http://websrv01.dci.daikin.co.jp/scmservice/authen.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AuthenHttpPost" binding="tns:AuthenHttpPost">
+      <http:address location="http://websrv01.dci.daikin.co.jp/scmservice/authen.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

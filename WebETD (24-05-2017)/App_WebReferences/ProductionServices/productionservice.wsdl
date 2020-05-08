@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AuthorizeLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthorizeFor" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="User" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthorizeLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AuthorizeLoginResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertHold">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HoldBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrdLot" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrdSerial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertHoldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertHoldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUnHold">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DataBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrdLot" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrdSerial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUnHoldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUnHoldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRunningNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DocKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRunningNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRunningNumberResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthorizeLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthorizeLogin" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthorizeLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertHoldSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertHold" />
+  </wsdl:message>
+  <wsdl:message name="InsertHoldSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertHoldResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUnHoldSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUnHold" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUnHoldSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUnHoldResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRunningNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRunningNumber" />
+  </wsdl:message>
+  <wsdl:message name="GetRunningNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRunningNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeLoginHttpGetIn">
+    <wsdl:part name="AuthorizeFor" type="s:string" />
+    <wsdl:part name="User" type="s:string" />
+    <wsdl:part name="Pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeLoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="InsertHoldHttpGetIn">
+    <wsdl:part name="HoldBy" type="s:string" />
+    <wsdl:part name="PrdLot" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InsertHoldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUnHoldHttpGetIn">
+    <wsdl:part name="DataBy" type="s:string" />
+    <wsdl:part name="PrdLot" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUnHoldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRunningNumberHttpGetIn">
+    <wsdl:part name="DocKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRunningNumberHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeLoginHttpPostIn">
+    <wsdl:part name="AuthorizeFor" type="s:string" />
+    <wsdl:part name="User" type="s:string" />
+    <wsdl:part name="Pwd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeLoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="InsertHoldHttpPostIn">
+    <wsdl:part name="HoldBy" type="s:string" />
+    <wsdl:part name="PrdLot" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InsertHoldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUnHoldHttpPostIn">
+    <wsdl:part name="DataBy" type="s:string" />
+    <wsdl:part name="PrdLot" type="s:string" />
+    <wsdl:part name="PrdSerial" type="s:string" />
+    <wsdl:part name="Status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUnHoldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRunningNumberHttpPostIn">
+    <wsdl:part name="DocKey" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRunningNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="ProductionServiceSoap">
+    <wsdl:operation name="AuthorizeLogin">
+      <wsdl:input message="tns:AuthorizeLoginSoapIn" />
+      <wsdl:output message="tns:AuthorizeLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertHold">
+      <wsdl:input message="tns:InsertHoldSoapIn" />
+      <wsdl:output message="tns:InsertHoldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUnHold">
+      <wsdl:input message="tns:UpdateUnHoldSoapIn" />
+      <wsdl:output message="tns:UpdateUnHoldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRunningNumber">
+      <wsdl:input message="tns:GetRunningNumberSoapIn" />
+      <wsdl:output message="tns:GetRunningNumberSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ProductionServiceHttpGet">
+    <wsdl:operation name="AuthorizeLogin">
+      <wsdl:input message="tns:AuthorizeLoginHttpGetIn" />
+      <wsdl:output message="tns:AuthorizeLoginHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertHold">
+      <wsdl:input message="tns:InsertHoldHttpGetIn" />
+      <wsdl:output message="tns:InsertHoldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUnHold">
+      <wsdl:input message="tns:UpdateUnHoldHttpGetIn" />
+      <wsdl:output message="tns:UpdateUnHoldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRunningNumber">
+      <wsdl:input message="tns:GetRunningNumberHttpGetIn" />
+      <wsdl:output message="tns:GetRunningNumberHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ProductionServiceHttpPost">
+    <wsdl:operation name="AuthorizeLogin">
+      <wsdl:input message="tns:AuthorizeLoginHttpPostIn" />
+      <wsdl:output message="tns:AuthorizeLoginHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertHold">
+      <wsdl:input message="tns:InsertHoldHttpPostIn" />
+      <wsdl:output message="tns:InsertHoldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUnHold">
+      <wsdl:input message="tns:UpdateUnHoldHttpPostIn" />
+      <wsdl:output message="tns:UpdateUnHoldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRunningNumber">
+      <wsdl:input message="tns:GetRunningNumberHttpPostIn" />
+      <wsdl:output message="tns:GetRunningNumberHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductionServiceSoap" type="tns:ProductionServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthorizeLogin">
+      <soap:operation soapAction="http://tempuri.org/AuthorizeLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertHold">
+      <soap:operation soapAction="http://tempuri.org/InsertHold" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUnHold">
+      <soap:operation soapAction="http://tempuri.org/UpdateUnHold" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRunningNumber">
+      <soap:operation soapAction="http://tempuri.org/GetRunningNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductionServiceSoap12" type="tns:ProductionServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthorizeLogin">
+      <soap12:operation soapAction="http://tempuri.org/AuthorizeLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertHold">
+      <soap12:operation soapAction="http://tempuri.org/InsertHold" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUnHold">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUnHold" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRunningNumber">
+      <soap12:operation soapAction="http://tempuri.org/GetRunningNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductionServiceHttpGet" type="tns:ProductionServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="AuthorizeLogin">
+      <http:operation location="/AuthorizeLogin" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertHold">
+      <http:operation location="/InsertHold" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUnHold">
+      <http:operation location="/UpdateUnHold" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRunningNumber">
+      <http:operation location="/GetRunningNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductionServiceHttpPost" type="tns:ProductionServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="AuthorizeLogin">
+      <http:operation location="/AuthorizeLogin" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertHold">
+      <http:operation location="/InsertHold" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUnHold">
+      <http:operation location="/UpdateUnHold" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRunningNumber">
+      <http:operation location="/GetRunningNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductionService">
+    <wsdl:port name="ProductionServiceSoap" binding="tns:ProductionServiceSoap">
+      <soap:address location="http://websrv01.dci.daikin.co.jp/scmservice/productionservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductionServiceSoap12" binding="tns:ProductionServiceSoap12">
+      <soap12:address location="http://websrv01.dci.daikin.co.jp/scmservice/productionservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductionServiceHttpGet" binding="tns:ProductionServiceHttpGet">
+      <http:address location="http://websrv01.dci.daikin.co.jp/scmservice/productionservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductionServiceHttpPost" binding="tns:ProductionServiceHttpPost">
+      <http:address location="http://websrv01.dci.daikin.co.jp/scmservice/productionservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

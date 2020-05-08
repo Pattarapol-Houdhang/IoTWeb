@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CModelInfo
+/// </summary>
+public class CModelInfo
+{
+    ConnectDBCosty oConn = new ConnectDBCosty();
+
+	public CModelInfo()
+	{
+		//
+		// TODO: Add constructor logic here
+		//
+	}
+
+    public List<MModelMstr> GetModelMstr()
+    {
+        List<MModelMstr> oList = new List<MModelMstr>();
+
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT DISTINCT Model,ModelCode FROM [PN_Compressor] ORDER BY Model ";
+        DataTable dt = oConn.SqlGet(sql,"DBSCM");
+        foreach (DataRow item in dt.Rows)
+        {
+            MModelMstr oModel = new MModelMstr();
+            oModel.ModelName = item["Model"].ToString();
+            oModel.ModelCode = item["ModelCode"].ToString();
+            oList.Add(oModel);
+        }
+
+        return oList;
+    }
+
+    public DataTable GetModelAll(string BoardID)
+    {
+        string Line = "6";
+        if (BoardID == "301")
+        {
+            Line = "6";
+        }
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT DISTINCT Model,ModelCode FROM [PN_Compressor] WHERE Status = 'ACTIVE' AND Line = '"+Line+"' ";
+        DataTable dtModel = oConn.SqlGet(sql, "DBSCM");
+        return dtModel;
+    }
+
+    public DataTable GetModelByModelType (string ModelType)
+    {
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT DISTINCT Model,ModelCode FROM [PN_Compressor] WHERE Status = 'ACTIVE' AND ModelType = '"+ModelType+"'";
+        DataTable dt = oConn.SqlGet(sql, "DBSCM");
+        return dt;
+    }
+
+    public DataTable GetModelType()
+    {
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT DISTINCT ModelType FROM [PN_Compressor] WHERE Status = 'ACTIVE'";
+        DataTable dt = oConn.SqlGet(sql, "DBSCM");
+        return dt;
+    }
+}

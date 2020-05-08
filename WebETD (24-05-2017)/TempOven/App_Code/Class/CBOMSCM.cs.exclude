@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CBOMSCM
+/// </summary>
+public class CBOMSCM
+{
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    public CBOMSCM()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public DataTable GetRawMatByModel (string BoardID)
+    {
+        DataTable dtRM = new DataTable();
+        dtRM.Columns.Add("Model", typeof(string));
+        dtRM.Columns.Add("Drawing", typeof(string));
+        dtRM.Columns.Add("Qty", typeof(decimal));
+        string Model = "";
+   //     string Line = "1";
+        if (BoardID == "301")
+        {
+          //  Line = "6";
+            Model = "'1YC15BXD','1YC20HXD','1YC22DXD/3'";
+        }
+
+        SqlCommand sqlBOMSCM = new SqlCommand();
+        sqlBOMSCM.CommandText = "SELECT pt_Model, pt_Compo, SUM (pt_Qty) AS Qty FROM [pt_bom] WHERE pt_Model IN (" + Model + ") AND pt_Status = 'use' AND pt_Typedrawing = 'RM' GROUP BY pt_Model,pt_Compo,pt_Qty";
+        DataTable dtBOM = oConn.SqlGet(sqlBOMSCM, "DBSCM");
+        if (dtBOM.Rows.Count > 0)
+        {
+            foreach (DataRow _row in dtBOM.Rows)
+            {
+                DataRow _rowRM = dtRM.NewRow();
+                _rowRM["Model"] = _row["pt_Model"].ToString();
+                _rowRM["Drawing"] = _row["pt_Compo"].ToString();
+                _rowRM["Qty"] = Convert.ToDecimal(_row["Qty"].ToString());
+                dtRM.Rows.Add(_rowRM);
+            }
+        }
+        
+        return dtRM;
+
+    }
+}

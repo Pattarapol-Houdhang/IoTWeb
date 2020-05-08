@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Data.SqlClient;
+using System.Web;
+
+/// <summary>
+/// Summary description for CLineEfficeincy
+/// </summary>
+public class CLineEfficeincy
+{
+    ConnectDBCosty oConnCosty = new ConnectDBCosty();
+    public CLineEfficeincy()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public DataTable GetEffLine(string BoardId)
+    {
+        DataTable dtLineEff = new DataTable();
+        dtLineEff.Columns.Add("Line", typeof(string));
+        dtLineEff.Columns.Add("Actual", typeof(int));
+        dtLineEff.Columns.Add("Plan", typeof(int));
+        dtLineEff.Columns.Add("Eff", typeof(decimal));
+
+        SqlCommand sql = new SqlCommand();
+        sql.CommandText = "SELECT TOP 1 [LogTime],dl.[BoardId],[DailyPlan],[Plan_],[Actual],[Diff],[Shift],"+
+            " [Status],[BreakDown],lm.[LineName]" +
+            " FROM [DataLog] dl LEFT JOIN [PD_LineMstr] lm ON dl.[BoardId] = lm.[BoardId]" +
+            " WHERE dl.BoardId = '" + BoardId + "' ORDER BY LogTime DESC";
+        DataTable dtTable = oConnCosty.SqlGet(sql, "dbPDB");
+        if (dtTable.Rows.Count > 0)
+        {
+            foreach (DataRow _row in dtTable.Rows)
+            {
+                DataRow _rowLine = dtLineEff.NewRow();
+                _rowLine["Line"] = _row["LineName"].ToString();
+                _rowLine["Actual"] = Convert.ToInt32(_row["Actual"].ToString());
+                _rowLine["Plan"] = Convert.ToInt32(_row["Plan_"].ToString());
+                decimal Eff = 0;
+                Eff = (Convert.ToDecimal(_row["Actual"].ToString()) * 100) / Convert.ToDecimal(_row["Plan_"].ToString());
+                Eff = Math.Round(Eff, 2);
+                _rowLine["Eff"] = Eff;
+                dtLineEff.Rows.Add(_rowLine);
+            }
+        }
+        return dtLineEff;
+    }
+}

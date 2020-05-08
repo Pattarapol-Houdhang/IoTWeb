@@ -1,0 +1,269 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CMaterailInfo
+/// </summary>
+public class CMaterailInfo
+{
+    CultureInfo cu = new CultureInfo("en-US");
+    CPDData oPD = new CPDData();
+    CBOMSCM oBOM = new CBOMSCM();
+
+    public CMaterailInfo()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public List<MMaterail> GetChartMaterail(string BoardID, int Month)
+    {
+        List<MMaterail> oListMate = new List<MMaterail>();
+        DateTime setDate = new DateTime(DateTime.Now.Year, Month, 1);
+        DataTable dtMaterailCSV = ReadCSVMat(Month);
+        if (dtMaterailCSV.Rows.Count > 0)
+        {
+            for (int i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, Month); i++)
+            {
+                decimal Qty = 0, Price = 0;
+                decimal Model1OK = 0, Model2OK = 0, Model3OK = 0, Model4OK = 0, Model1NG = 0, Model2NG = 0, Model3NG = 0, Model4NG = 0;
+                decimal Model1CostMat = 0, Model2CostMat = 0, Model3CostMat = 0;
+                decimal CostModel1 = 0, CostModel2 = 0, CostModel3 = 0, CostModel4 = 0;
+                decimal CostUnit = 0, priceAll = 0, stdCostUnit = 0;
+                MMaterail oitemMate = new MMaterail();
+                oitemMate.Date = setDate.Day.ToString("00");
+
+                if (BoardID == "301")
+                {
+                    oitemMate.ModelName1 = "1YC22DXD";
+                    oitemMate.ModelName2 = "1YC15BXD";
+                    oitemMate.ModelName3 = "1YC20HXD";
+
+                    //------------------ Autual OK NG 301 ----------------
+                    DataTable dtPDResultOK = oPD.GetDataMainFac3OKNG("OK", setDate);
+                    DataTable dtPDResultNG = oPD.GetDataMainFac3OKNG("NG", setDate);
+
+                    DataRow[] _fill1OK = dtPDResultOK.Select("ModelNo = '121'");
+                    DataRow[] _fill2OK = dtPDResultOK.Select("ModelNo = '442'");
+                    DataRow[] _fill3OK = dtPDResultOK.Select("ModelNo = '444'");
+                    DataRow[] _fill1NG = dtPDResultNG.Select("ModelNo = '121'");
+                    DataRow[] _fill2NG = dtPDResultNG.Select("ModelNo = '442'");
+                    DataRow[] _fill3NG = dtPDResultNG.Select("ModelNo = '444'");
+
+                    Model1OK = _fill1OK.Length; Model2OK = _fill2OK.Length; Model3OK = _fill3OK.Length; Model1NG = _fill1NG.Length;
+                    Model2NG = _fill2NG.Length; Model3NG = _fill3NG.Length;
+                    //------------------ Autual OK NG 301 ----------------
+
+                    //--------------- Standard Cost Material ----------------
+                    DataRow[] _fillCost1 = dtMaterailCSV.Select("Drawing = '1YC22DXD/3' AND CostElement = 'Material'");
+                    Model1CostMat = _fillCost1.Length > 0 ? Convert.ToDecimal(_fillCost1[0]["Total"].ToString()) : 0;
+                    DataRow[] _fillCost2 = dtMaterailCSV.Select("Drawing = '1YC15BXD' AND CostElement = 'Material'");
+                    Model2CostMat = _fillCost2.Length > 0 ? Convert.ToDecimal(_fillCost2[0]["Total"].ToString()) : 0;
+                    DataRow[] _fillCost3 = dtMaterailCSV.Select("Drawing = '1YC20HXD' AND CostElement = 'Material'");
+                    Model3CostMat = _fillCost3.Length > 0 ? Convert.ToDecimal(_fillCost3[0]["Total"].ToString()) : 0;
+
+                    //--------------- Cost Materail / Day ----------------------
+                    CostModel1 = Model1OK > 0 ? ((Model1OK + Model1NG) * Model1CostMat) / Model1OK : 0;
+                    CostModel2 = Model2OK > 0 ? ((Model2OK + Model2NG) * Model2CostMat) / Model2OK : 0;
+                    CostModel3 = Model3OK > 0 ? ((Model3OK + Model3NG) * Model3CostMat) / Model3OK : 0;
+
+                    //--------------- Calculate Total Money Use -------------------
+                    oitemMate.ModelPD1 = (Model1OK + Model1NG) * Convert.ToDecimal(734.92);
+                    oitemMate.ModelPD2 = (Model2OK + Model2NG) * Convert.ToDecimal(655.88);
+                    oitemMate.ModelPD3 = (Model3OK + Model3NG) * Convert.ToDecimal(746.06);
+
+                    priceAll = (CostModel1 * (Model1OK + Model1NG)) + (CostModel2 * (Model2OK + Model2NG)) + (CostModel3 * (Model3OK + Model3NG));
+                    if ((Model1OK + Model2OK + Model3OK) > 0)
+                    {
+                        //------------------ Actual Cost/Unit ----------------------
+                        CostUnit = priceAll / Convert.ToInt16(Model1OK + Model2OK + Model3OK) + Convert.ToInt16(Model1NG + Model2NG + Model3NG);
+
+                        //------------------ Standard Cost/Unit --------------------
+                        stdCostUnit = priceAll / (Convert.ToInt16(Model1OK + Model2OK + Model3OK));
+                    }
+                    
+                }
+
+                //----------------------- Cost/Unit Each Model -----------------
+                decimal costModel1 = Model1OK > 0 ? ((Model1OK + Model1NG) * Model1CostMat) / (Model1OK) : 0;
+                decimal costModel2 = Model2OK > 0 ? ((Model2OK + Model2NG) * Model2CostMat) / (Model2OK) : 0;
+                decimal costModel3 = Model3OK > 0 ? ((Model3OK + Model3NG) * Model3CostMat) / (Model3OK) : 0;
+
+                oitemMate.Usage = Math.Round(Qty, 2);
+                oitemMate.Model1 = null;
+                oitemMate.Model2 = null;
+                oitemMate.Model3 = null;
+                if (costModel1 > 0)
+                {
+                    oitemMate.Model1 = Math.Round(costModel1, 2);
+                }
+                if (costModel2 > 0)
+                {
+                    oitemMate.Model2 = Math.Round(costModel2, 2);
+                }
+                if (costModel3 > 0)
+                {
+                    oitemMate.Model3 = Math.Round(costModel3, 2);
+                }
+                
+                
+                oitemMate.Model4 = Math.Round(CostModel4, 2);                
+                oitemMate.actualOK = Convert.ToInt16(Model1OK + Model2OK + Model3OK);
+                oitemMate.actualNG = Convert.ToInt16(Model1NG + Model2NG + Model3NG);
+                oitemMate.CostUnit = Math.Round(CostUnit,2);
+                oitemMate.StandCostUnit = Math.Round(stdCostUnit, 2);
+
+                if (Month == DateTime.Now.Month)
+                {
+                    if (setDate.Day > DateTime.Now.Day)
+                    {
+                        oitemMate.Usage = null;
+                        oitemMate.CostUnit = null;
+                        oitemMate.Model1 = null;
+                        oitemMate.Model2 = null;
+                        oitemMate.Model3 = null;
+                        oitemMate.Model4 = null;
+                        oitemMate.actualOK = null;
+                        oitemMate.actualNG = null;
+                        oitemMate.StandCostUnit = null;
+                        oitemMate.ModelPD1 = null;
+                        oitemMate.ModelPD2 = null;
+                        oitemMate.ModelPD3 = null;
+                    }
+                }
+
+                setDate = setDate.AddDays(1);
+                oListMate.Add(oitemMate);
+
+            }
+        }
+
+        return oListMate;
+    }
+
+    public List<MMaterailYearly> GetChartMaterailMonth(string BoardID, int Month, int Year)
+    {
+        List<MMaterailYearly> oListMate = new List<MMaterailYearly>();
+        DataTable dtMaterailCSV = ReadCSVMat(Month);
+        if (dtMaterailCSV.Rows.Count > 0)
+        {
+            for (int i = 1; i <= 12; i++)
+            {
+                decimal Model1OK = 0, Model2OK = 0, Model3OK = 0, Model4OK = 0;
+                decimal Model1CostMat = 0, Model2CostMat = 0, Model3CostMat = 0;
+                decimal CostModel1 = 0, CostModel2 = 0, CostModel3 = 0;
+
+                MMaterailYearly _itemMatYear = new MMaterailYearly();
+                _itemMatYear.Month = i.ToString("00");
+                _itemMatYear.Year = Year.ToString();
+                if (BoardID == "301")
+                {
+                    _itemMatYear.ModelName1 = "22D";
+                    _itemMatYear.ModelName2 = "15B";
+                    _itemMatYear.ModelName3 = "20H";
+                    //----------------- Actual of Month each Model --------------------
+                    DataTable ActualMonth = oPD.GetActualMainFac3ofMonthEachModel(i, Year);
+                    DataRow[] _fillActualModel1 = ActualMonth.Select("ModelNo = '121'");
+                    Model1OK = _fillActualModel1.Length;
+                    DataRow[] _fillActualModel2 = ActualMonth.Select("ModelNo = '442'");
+                    Model2OK = _fillActualModel2.Length;
+                    DataRow[] _fillActualModel3 = ActualMonth.Select("ModelNo = '444'");
+                    Model3OK = _fillActualModel3.Length;
+
+                    //--------------- Standard Cost Material/Unit ----------------
+                    DataRow[] _fillCost1 = dtMaterailCSV.Select("Drawing = '1YC22DXD/3' AND CostElement = 'Material'");
+                    Model1CostMat = _fillCost1.Length > 0 ? Convert.ToDecimal(_fillCost1[0]["Total"].ToString()) : 0;
+                    DataRow[] _fillCost2 = dtMaterailCSV.Select("Drawing = '1YC15BXD' AND CostElement = 'Material'");
+                    Model2CostMat = _fillCost2.Length > 0 ? Convert.ToDecimal(_fillCost2[0]["Total"].ToString()) : 0;
+                    DataRow[] _fillCost3 = dtMaterailCSV.Select("Drawing = '1YC20HXD' AND CostElement = 'Material'");
+                    Model3CostMat = _fillCost3.Length > 0 ? Convert.ToDecimal(_fillCost3[0]["Total"].ToString()) : 0;
+
+                    //----------- Cost/Unit : (Actual * Price)/Actual -------------
+                    CostModel1 = Model1OK > 0 ? (Model1OK * Model1CostMat) : 0;
+                    CostModel2 = Model2OK > 0 ? (Model2OK * Model2CostMat) : 0;
+                    CostModel3 = Model3OK > 0 ? (Model3OK * Model3CostMat) : 0;
+
+                    if (ActualMonth.Rows.Count > 0)
+                    {
+                        _itemMatYear.CostUnitMonth = Convert.ToDouble((CostModel1 + CostModel2 + CostModel3)) / Convert.ToDouble((Model1OK + Model2OK + Model3OK));
+
+                        _itemMatYear.CostUnitMonth1 = Model1OK > 0 ? (Convert.ToDouble((CostModel1) / Model1OK)) : 0;
+                        _itemMatYear.CostUnitMonth2 = Model2OK > 0 ? (Convert.ToDouble((CostModel2) / Model2OK)) : 0;
+                        _itemMatYear.CostUnitMonth3 = Model3OK > 0 ? (Convert.ToDouble((CostModel3) / Model3OK)) : 0;
+                    }
+                }
+
+                if (i > DateTime.Now.Month)
+                {
+                    _itemMatYear.CostUnitMonth = null;
+                    _itemMatYear.CostUnitMonth1 = null;
+                    _itemMatYear.CostUnitMonth2 = null;
+                    _itemMatYear.CostUnitMonth3 = null;
+                }
+
+                oListMate.Add(_itemMatYear);
+
+            }
+        }
+
+        return oListMate;
+    }
+
+    private DataTable ReadCSVMat(int Month)
+    {
+        CUNCAccess.UNCAccess oUNC = new CUNCAccess.UNCAccess(@"\\192.168.226.19\d$\LineCost", "Administrator", "dciserver_", " dceiaoahpea");
+
+        oUNC.login(@"\\192.168.226.19\d$\LineCost", "administrator", "dciserver_", " dceiaoahpea");
+
+        string fileYear = DateTime.Now.Year.ToString();
+        //Upload and save the file 
+        string csvPath = "";
+        csvPath = @"\\192.168.226.19\d$\LineCost\StandardCostFY" + fileYear + ".csv";
+        //FileUpload1.SaveAs(csvPath);
+
+        //Create a DataTable.  
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Drawing", typeof(string));
+        dt.Columns.Add("Desc", typeof(string));
+        dt.Columns.Add("CostElement", typeof(string));
+        dt.Columns.Add("CostSet", typeof(string));
+        dt.Columns.Add("ThisLevel", typeof(string));
+        dt.Columns.Add("LowLevel", typeof(string));
+        dt.Columns.Add("Total", typeof(string));
+
+        //Read the contents of CSV file.  
+        try
+        {
+            string csvData = File.ReadAllText(csvPath);
+
+            int idxRow = 0;
+            //Execute a loop over the rows.  
+            foreach (string row in csvData.Split('\n'))
+            {
+                if (!string.IsNullOrEmpty(row))
+                {
+                    dt.Rows.Add();
+                    int i = 0;
+
+                    //Execute a loop over the columns.  
+                    foreach (string cell in row.Replace("\"", "").Split(','))
+                    {
+                        dt.Rows[dt.Rows.Count - 1][i] = cell;
+                        i++;
+                    }
+                }
+            }
+        }
+        catch (Exception e) { }
+
+        oUNC.NetUseDelete();
+
+        return dt;
+    }
+}

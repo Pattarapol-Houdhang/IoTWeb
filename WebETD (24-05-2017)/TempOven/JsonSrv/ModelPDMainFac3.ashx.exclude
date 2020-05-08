@@ -1,0 +1,33 @@
+﻿<%@ WebHandler Language="C#" Class="ModelPDMainFac3" %>
+
+using System;
+using System.Web;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+
+public class ModelPDMainFac3 : IHttpHandler {
+
+    CPDData oPD = new CPDData();
+
+    public void ProcessRequest (HttpContext context) {
+        context.Response.ContentType = "text/plain";
+
+        string BoardID = context.Request.QueryString["board"] != null ? context.Request.QueryString["Board"].ToString() : "301";
+        int month = context.Request.QueryString["month"] != null ? Convert.ToInt16(context.Request.QueryString["month"].ToString()) : DateTime.Now.Month;
+
+        List<MModelPDMainFac3> oList = new List<MModelPDMainFac3>();
+        oList = oPD.GetModelProductionFromMainFac3(DateTime.Now);
+
+        var jsonSerialiser = new JavaScriptSerializer();
+        var json = jsonSerialiser.Serialize(oList);
+
+        context.Response.Write(json);
+    }
+
+    public bool IsReusable {
+        get {
+            return false;
+        }
+    }
+
+}

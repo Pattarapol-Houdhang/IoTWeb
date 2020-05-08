@@ -1,0 +1,332 @@
+﻿<%@ WebHandler Language="C#" Class="CuttingToolsSrv" %>
+
+using System;
+using System.Web;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+using System.Data;
+using System.Data.SqlClient;
+using System.Globalization;
+
+public class CuttingToolsSrv : IHttpHandler
+{
+
+    CCuttingToolsInfo oCTSP = new CCuttingToolsInfo();
+    CEnergyInfo oEnergy = new CEnergyInfo();
+    CMaterailInfo oMat = new CMaterailInfo();
+    CMachineInfo oMac = new CMachineInfo();
+    CPDData oPD = new CPDData();
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    CTargetInfo oTarget = new CTargetInfo();
+    CModelCost oModel = new CModelCost();
+    CultureInfo cu = new CultureInfo("en-US");
+
+    public void ProcessRequest(HttpContext context)
+    {
+        context.Response.ContentType = "text/plain";
+        string Month = context.Request.QueryString["month"] != null ? context.Request.QueryString["month"].ToString() : DateTime.Now.Month.ToString();
+        string GetMonthly = context.Request.QueryString["monthly"] != null ? context.Request.QueryString["monthly"].ToString() : "";
+        string Year = context.Request.QueryString["year"] != null ? context.Request.QueryString["year"].ToString() : DateTime.Now.Year.ToString();
+        string Board = context.Request.QueryString["board"] != null ? context.Request.QueryString["board"].ToString() : "301";
+        string ModelCost = context.Request.QueryString["modelcost"] != null ? context.Request.QueryString["modelcost"].ToString() : "false";
+        DateTime setDate = new DateTime(DateTime.Now.Year, Convert.ToInt16(Month), 1, 0, 0, 0);
+        List<MModelCostInfo> oListCostModelDay = new List<MModelCostInfo>();
+
+        //--------------- Check for get Chart Total Cost or Model Cost -----------------
+        if (ModelCost != "true")
+        {
+            //---------- Monthly = false is Get Chart for Daily of Month / Monthly = true is Get chart for Monthly of Year ------------------
+            if (GetMonthly != "true")
+            {
+                //--------------- Target of Daily --------------
+                double target = oTarget.GetTargetChart("Daily", "Total Cost");
+                List<MModelCostInfo> oListModel = new List<MModelCostInfo>();
+                oListModel = GetChartDay(setDate, Board, Month, Year);
+                var jsonSerialiser = new JavaScriptSerializer();
+                var json = jsonSerialiser.Serialize(oListModel);
+                context.Response.Write(json);
+            }
+            else
+            {
+                //--------------------- Get Data Yearly -----------------------/
+                List<MModelCostYearly> oListModel = new List<MModelCostYearly>();
+                oListModel = GetChartMonth(setDate, Board, Month, Year);
+                var jsonSerialiser = new JavaScriptSerializer();
+                var json = jsonSerialiser.Serialize(oListModel);
+                context.Response.Write(json);
+            }
+        }
+        else
+        {
+            //---------------- Get Chart Model Cost -----------------
+            List<MCompressorModelCost> oListModelCost = new List<MCompressorModelCost>();
+            oListModelCost = oModel.GetModelCostChart("", Board, Convert.ToInt16(Month), Convert.ToInt16(Year));
+            if (oListModelCost.Count > 0)
+            {
+                decimal CostModel = 0;
+                //-------------- Foreach for get total cost in this day ------------------
+                oListCostModelDay = GetChartDay(setDate, Board, Month, Year);
+                foreach (MModelCostInfo item in oListCostModelDay)
+                {
+                    if (item.Date == DateTime.Now.ToString("dd"))
+                    {
+                        CostModel = Convert.ToDecimal(item.CostTotal);
+                        break;
+                    }
+                }
+
+                //------------ Foreach for get Cost and CostUnit each Model ---------------
+                foreach (MCompressorModelCost item in oListModelCost)
+                {
+                    if (item.ActualModel1 > 0)
+                    {
+                        item.Cost1 = item.ActualModel1 * CostModel;
+                        item.CostUnit1 = (item.ActualModel1 * CostModel) / item.ActualModel1;
+                    }
+
+                    if (item.ActualModel2 > 0)
+                    {
+                        item.Cost2 = item.ActualModel2 * CostModel;
+                        item.CostUnit2 = (item.ActualModel2 * CostModel) / item.ActualModel2;
+                    }
+
+                    if (item.ActualModel3 > 0)
+                    {
+                        item.Cost3 = item.ActualModel3 * CostModel;
+                        item.CostUnit3 = (item.ActualModel3 * CostModel) / item.ActualModel3;
+                    }
+                }
+            }
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(oListModelCost);
+            context.Response.Write(json);
+        }
+    }
+
+    public List<MModelCostYearly> GetChartMonth (DateTime setDate,string Board,string Month,string Year)
+    {
+        List<MModelCostYearly> oListModel = new List<MModelCostYearly>();
+
+        //--------------- Target of Monthly --------------
+        double target = oTarget.GetTargetChart("Monthly", "Total Cost");
+        //--------------- Get Data CTSP Cost -------------------
+        List<MCTSPInfo> oListCTSP = new List<MCTSPInfo>();
+        oListCTSP = oCTSP.GetChartCuttingTools(setDate, Board, "day", Convert.ToInt16(Year));
+        //--------------- Get Data CTSP Cost -------------------
+
+        //--------------- Get Energy Cost -----------------
+        List<MEnergyMonth> oListEnergy = new List<MEnergyMonth>();
+        oListEnergy = oEnergy.GetChartEnergyMonth(Convert.ToInt32(Month), Convert.ToInt16(Year), Board);
+        //--------------- Get Energy Cost -----------------
+
+        //--------------- Get Materail Cost -----------------
+        List<MMaterailYearly> oListMaterail = new List<MMaterailYearly>();
+        oListMaterail = oMat.GetChartMaterailMonth(Board, Convert.ToInt32(Month), Convert.ToInt16(Year));
+        //--------------- Get Materail Cost -----------------
+
+        //---------------- Get Machine Cost ---------------
+        List<MMachineCostInfo> oListMachine = new List<MMachineCostInfo>();
+        oListMachine = oMac.GetChartMachineCost("month", Board, Convert.ToInt32(Month), Convert.ToInt32(Year));
+        int Actual = 0;
+        //---------------- Get Machine Cost ---------------
+
+
+        for (int i = 1; i <= 12; i++)
+        {
+            DateTime dateShow = new DateTime(Convert.ToInt32(Year), i, 1);
+            if (Board == "301")
+            {
+                Actual = oPD.GetActualMainFac3ofMonth(i, Convert.ToInt16(Year));
+
+                if (i == DateTime.Now.Month)
+                {
+
+                }
+                DataTable dtActual = oPD.GetDataActualOfMonth(Board, Convert.ToInt32(Month), Convert.ToInt32(Year));
+            }
+
+            int DayofMonth = DateTime.DaysInMonth(Convert.ToInt16(Year), i);
+
+            setDate = setDate.AddDays(i);
+            MModelCostYearly oitemModel = new MModelCostYearly();
+            oitemModel.Month = dateShow.ToString("MMM",cu).ToUpper();
+            oitemModel.CostTotal = 0;
+            oitemModel.Target = null;// target;
+            //-------------------- CTSP Cost --------------------
+            if (oListCTSP.Count > 0)
+            {
+                oitemModel.CostCTSP = Math.Round(Convert.ToDouble(oListCTSP[i - 1].CostUnitMonth), 2);
+                oitemModel.CostTotal += Convert.ToDouble(oitemModel.CostCTSP);
+            }
+            //-------------------- CTSP Cost --------------------
+
+            //------------------ Manpower Cost -----------------
+            double MPYear = 400000 * 33; //--------- Calculate from 400,000 / Person / Day
+            double MPMonth = MPYear / 12;
+            double MPDay = MPMonth / DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt16(Month));
+            double MPSum = 0;
+            double CostMPMonth = (MPDay / Actual) * DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt16(Month));
+            MPSum = i == DateTime.Now.Month ? MPDay * DateTime.Now.Day : MPDay * DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt16(Month));
+            CostMPMonth = MPSum / Actual;
+
+            oitemModel.CostMP = Math.Round(CostMPMonth, 2);
+            oitemModel.CostTotal += oitemModel.CostMP;
+            //------------------ Manpower Cost -----------------
+
+            //-------------------- Energy Cost --------------------
+            if (oListEnergy.Count > 0)
+            {
+                oitemModel.CostEnergy = Math.Round(((Convert.ToDouble(oListEnergy[i - 1].CostEnergy) / Actual) * 3.86), 2);
+                oitemModel.CostTotal += oitemModel.CostEnergy;
+            }
+            //-------------------- Energy Cost --------------------
+
+            //-------------------- Materail Cost -------------------
+            if (oListMaterail.Count > 0)
+            {
+                if (Actual == 0)
+                {
+                    oitemModel.CostMaterail = 0;
+                }
+                else
+                {
+                    oitemModel.CostMaterail = Math.Round((Convert.ToDouble(oListMaterail[i - 1].CostUnitMonth)), 2);
+                }
+                oitemModel.CostTotal += oitemModel.CostMaterail;
+            }
+            //-------------------- Materail Cost -------------------
+
+            //-------------------- Machine Cost -------------------
+            if (oListMachine.Count > 0)
+            {
+                oitemModel.CostMachine = Actual > 0 ? Math.Round(Convert.ToDouble(oListMachine[i - 1].CostUnit), 2) : 0;
+            }
+            oitemModel.CostTotal += oitemModel.CostMachine;
+            //-------------------- Machine Cost -------------------
+
+            if (i > DateTime.Now.Month)
+            {
+                oitemModel.CostCTSP = null;
+                oitemModel.CostEnergy = null;
+                oitemModel.CostMachine = null;
+                oitemModel.CostMaterail = null;
+                oitemModel.CostMP = null;
+                oitemModel.CostTotal = null;
+            }
+            oListModel.Add(oitemModel);
+        }
+
+        return oListModel;
+    }
+
+    public List<MModelCostInfo> GetChartDay(DateTime setDate,string Board,string Month,string Year)
+    {
+        //--------------- Target of Daily --------------
+        double target = oTarget.GetTargetChart("Daily", "Total Cost");
+        List<MModelCostInfo> oListModel = new List<MModelCostInfo>();
+
+        //--------------- Get Data CTSP Cost -------------------
+        List<MCTSPInfo> oListCTSP = new List<MCTSPInfo>();
+        oListCTSP = oCTSP.GetChartCuttingTools(setDate, Board, "day", Convert.ToInt32(Year));
+        //--------------- Get Data CTSP Cost -------------------
+
+        //--------------- Get Energy Cost -----------------
+        List<MEnergyInfo> oListEnergy = new List<MEnergyInfo>();
+        oListEnergy = oEnergy.GetChartEnergy(Convert.ToInt32(Month), Board);
+        //--------------- Get Energy Cost -----------------
+
+        //--------------- Get Materail Cost -----------------
+        List<MMaterail> oListMaterail = new List<MMaterail>();
+        oListMaterail = oMat.GetChartMaterail(Board, Convert.ToInt32(Month));
+        //--------------- Get Materail Cost -----------------
+
+        //---------------- Get Machine Cost ---------------
+        List<MMachineCostInfo> oListMachine = new List<MMachineCostInfo>();
+        oListMachine = oMac.GetChartMachineCost("day", Board, Convert.ToInt32(Month), Convert.ToInt32(Year));
+        int Actual = 0;
+        //---------------- Get Machine Cost ---------------
+
+        for (int i = 0; i < DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt16(Month)); i++)
+        {
+            setDate = setDate.AddDays(i);
+            MModelCostInfo oitemModel = new MModelCostInfo();
+            oitemModel.Date = (i + 1).ToString("00");
+            oitemModel.CostTotal = 0;
+            oitemModel.Target = target;
+
+            //-------------------- CTSP Cost --------------------
+            if (oListCTSP.Count > 0)
+            {
+                oitemModel.CostCTSP = Convert.ToDouble(oListCTSP[i].CostUnit);
+                oitemModel.CostTotal += Convert.ToDouble(oListCTSP[i].CostUnit);
+            }
+            //-------------------- CTSP Cost --------------------
+
+            //-------------------- Energy Cost --------------------
+            if (oListEnergy.Count > 0)
+            {
+                oitemModel.CostEnergy = Convert.ToDouble(oListEnergy[i].CostKwh);
+                oitemModel.CostTotal += Convert.ToDouble(oListEnergy[i].CostKwh);
+            }
+            //-------------------- Energy Cost --------------------
+
+            Actual = oPD.GetActualByDate(Board, new DateTime(DateTime.Now.Year, Convert.ToInt32(Month), (i + 1), 0, 0, 0));
+            //-------------------- Materail Cost -------------------
+            if (oListMaterail.Count > 0)
+            {
+                if (Actual == 0)
+                {
+                    oitemModel.CostMaterail = 0;
+                }
+                else
+                {
+                    oitemModel.CostMaterail = Math.Round(Convert.ToDouble(oListMaterail[i].CostUnit), 2);
+                }
+                oitemModel.CostTotal += oitemModel.CostMaterail;
+            }
+            //-------------------- Materail Cost -------------------
+
+
+            //-------------------- Manpower Cost ---------------
+            int MPYear = 400000 * 33;
+            double MPMonth = MPYear / 12;
+            double MPDay = MPMonth / DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt16(Month));
+            double CostMPDay = MPDay / Actual;
+            oitemModel.CostMP = Math.Round(CostMPDay, 2);
+            oitemModel.CostTotal += oitemModel.CostMP;
+            //-------------------- Manpower Cost ---------------
+
+            //-------------------- Machine Cost -------------------
+            if (oListMachine.Count > 0)
+            {
+                oitemModel.CostMachine = Actual > 0 ? Math.Round(Convert.ToDouble(oListMachine[i].CostUnit), 2) : 0;
+            }
+            oitemModel.CostTotal += oitemModel.CostMachine;
+            //-------------------- Machine Cost -------------------
+
+            if (Convert.ToInt32(Month) >= DateTime.Now.Month)
+            {
+                if (i >= DateTime.Now.Day || Convert.ToInt32(Month) > DateTime.Now.Month)
+                {
+                    oitemModel.CostCTSP = null;
+                    oitemModel.CostEnergy = null;
+                    oitemModel.CostMachine = null;
+                    oitemModel.CostMaterail = null;
+                    oitemModel.CostMP = null;
+                    oitemModel.CostTotal = null;
+                }
+            }
+            oListModel.Add(oitemModel);
+        }
+        return oListModel;
+    }
+
+    public bool IsReusable
+    {
+        get
+        {
+            return false;
+        }
+    }
+
+}

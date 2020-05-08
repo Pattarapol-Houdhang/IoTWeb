@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for CModelCost
+/// </summary>
+public class CModelCost
+{
+    CPDData oPD = new CPDData();
+    ConnectDBCosty oConn = new ConnectDBCosty();
+    CMaterailInfo oMat = new CMaterailInfo();
+    public CModelCost()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public List<MCompressorModelCost> GetModelCostChart(string Type, string Board, int Month, int Year)
+    {
+        DateTime dateCost = DateTime.Now.Date + new TimeSpan(8, 0, 0);
+        List<MCompressorModelCost> oListModel = new List<MCompressorModelCost>();
+
+        if (Board == "301")
+        {
+            DataTable dtActual = oPD.GetDataMainFac3(Board, DateTime.Now);
+
+            List<MMaterail> _listMateial = oMat.GetChartMaterail(Board, Month);
+            for (int i = 1; i <= DateTime.DaysInMonth(Year,Month); i++)
+            {                
+                MCompressorModelCost _itemModel = new MCompressorModelCost();
+                _itemModel.Catagory = dateCost.ToString("dd");
+                _itemModel.Model1 = "22DXD";
+                _itemModel.Model2 = "15BXD";
+                _itemModel.Model3 = "20HXD";
+
+                DataRow[] _fillActualModel1 = dtActual.Select("InsertDate < '"+ dateCost.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss") + "' AND ModelNo = '121'");
+                DataRow[] _fillActualModel2 = dtActual.Select("InsertDate < '" + dateCost.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss") + "' AND ModelNo = '442'");
+                DataRow[] _fillActualModel3 = dtActual.Select("InsertDate < '" + dateCost.AddDays(1).ToString("yyyy-MM-dd HH:mm:ss") + "' AND ModelNo = '444'");
+
+                _itemModel.ActualModel1 = _fillActualModel1.Length;
+                _itemModel.ActualModel2 = _fillActualModel2.Length;
+                _itemModel.ActualModel3 = _fillActualModel3.Length;
+
+                _itemModel.TotalCost = 0;
+
+                oListModel.Add(_itemModel);
+                dateCost = dateCost.AddDays(1);
+            }            
+        }
+
+        return oListModel;
+    }
+
+}

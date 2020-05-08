@@ -1,0 +1,32 @@
+﻿<%@ WebHandler Language="C#" Class="MachineCostSrv" %>
+
+using System;
+using System.Web;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+
+public class MachineCostSrv : IHttpHandler {
+
+    public void ProcessRequest (HttpContext context) {
+        context.Response.ContentType = "text/plain";
+        string Month = context.Request.QueryString["month"] != null ? context.Request.QueryString["month"].ToString() : DateTime.Now.Month.ToString();
+        string Board = context.Request.QueryString["board"] != null ? context.Request.QueryString["board"].ToString() : "301";
+        string Year = context.Request.QueryString["year"] != null ? context.Request.QueryString["year"].ToString() : DateTime.Now.Year.ToString();
+        string Type = context.Request.QueryString["type"] != null ? context.Request.QueryString["type"].ToString() : "day";
+
+        CMachineInfo oMac = new CMachineInfo();
+        List<MMachineCostInfo> oList = new List<MMachineCostInfo>();
+        oList = oMac.GetChartMachineCost(Type, Board, Convert.ToInt16(Month), Convert.ToInt16(Year));
+        var jsonSerialiser = new JavaScriptSerializer();
+        var json = jsonSerialiser.Serialize(oList);
+        context.Response.Write(json);
+        
+    }
+
+    public bool IsReusable {
+        get {
+            return false;
+        }
+    }
+
+}

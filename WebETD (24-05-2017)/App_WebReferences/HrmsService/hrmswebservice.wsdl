@@ -1,0 +1,2716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CheckEmpSatisfy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmpSatisfyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckEmpSatisfyResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EmpSatisfy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empStf" type="tns:SatisfyDataInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SatisfyDataInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SatisfyId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmpCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Choice" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Satisfydate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EmpSatisfyResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetActiveSatisfyMainMaster">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetActiveSatisfyMainMasterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetActiveSatisfyMainMasterResult" type="tns:SatisfyMainInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SatisfyMainInfo">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ObjectInfo">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SatisfyMainId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SatisfyMainName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Active" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="StartVote" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="EndVote" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ObjectInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CreateBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreateDateTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastUpdateBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdateDateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SelectSatisfyMaster">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="stfMainId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectSatisfyMasterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectSatisfyMasterResult" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SelectSatisfyMasterUnq">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="stfId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectSatisfyMasterUnqResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectSatisfyMasterUnqResult" type="tns:SatisfyMasterInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SatisfyMasterInfo">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ObjectInfo">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch1Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch2Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch3Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch4Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch5Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch6Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch7Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch8Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch9Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ch10Picture" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SatisfyId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SatisfyName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SatifyMainId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice2" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice3" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice4" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice5" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice6" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice7" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice8" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice9" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Choice10" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Active" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetEmployeeData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="HospitalInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameEng" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameThai" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalEmployee" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DivisionInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Remark" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShortName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:DivisionType" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalEmployees" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DivisionOwner" type="tns:DivisionInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="DivisionChild" type="tns:ArrayOfAnyType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfAnyType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="DivisionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Department" />
+          <s:enumeration value="Section" />
+          <s:enumeration value="Group" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PositionInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameEng" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameThai" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalEmployee" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EducationInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DegreeType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Degree" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MajorInEng" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MajorInThai" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SchoolInEng" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SchoolInThai" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GraduateYear" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subdistrict" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="District" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Province" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Telephone" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NameInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Surname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NickName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmployeeDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeDataResult" type="tns:EmployeeInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EmployeeInfo">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PersonInfo">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Position" type="tns:PositionInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="Division" type="tns:DivisionInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="Hospital" type="tns:HospitalInfo" />
+              <s:element minOccurs="1" maxOccurs="1" name="JoinDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="ResignDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProbationDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="ResignType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ResignReason" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RsRemark" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="WorkGroupLine" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="OtType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="OtGroupLine" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="WorkType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EmployeeType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Bus" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BusStop" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BusWay" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BusStopName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Bank" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExtensionNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FamilyMember" type="tns:ArrayOfAnyType" />
+              <s:element minOccurs="0" maxOccurs="1" name="WorkHistory" type="tns:ArrayOfAnyType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Costcenter" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tposijoin" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="AnnualcalDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tposiname" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PersonInfo">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ObjectInfo">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="GenderTH" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="NameInThai" type="tns:NameInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="NameInEng" type="tns:NameInfo" />
+              <s:element minOccurs="1" maxOccurs="1" name="BirthDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="CitizenId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IdcardIssueDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="TaxId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Religion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MarryStatus" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Sons" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Sonb" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="MilitaryStatus" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TaxNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PresentAddressInThai" type="tns:AddressInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="PresentAddressInEng" type="tns:AddressInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="HomeAddressInThai" type="tns:AddressInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="HomeAddressInEng" type="tns:AddressInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="Education" type="tns:EducationInfo" />
+              <s:element minOccurs="0" maxOccurs="1" name="Remark" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RefPerson1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RefContact1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RefPerson2" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RefContact2" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetEmployeeDataByPosit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="positCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEmployeeInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EmployeeInfo" nillable="true" type="tns:EmployeeInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmployeeDataByPositResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeDataByPositResult" type="tns:ArrayOfEmployeeInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDivisionInformation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dvcd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDivisionInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDivisionInformationResult" type="tns:DivisionInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMonthShift">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="yearmonth" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MonthShiftInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShiftData" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GroupStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="YearMonth" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMonthShiftResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMonthShiftResult" type="tns:MonthShiftInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDateShift">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="date" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDateShiftResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDateShiftResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWorkingHour">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="shift" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WorkingHourInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DayOfWeek" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Shift" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstStart" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstEnd" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstTotal" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecondStart" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecondEnd" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="SecondTotal" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetWorkingHourResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWorkingHourResult" type="tns:WorkingHourInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeMonthShift">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="yearmonth" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EmployeeShiftInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="YearMonth" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmpCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShiftData" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShiftO" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmployeeMonthShiftResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeMonthShiftResult" type="tns:EmployeeShiftInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeShift">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="shiftDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeShiftResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeShiftResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeDataForSF">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeDataForSFResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeDataForSFResult" type="tns:EmployeeInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindAllEmployee">
+        <s:complexType />
+      </s:element>
+      <s:element name="FindAllEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindAllEmployeeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeLeave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dt" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="leaveType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EmployeeLealeRequestInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmpCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LvDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="LvType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LvFrom" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LvTo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalHour" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalMinute" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PayStatus" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LvNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reason" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEmployeeLealeRequestInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EmployeeLealeRequestInfo" nillable="true" type="tns:EmployeeLealeRequestInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmployeeLeaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeLeaveResult" type="tns:ArrayOfEmployeeLealeRequestInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLeaveType">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="BasicInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DescriptionTh" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DetailEn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DetailTh" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBasicInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BasicInfo" nillable="true" type="tns:BasicInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllLeaveTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllLeaveTypeResult" type="tns:ArrayOfBasicInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLeaveDataSet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="leaveFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="leaveTo" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLeaveDataSetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllLeaveDataSetResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLeaveTotal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="caldate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LeaveTotal">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LvTotal" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Time" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLeaveTotal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LeaveTotal" nillable="true" type="tns:LeaveTotal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllLeaveTotalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllLeaveTotalResult" type="tns:ArrayOfLeaveTotal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAnnualTotal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="emcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="caldate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AnnualTotal">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Total" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="FullTotal" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Get" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Use" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Remain" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnnualTotal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AnnualTotal" nillable="true" type="tns:AnnualTotal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAnnualTotalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAnnualTotalResult" type="tns:ArrayOfAnnualTotal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableSpaceData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="dtFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dtTo" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTableSpaceDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTableSpaceDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetmanpowerByGrpot">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pdate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="posit" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="grpot" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetmanpowerByGrpotResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetmanpowerByGrpotResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetManpowerForBC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pdate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetManpowerForBCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetManpowerForBCResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetManpowerForBC1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pdate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="pDvcd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetManpowerForBC1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetManpowerForBC1Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOTSumaryForBC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pdate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOTSumaryForBCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOTSumaryForBCResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOTSummaryForBCDVCD">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pdate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="pdvcd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOTSummaryForBCDVCDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOTSummaryForBCDVCDResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmpCardIssue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmpCardIssueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetEmpCardIssueResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenEmpCardIssue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenEmpCardIssueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GenEmpCardIssueResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenEmpCardIssue1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="empCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="empName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenEmpCardIssue1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GenEmpCardIssue1Result" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="SatisfyMainInfo" nillable="true" type="tns:SatisfyMainInfo" />
+      <s:element name="ArrayOfAnyType" nillable="true" type="tns:ArrayOfAnyType" />
+      <s:element name="SatisfyMasterInfo" nillable="true" type="tns:SatisfyMasterInfo" />
+      <s:element name="EmployeeInfo" nillable="true" type="tns:EmployeeInfo" />
+      <s:element name="ArrayOfEmployeeInfo" nillable="true" type="tns:ArrayOfEmployeeInfo" />
+      <s:element name="DivisionInfo" nillable="true" type="tns:DivisionInfo" />
+      <s:element name="MonthShiftInfo" nillable="true" type="tns:MonthShiftInfo" />
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="WorkingHourInfo" nillable="true" type="tns:WorkingHourInfo" />
+      <s:element name="EmployeeShiftInfo" nillable="true" type="tns:EmployeeShiftInfo" />
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfEmployeeLealeRequestInfo" nillable="true" type="tns:ArrayOfEmployeeLealeRequestInfo" />
+      <s:element name="ArrayOfBasicInfo" nillable="true" type="tns:ArrayOfBasicInfo" />
+      <s:element name="ArrayOfLeaveTotal" nillable="true" type="tns:ArrayOfLeaveTotal" />
+      <s:element name="ArrayOfAnnualTotal" nillable="true" type="tns:ArrayOfAnnualTotal" />
+      <s:element name="DataTable" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="int" type="s:int" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckEmpSatisfySoapIn">
+    <wsdl:part name="parameters" element="tns:CheckEmpSatisfy" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmpSatisfySoapOut">
+    <wsdl:part name="parameters" element="tns:CheckEmpSatisfyResponse" />
+  </wsdl:message>
+  <wsdl:message name="EmpSatisfySoapIn">
+    <wsdl:part name="parameters" element="tns:EmpSatisfy" />
+  </wsdl:message>
+  <wsdl:message name="EmpSatisfySoapOut">
+    <wsdl:part name="parameters" element="tns:EmpSatisfyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveSatisfyMainMasterSoapIn">
+    <wsdl:part name="parameters" element="tns:GetActiveSatisfyMainMaster" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveSatisfyMainMasterSoapOut">
+    <wsdl:part name="parameters" element="tns:GetActiveSatisfyMainMasterResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectSatisfyMaster" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectSatisfyMasterResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterUnqSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectSatisfyMasterUnq" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterUnqSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectSatisfyMasterUnqResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeData" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataByPositSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeDataByPosit" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataByPositSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeDataByPositResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDivisionInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDivisionInformation" />
+  </wsdl:message>
+  <wsdl:message name="GetDivisionInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDivisionInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMonthShiftSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMonthShift" />
+  </wsdl:message>
+  <wsdl:message name="GetMonthShiftSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMonthShiftResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDateShiftSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDateShift" />
+  </wsdl:message>
+  <wsdl:message name="GetDateShiftSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDateShiftResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkingHourSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWorkingHour" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkingHourSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWorkingHourResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeMonthShiftSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeMonthShift" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeMonthShiftSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeMonthShiftResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeShiftSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeShift" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeShiftSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeShiftResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataForSFSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeDataForSF" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataForSFSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeDataForSFResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindAllEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:FindAllEmployee" />
+  </wsdl:message>
+  <wsdl:message name="FindAllEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:FindAllEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeLeaveSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeLeave" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeLeaveSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeLeaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllLeaveType" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllLeaveTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveDataSetSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllLeaveDataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveDataSetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllLeaveDataSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTotalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllLeaveTotal" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTotalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllLeaveTotalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnualTotalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAnnualTotal" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnualTotalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAnnualTotalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTableSpaceDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTableSpaceData" />
+  </wsdl:message>
+  <wsdl:message name="GetTableSpaceDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTableSpaceDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetmanpowerByGrpotSoapIn">
+    <wsdl:part name="parameters" element="tns:GetmanpowerByGrpot" />
+  </wsdl:message>
+  <wsdl:message name="GetmanpowerByGrpotSoapOut">
+    <wsdl:part name="parameters" element="tns:GetmanpowerByGrpotResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBCSoapIn">
+    <wsdl:part name="parameters" element="tns:GetManpowerForBC" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBCSoapOut">
+    <wsdl:part name="parameters" element="tns:GetManpowerForBCResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBC1SoapIn">
+    <wsdl:part name="parameters" element="tns:GetManpowerForBC1" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBC1SoapOut">
+    <wsdl:part name="parameters" element="tns:GetManpowerForBC1Response" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSumaryForBCSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOTSumaryForBC" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSumaryForBCSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOTSumaryForBCResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSummaryForBCDVCDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOTSummaryForBCDVCD" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSummaryForBCDVCDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOTSummaryForBCDVCDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpCardIssueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmpCardIssue" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpCardIssueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmpCardIssueResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssueSoapIn">
+    <wsdl:part name="parameters" element="tns:GenEmpCardIssue" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssueSoapOut">
+    <wsdl:part name="parameters" element="tns:GenEmpCardIssueResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssue1SoapIn">
+    <wsdl:part name="parameters" element="tns:GenEmpCardIssue1" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssue1SoapOut">
+    <wsdl:part name="parameters" element="tns:GenEmpCardIssue1Response" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmpSatisfyHttpGetIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmpSatisfyHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveSatisfyMainMasterHttpGetIn" />
+  <wsdl:message name="GetActiveSatisfyMainMasterHttpGetOut">
+    <wsdl:part name="Body" element="tns:SatisfyMainInfo" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterHttpGetIn">
+    <wsdl:part name="stfMainId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterUnqHttpGetIn">
+    <wsdl:part name="stfId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterUnqHttpGetOut">
+    <wsdl:part name="Body" element="tns:SatisfyMasterInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataHttpGetIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:EmployeeInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataByPositHttpGetIn">
+    <wsdl:part name="positCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataByPositHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEmployeeInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetDivisionInformationHttpGetIn">
+    <wsdl:part name="dvcd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDivisionInformationHttpGetOut">
+    <wsdl:part name="Body" element="tns:DivisionInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetMonthShiftHttpGetIn">
+    <wsdl:part name="yearmonth" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMonthShiftHttpGetOut">
+    <wsdl:part name="Body" element="tns:MonthShiftInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetDateShiftHttpGetIn">
+    <wsdl:part name="date" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDateShiftHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkingHourHttpGetIn">
+    <wsdl:part name="date" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkingHourHttpGetOut">
+    <wsdl:part name="Body" element="tns:WorkingHourInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeMonthShiftHttpGetIn">
+    <wsdl:part name="yearmonth" type="s:string" />
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeMonthShiftHttpGetOut">
+    <wsdl:part name="Body" element="tns:EmployeeShiftInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeShiftHttpGetIn">
+    <wsdl:part name="shiftDate" type="s:string" />
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeShiftHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataForSFHttpGetIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataForSFHttpGetOut">
+    <wsdl:part name="Body" element="tns:EmployeeInfo" />
+  </wsdl:message>
+  <wsdl:message name="FindAllEmployeeHttpGetIn" />
+  <wsdl:message name="FindAllEmployeeHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeLeaveHttpGetIn">
+    <wsdl:part name="empCode" type="s:string" />
+    <wsdl:part name="dt" type="s:string" />
+    <wsdl:part name="leaveType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeLeaveHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEmployeeLealeRequestInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTypeHttpGetIn" />
+  <wsdl:message name="GetAllLeaveTypeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfBasicInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveDataSetHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="leaveFrom" type="s:string" />
+    <wsdl:part name="leaveTo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveDataSetHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTotalHttpGetIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="caldate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTotalHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfLeaveTotal" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnualTotalHttpGetIn">
+    <wsdl:part name="emcode" type="s:string" />
+    <wsdl:part name="caldate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnualTotalHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnnualTotal" />
+  </wsdl:message>
+  <wsdl:message name="GetTableSpaceDataHttpGetIn">
+    <wsdl:part name="dtFrom" type="s:string" />
+    <wsdl:part name="dtTo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTableSpaceDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GetmanpowerByGrpotHttpGetIn">
+    <wsdl:part name="pdate" type="s:string" />
+    <wsdl:part name="posit" type="s:string" />
+    <wsdl:part name="grpot" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetmanpowerByGrpotHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBCHttpGetIn">
+    <wsdl:part name="pdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBCHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBC1HttpGetIn">
+    <wsdl:part name="pdate" type="s:string" />
+    <wsdl:part name="pDvcd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBC1HttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSumaryForBCHttpGetIn">
+    <wsdl:part name="pdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSumaryForBCHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSummaryForBCDVCDHttpGetIn">
+    <wsdl:part name="pdate" type="s:string" />
+    <wsdl:part name="pdvcd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSummaryForBCDVCDHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpCardIssueHttpGetIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpCardIssueHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssueHttpGetIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssueHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssue1HttpGetIn">
+    <wsdl:part name="empCode" type="s:string" />
+    <wsdl:part name="empName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssue1HttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmpSatisfyHttpPostIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmpSatisfyHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetActiveSatisfyMainMasterHttpPostIn" />
+  <wsdl:message name="GetActiveSatisfyMainMasterHttpPostOut">
+    <wsdl:part name="Body" element="tns:SatisfyMainInfo" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterHttpPostIn">
+    <wsdl:part name="stfMainId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterUnqHttpPostIn">
+    <wsdl:part name="stfId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SelectSatisfyMasterUnqHttpPostOut">
+    <wsdl:part name="Body" element="tns:SatisfyMasterInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataHttpPostIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:EmployeeInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataByPositHttpPostIn">
+    <wsdl:part name="positCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataByPositHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEmployeeInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetDivisionInformationHttpPostIn">
+    <wsdl:part name="dvcd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDivisionInformationHttpPostOut">
+    <wsdl:part name="Body" element="tns:DivisionInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetMonthShiftHttpPostIn">
+    <wsdl:part name="yearmonth" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMonthShiftHttpPostOut">
+    <wsdl:part name="Body" element="tns:MonthShiftInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetDateShiftHttpPostIn">
+    <wsdl:part name="date" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDateShiftHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkingHourHttpPostIn">
+    <wsdl:part name="date" type="s:string" />
+    <wsdl:part name="shift" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkingHourHttpPostOut">
+    <wsdl:part name="Body" element="tns:WorkingHourInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeMonthShiftHttpPostIn">
+    <wsdl:part name="yearmonth" type="s:string" />
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeMonthShiftHttpPostOut">
+    <wsdl:part name="Body" element="tns:EmployeeShiftInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeShiftHttpPostIn">
+    <wsdl:part name="shiftDate" type="s:string" />
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeShiftHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataForSFHttpPostIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeDataForSFHttpPostOut">
+    <wsdl:part name="Body" element="tns:EmployeeInfo" />
+  </wsdl:message>
+  <wsdl:message name="FindAllEmployeeHttpPostIn" />
+  <wsdl:message name="FindAllEmployeeHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeLeaveHttpPostIn">
+    <wsdl:part name="empCode" type="s:string" />
+    <wsdl:part name="dt" type="s:string" />
+    <wsdl:part name="leaveType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeLeaveHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEmployeeLealeRequestInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTypeHttpPostIn" />
+  <wsdl:message name="GetAllLeaveTypeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfBasicInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveDataSetHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="leaveFrom" type="s:string" />
+    <wsdl:part name="leaveTo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveDataSetHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTotalHttpPostIn">
+    <wsdl:part name="code" type="s:string" />
+    <wsdl:part name="caldate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLeaveTotalHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfLeaveTotal" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnualTotalHttpPostIn">
+    <wsdl:part name="emcode" type="s:string" />
+    <wsdl:part name="caldate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnualTotalHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnnualTotal" />
+  </wsdl:message>
+  <wsdl:message name="GetTableSpaceDataHttpPostIn">
+    <wsdl:part name="dtFrom" type="s:string" />
+    <wsdl:part name="dtTo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTableSpaceDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GetmanpowerByGrpotHttpPostIn">
+    <wsdl:part name="pdate" type="s:string" />
+    <wsdl:part name="posit" type="s:string" />
+    <wsdl:part name="grpot" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetmanpowerByGrpotHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBCHttpPostIn">
+    <wsdl:part name="pdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBCHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBC1HttpPostIn">
+    <wsdl:part name="pdate" type="s:string" />
+    <wsdl:part name="pDvcd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerForBC1HttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSumaryForBCHttpPostIn">
+    <wsdl:part name="pdate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSumaryForBCHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSummaryForBCDVCDHttpPostIn">
+    <wsdl:part name="pdate" type="s:string" />
+    <wsdl:part name="pdvcd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOTSummaryForBCDVCDHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpCardIssueHttpPostIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpCardIssueHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssueHttpPostIn">
+    <wsdl:part name="empCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssueHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssue1HttpPostIn">
+    <wsdl:part name="empCode" type="s:string" />
+    <wsdl:part name="empName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenEmpCardIssue1HttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="HRMSWebServiceSoap">
+    <wsdl:operation name="CheckEmpSatisfy">
+      <wsdl:input message="tns:CheckEmpSatisfySoapIn" />
+      <wsdl:output message="tns:CheckEmpSatisfySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EmpSatisfy">
+      <wsdl:input message="tns:EmpSatisfySoapIn" />
+      <wsdl:output message="tns:EmpSatisfySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSatisfyMainMaster">
+      <wsdl:input message="tns:GetActiveSatisfyMainMasterSoapIn" />
+      <wsdl:output message="tns:GetActiveSatisfyMainMasterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMaster">
+      <wsdl:input message="tns:SelectSatisfyMasterSoapIn" />
+      <wsdl:output message="tns:SelectSatisfyMasterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMasterUnq">
+      <wsdl:input message="tns:SelectSatisfyMasterUnqSoapIn" />
+      <wsdl:output message="tns:SelectSatisfyMasterUnqSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeData">
+      <wsdl:input message="tns:GetEmployeeDataSoapIn" />
+      <wsdl:output message="tns:GetEmployeeDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataByPosit">
+      <wsdl:input message="tns:GetEmployeeDataByPositSoapIn" />
+      <wsdl:output message="tns:GetEmployeeDataByPositSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDivisionInformation">
+      <wsdl:input message="tns:GetDivisionInformationSoapIn" />
+      <wsdl:output message="tns:GetDivisionInformationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonthShift">
+      <wsdl:input message="tns:GetMonthShiftSoapIn" />
+      <wsdl:output message="tns:GetMonthShiftSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDateShift">
+      <wsdl:input message="tns:GetDateShiftSoapIn" />
+      <wsdl:output message="tns:GetDateShiftSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkingHour">
+      <wsdl:input message="tns:GetWorkingHourSoapIn" />
+      <wsdl:output message="tns:GetWorkingHourSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeMonthShift">
+      <wsdl:input message="tns:GetEmployeeMonthShiftSoapIn" />
+      <wsdl:output message="tns:GetEmployeeMonthShiftSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeShift">
+      <wsdl:input message="tns:GetEmployeeShiftSoapIn" />
+      <wsdl:output message="tns:GetEmployeeShiftSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataForSF">
+      <wsdl:input message="tns:GetEmployeeDataForSFSoapIn" />
+      <wsdl:output message="tns:GetEmployeeDataForSFSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAllEmployee">
+      <wsdl:input message="tns:FindAllEmployeeSoapIn" />
+      <wsdl:output message="tns:FindAllEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeLeave">
+      <wsdl:input message="tns:GetEmployeeLeaveSoapIn" />
+      <wsdl:output message="tns:GetEmployeeLeaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveType">
+      <wsdl:input message="tns:GetAllLeaveTypeSoapIn" />
+      <wsdl:output message="tns:GetAllLeaveTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveDataSet">
+      <wsdl:input message="tns:GetAllLeaveDataSetSoapIn" />
+      <wsdl:output message="tns:GetAllLeaveDataSetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveTotal">
+      <wsdl:input message="tns:GetAllLeaveTotalSoapIn" />
+      <wsdl:output message="tns:GetAllLeaveTotalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnualTotal">
+      <wsdl:input message="tns:GetAnnualTotalSoapIn" />
+      <wsdl:output message="tns:GetAnnualTotalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTableSpaceData">
+      <wsdl:input message="tns:GetTableSpaceDataSoapIn" />
+      <wsdl:output message="tns:GetTableSpaceDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetmanpowerByGrpot">
+      <wsdl:input message="tns:GetmanpowerByGrpotSoapIn" />
+      <wsdl:output message="tns:GetmanpowerByGrpotSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC">
+      <wsdl:input message="tns:GetManpowerForBCSoapIn" />
+      <wsdl:output message="tns:GetManpowerForBCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC1">
+      <wsdl:input message="tns:GetManpowerForBC1SoapIn" />
+      <wsdl:output message="tns:GetManpowerForBC1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSumaryForBC">
+      <wsdl:input message="tns:GetOTSumaryForBCSoapIn" />
+      <wsdl:output message="tns:GetOTSumaryForBCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSummaryForBCDVCD">
+      <wsdl:input message="tns:GetOTSummaryForBCDVCDSoapIn" />
+      <wsdl:output message="tns:GetOTSummaryForBCDVCDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpCardIssue">
+      <wsdl:input message="tns:GetEmpCardIssueSoapIn" />
+      <wsdl:output message="tns:GetEmpCardIssueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue">
+      <wsdl:input message="tns:GenEmpCardIssueSoapIn" />
+      <wsdl:output message="tns:GenEmpCardIssueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue1">
+      <wsdl:input message="tns:GenEmpCardIssue1SoapIn" />
+      <wsdl:output message="tns:GenEmpCardIssue1SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="HRMSWebServiceHttpGet">
+    <wsdl:operation name="CheckEmpSatisfy">
+      <wsdl:input message="tns:CheckEmpSatisfyHttpGetIn" />
+      <wsdl:output message="tns:CheckEmpSatisfyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSatisfyMainMaster">
+      <wsdl:input message="tns:GetActiveSatisfyMainMasterHttpGetIn" />
+      <wsdl:output message="tns:GetActiveSatisfyMainMasterHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMaster">
+      <wsdl:input message="tns:SelectSatisfyMasterHttpGetIn" />
+      <wsdl:output message="tns:SelectSatisfyMasterHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMasterUnq">
+      <wsdl:input message="tns:SelectSatisfyMasterUnqHttpGetIn" />
+      <wsdl:output message="tns:SelectSatisfyMasterUnqHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeData">
+      <wsdl:input message="tns:GetEmployeeDataHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataByPosit">
+      <wsdl:input message="tns:GetEmployeeDataByPositHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeDataByPositHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDivisionInformation">
+      <wsdl:input message="tns:GetDivisionInformationHttpGetIn" />
+      <wsdl:output message="tns:GetDivisionInformationHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonthShift">
+      <wsdl:input message="tns:GetMonthShiftHttpGetIn" />
+      <wsdl:output message="tns:GetMonthShiftHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDateShift">
+      <wsdl:input message="tns:GetDateShiftHttpGetIn" />
+      <wsdl:output message="tns:GetDateShiftHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkingHour">
+      <wsdl:input message="tns:GetWorkingHourHttpGetIn" />
+      <wsdl:output message="tns:GetWorkingHourHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeMonthShift">
+      <wsdl:input message="tns:GetEmployeeMonthShiftHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeMonthShiftHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeShift">
+      <wsdl:input message="tns:GetEmployeeShiftHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeShiftHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataForSF">
+      <wsdl:input message="tns:GetEmployeeDataForSFHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeDataForSFHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAllEmployee">
+      <wsdl:input message="tns:FindAllEmployeeHttpGetIn" />
+      <wsdl:output message="tns:FindAllEmployeeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeLeave">
+      <wsdl:input message="tns:GetEmployeeLeaveHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeLeaveHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveType">
+      <wsdl:input message="tns:GetAllLeaveTypeHttpGetIn" />
+      <wsdl:output message="tns:GetAllLeaveTypeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveDataSet">
+      <wsdl:input message="tns:GetAllLeaveDataSetHttpGetIn" />
+      <wsdl:output message="tns:GetAllLeaveDataSetHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveTotal">
+      <wsdl:input message="tns:GetAllLeaveTotalHttpGetIn" />
+      <wsdl:output message="tns:GetAllLeaveTotalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnualTotal">
+      <wsdl:input message="tns:GetAnnualTotalHttpGetIn" />
+      <wsdl:output message="tns:GetAnnualTotalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTableSpaceData">
+      <wsdl:input message="tns:GetTableSpaceDataHttpGetIn" />
+      <wsdl:output message="tns:GetTableSpaceDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetmanpowerByGrpot">
+      <wsdl:input message="tns:GetmanpowerByGrpotHttpGetIn" />
+      <wsdl:output message="tns:GetmanpowerByGrpotHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC">
+      <wsdl:input message="tns:GetManpowerForBCHttpGetIn" />
+      <wsdl:output message="tns:GetManpowerForBCHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC1">
+      <wsdl:input message="tns:GetManpowerForBC1HttpGetIn" />
+      <wsdl:output message="tns:GetManpowerForBC1HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSumaryForBC">
+      <wsdl:input message="tns:GetOTSumaryForBCHttpGetIn" />
+      <wsdl:output message="tns:GetOTSumaryForBCHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSummaryForBCDVCD">
+      <wsdl:input message="tns:GetOTSummaryForBCDVCDHttpGetIn" />
+      <wsdl:output message="tns:GetOTSummaryForBCDVCDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpCardIssue">
+      <wsdl:input message="tns:GetEmpCardIssueHttpGetIn" />
+      <wsdl:output message="tns:GetEmpCardIssueHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue">
+      <wsdl:input message="tns:GenEmpCardIssueHttpGetIn" />
+      <wsdl:output message="tns:GenEmpCardIssueHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue1">
+      <wsdl:input message="tns:GenEmpCardIssue1HttpGetIn" />
+      <wsdl:output message="tns:GenEmpCardIssue1HttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="HRMSWebServiceHttpPost">
+    <wsdl:operation name="CheckEmpSatisfy">
+      <wsdl:input message="tns:CheckEmpSatisfyHttpPostIn" />
+      <wsdl:output message="tns:CheckEmpSatisfyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSatisfyMainMaster">
+      <wsdl:input message="tns:GetActiveSatisfyMainMasterHttpPostIn" />
+      <wsdl:output message="tns:GetActiveSatisfyMainMasterHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMaster">
+      <wsdl:input message="tns:SelectSatisfyMasterHttpPostIn" />
+      <wsdl:output message="tns:SelectSatisfyMasterHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMasterUnq">
+      <wsdl:input message="tns:SelectSatisfyMasterUnqHttpPostIn" />
+      <wsdl:output message="tns:SelectSatisfyMasterUnqHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeData">
+      <wsdl:input message="tns:GetEmployeeDataHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataByPosit">
+      <wsdl:input message="tns:GetEmployeeDataByPositHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeDataByPositHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDivisionInformation">
+      <wsdl:input message="tns:GetDivisionInformationHttpPostIn" />
+      <wsdl:output message="tns:GetDivisionInformationHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonthShift">
+      <wsdl:input message="tns:GetMonthShiftHttpPostIn" />
+      <wsdl:output message="tns:GetMonthShiftHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDateShift">
+      <wsdl:input message="tns:GetDateShiftHttpPostIn" />
+      <wsdl:output message="tns:GetDateShiftHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkingHour">
+      <wsdl:input message="tns:GetWorkingHourHttpPostIn" />
+      <wsdl:output message="tns:GetWorkingHourHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeMonthShift">
+      <wsdl:input message="tns:GetEmployeeMonthShiftHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeMonthShiftHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeShift">
+      <wsdl:input message="tns:GetEmployeeShiftHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeShiftHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataForSF">
+      <wsdl:input message="tns:GetEmployeeDataForSFHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeDataForSFHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAllEmployee">
+      <wsdl:input message="tns:FindAllEmployeeHttpPostIn" />
+      <wsdl:output message="tns:FindAllEmployeeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeLeave">
+      <wsdl:input message="tns:GetEmployeeLeaveHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeLeaveHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveType">
+      <wsdl:input message="tns:GetAllLeaveTypeHttpPostIn" />
+      <wsdl:output message="tns:GetAllLeaveTypeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveDataSet">
+      <wsdl:input message="tns:GetAllLeaveDataSetHttpPostIn" />
+      <wsdl:output message="tns:GetAllLeaveDataSetHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveTotal">
+      <wsdl:input message="tns:GetAllLeaveTotalHttpPostIn" />
+      <wsdl:output message="tns:GetAllLeaveTotalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnualTotal">
+      <wsdl:input message="tns:GetAnnualTotalHttpPostIn" />
+      <wsdl:output message="tns:GetAnnualTotalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTableSpaceData">
+      <wsdl:input message="tns:GetTableSpaceDataHttpPostIn" />
+      <wsdl:output message="tns:GetTableSpaceDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetmanpowerByGrpot">
+      <wsdl:input message="tns:GetmanpowerByGrpotHttpPostIn" />
+      <wsdl:output message="tns:GetmanpowerByGrpotHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC">
+      <wsdl:input message="tns:GetManpowerForBCHttpPostIn" />
+      <wsdl:output message="tns:GetManpowerForBCHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC1">
+      <wsdl:input message="tns:GetManpowerForBC1HttpPostIn" />
+      <wsdl:output message="tns:GetManpowerForBC1HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSumaryForBC">
+      <wsdl:input message="tns:GetOTSumaryForBCHttpPostIn" />
+      <wsdl:output message="tns:GetOTSumaryForBCHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSummaryForBCDVCD">
+      <wsdl:input message="tns:GetOTSummaryForBCDVCDHttpPostIn" />
+      <wsdl:output message="tns:GetOTSummaryForBCDVCDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpCardIssue">
+      <wsdl:input message="tns:GetEmpCardIssueHttpPostIn" />
+      <wsdl:output message="tns:GetEmpCardIssueHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue">
+      <wsdl:input message="tns:GenEmpCardIssueHttpPostIn" />
+      <wsdl:output message="tns:GenEmpCardIssueHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue1">
+      <wsdl:input message="tns:GenEmpCardIssue1HttpPostIn" />
+      <wsdl:output message="tns:GenEmpCardIssue1HttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HRMSWebServiceSoap" type="tns:HRMSWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckEmpSatisfy">
+      <soap:operation soapAction="http://tempuri.org/CheckEmpSatisfy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmpSatisfy">
+      <soap:operation soapAction="http://tempuri.org/EmpSatisfy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSatisfyMainMaster">
+      <soap:operation soapAction="http://tempuri.org/GetActiveSatisfyMainMaster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMaster">
+      <soap:operation soapAction="http://tempuri.org/SelectSatisfyMaster" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMasterUnq">
+      <soap:operation soapAction="http://tempuri.org/SelectSatisfyMasterUnq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeData">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataByPosit">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeDataByPosit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDivisionInformation">
+      <soap:operation soapAction="http://tempuri.org/GetDivisionInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonthShift">
+      <soap:operation soapAction="http://tempuri.org/GetMonthShift" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDateShift">
+      <soap:operation soapAction="http://tempuri.org/GetDateShift" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkingHour">
+      <soap:operation soapAction="http://tempuri.org/GetWorkingHour" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeMonthShift">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeMonthShift" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeShift">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeShift" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataForSF">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeDataForSF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAllEmployee">
+      <soap:operation soapAction="http://tempuri.org/FindAllEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeLeave">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeLeave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveType">
+      <soap:operation soapAction="http://tempuri.org/GetAllLeaveType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveDataSet">
+      <soap:operation soapAction="http://tempuri.org/GetAllLeaveDataSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveTotal">
+      <soap:operation soapAction="http://tempuri.org/GetAllLeaveTotal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnualTotal">
+      <soap:operation soapAction="http://tempuri.org/GetAnnualTotal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableSpaceData">
+      <soap:operation soapAction="http://tempuri.org/GetTableSpaceData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetmanpowerByGrpot">
+      <soap:operation soapAction="http://tempuri.org/GetmanpowerByGrpot" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC">
+      <soap:operation soapAction="http://tempuri.org/GetManpowerForBC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC1">
+      <soap:operation soapAction="http://tempuri.org/GetManpowerForBC1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSumaryForBC">
+      <soap:operation soapAction="http://tempuri.org/GetOTSumaryForBC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSummaryForBCDVCD">
+      <soap:operation soapAction="http://tempuri.org/GetOTSummaryForBCDVCD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpCardIssue">
+      <soap:operation soapAction="http://tempuri.org/GetEmpCardIssue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue">
+      <soap:operation soapAction="http://tempuri.org/GenEmpCardIssue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue1">
+      <soap:operation soapAction="http://tempuri.org/GenEmpCardIssue1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HRMSWebServiceSoap12" type="tns:HRMSWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckEmpSatisfy">
+      <soap12:operation soapAction="http://tempuri.org/CheckEmpSatisfy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmpSatisfy">
+      <soap12:operation soapAction="http://tempuri.org/EmpSatisfy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSatisfyMainMaster">
+      <soap12:operation soapAction="http://tempuri.org/GetActiveSatisfyMainMaster" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMaster">
+      <soap12:operation soapAction="http://tempuri.org/SelectSatisfyMaster" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMasterUnq">
+      <soap12:operation soapAction="http://tempuri.org/SelectSatisfyMasterUnq" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeData">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataByPosit">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeDataByPosit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDivisionInformation">
+      <soap12:operation soapAction="http://tempuri.org/GetDivisionInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonthShift">
+      <soap12:operation soapAction="http://tempuri.org/GetMonthShift" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDateShift">
+      <soap12:operation soapAction="http://tempuri.org/GetDateShift" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkingHour">
+      <soap12:operation soapAction="http://tempuri.org/GetWorkingHour" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeMonthShift">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeMonthShift" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeShift">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeShift" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataForSF">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeDataForSF" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAllEmployee">
+      <soap12:operation soapAction="http://tempuri.org/FindAllEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeLeave">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeLeave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveType">
+      <soap12:operation soapAction="http://tempuri.org/GetAllLeaveType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveDataSet">
+      <soap12:operation soapAction="http://tempuri.org/GetAllLeaveDataSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveTotal">
+      <soap12:operation soapAction="http://tempuri.org/GetAllLeaveTotal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnualTotal">
+      <soap12:operation soapAction="http://tempuri.org/GetAnnualTotal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableSpaceData">
+      <soap12:operation soapAction="http://tempuri.org/GetTableSpaceData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetmanpowerByGrpot">
+      <soap12:operation soapAction="http://tempuri.org/GetmanpowerByGrpot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC">
+      <soap12:operation soapAction="http://tempuri.org/GetManpowerForBC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC1">
+      <soap12:operation soapAction="http://tempuri.org/GetManpowerForBC1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSumaryForBC">
+      <soap12:operation soapAction="http://tempuri.org/GetOTSumaryForBC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSummaryForBCDVCD">
+      <soap12:operation soapAction="http://tempuri.org/GetOTSummaryForBCDVCD" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpCardIssue">
+      <soap12:operation soapAction="http://tempuri.org/GetEmpCardIssue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue">
+      <soap12:operation soapAction="http://tempuri.org/GenEmpCardIssue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue1">
+      <soap12:operation soapAction="http://tempuri.org/GenEmpCardIssue1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HRMSWebServiceHttpGet" type="tns:HRMSWebServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="CheckEmpSatisfy">
+      <http:operation location="/CheckEmpSatisfy" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSatisfyMainMaster">
+      <http:operation location="/GetActiveSatisfyMainMaster" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMaster">
+      <http:operation location="/SelectSatisfyMaster" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMasterUnq">
+      <http:operation location="/SelectSatisfyMasterUnq" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeData">
+      <http:operation location="/GetEmployeeData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataByPosit">
+      <http:operation location="/GetEmployeeDataByPosit" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDivisionInformation">
+      <http:operation location="/GetDivisionInformation" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonthShift">
+      <http:operation location="/GetMonthShift" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDateShift">
+      <http:operation location="/GetDateShift" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkingHour">
+      <http:operation location="/GetWorkingHour" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeMonthShift">
+      <http:operation location="/GetEmployeeMonthShift" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeShift">
+      <http:operation location="/GetEmployeeShift" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataForSF">
+      <http:operation location="/GetEmployeeDataForSF" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAllEmployee">
+      <http:operation location="/FindAllEmployee" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeLeave">
+      <http:operation location="/GetEmployeeLeave" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveType">
+      <http:operation location="/GetAllLeaveType" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveDataSet">
+      <http:operation location="/GetAllLeaveDataSet" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveTotal">
+      <http:operation location="/GetAllLeaveTotal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnualTotal">
+      <http:operation location="/GetAnnualTotal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableSpaceData">
+      <http:operation location="/GetTableSpaceData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetmanpowerByGrpot">
+      <http:operation location="/GetmanpowerByGrpot" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC">
+      <http:operation location="/GetManpowerForBC" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC1">
+      <http:operation location="/GetManpowerForBC1" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSumaryForBC">
+      <http:operation location="/GetOTSumaryForBC" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSummaryForBCDVCD">
+      <http:operation location="/GetOTSummaryForBCDVCD" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpCardIssue">
+      <http:operation location="/GetEmpCardIssue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue">
+      <http:operation location="/GenEmpCardIssue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue1">
+      <http:operation location="/GenEmpCardIssue1" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="HRMSWebServiceHttpPost" type="tns:HRMSWebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="CheckEmpSatisfy">
+      <http:operation location="/CheckEmpSatisfy" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveSatisfyMainMaster">
+      <http:operation location="/GetActiveSatisfyMainMaster" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMaster">
+      <http:operation location="/SelectSatisfyMaster" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSatisfyMasterUnq">
+      <http:operation location="/SelectSatisfyMasterUnq" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeData">
+      <http:operation location="/GetEmployeeData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataByPosit">
+      <http:operation location="/GetEmployeeDataByPosit" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDivisionInformation">
+      <http:operation location="/GetDivisionInformation" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonthShift">
+      <http:operation location="/GetMonthShift" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDateShift">
+      <http:operation location="/GetDateShift" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkingHour">
+      <http:operation location="/GetWorkingHour" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeMonthShift">
+      <http:operation location="/GetEmployeeMonthShift" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeShift">
+      <http:operation location="/GetEmployeeShift" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeDataForSF">
+      <http:operation location="/GetEmployeeDataForSF" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAllEmployee">
+      <http:operation location="/FindAllEmployee" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeLeave">
+      <http:operation location="/GetEmployeeLeave" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveType">
+      <http:operation location="/GetAllLeaveType" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveDataSet">
+      <http:operation location="/GetAllLeaveDataSet" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLeaveTotal">
+      <http:operation location="/GetAllLeaveTotal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnnualTotal">
+      <http:operation location="/GetAnnualTotal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTableSpaceData">
+      <http:operation location="/GetTableSpaceData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetmanpowerByGrpot">
+      <http:operation location="/GetmanpowerByGrpot" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC">
+      <http:operation location="/GetManpowerForBC" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerForBC1">
+      <http:operation location="/GetManpowerForBC1" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSumaryForBC">
+      <http:operation location="/GetOTSumaryForBC" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTSummaryForBCDVCD">
+      <http:operation location="/GetOTSummaryForBCDVCD" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpCardIssue">
+      <http:operation location="/GetEmpCardIssue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue">
+      <http:operation location="/GenEmpCardIssue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenEmpCardIssue1">
+      <http:operation location="/GenEmpCardIssue1" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HRMSWebService">
+    <wsdl:port name="HRMSWebServiceSoap" binding="tns:HRMSWebServiceSoap">
+      <soap:address location="http://dcidmc.dci.daikin.co.jp/psnweb/hrmswebservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HRMSWebServiceSoap12" binding="tns:HRMSWebServiceSoap12">
+      <soap12:address location="http://dcidmc.dci.daikin.co.jp/psnweb/hrmswebservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HRMSWebServiceHttpGet" binding="tns:HRMSWebServiceHttpGet">
+      <http:address location="http://dcidmc.dci.daikin.co.jp/psnweb/hrmswebservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="HRMSWebServiceHttpPost" binding="tns:HRMSWebServiceHttpPost">
+      <http:address location="http://dcidmc.dci.daikin.co.jp/psnweb/hrmswebservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

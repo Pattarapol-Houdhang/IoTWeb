@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetEmployeeByGroupOT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrpOT" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeByGroupOTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeByGroupOTResult" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EmployeePDWorkTimeInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataEmpCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataFName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataLName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataWDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataPosition" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataWStatus" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MDOTDataInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Costcenter" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grpot" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dvcd" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Counts" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ot1" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ot15" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ot2" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ot3" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MDManpowerInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Costcenter" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grpot" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Counts" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MDGroupOTEmployeeInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pren" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Surn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tpren" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tsurn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Birth" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sex" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wtype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Wsts" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posi_cd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posi_ename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posi_tname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv_cd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv_ename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv_tname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv_descr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv_type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dv_hdv_cd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dept" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sect" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dept_cd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sect_cd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grp_cd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grpl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grpot" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Shgrp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grpname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dvcd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Costcenter" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetManpowerByDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetManpowerByDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetManpowerByDateResult" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOTDataByDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOTDataByDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOTDataByDateResult" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCheckEmployeeWorkingTime">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EmpCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WorkDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCheckEmployeeWorkingTimeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCheckEmployeeWorkingTimeResult" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCheckEmployeeWorkingTimeByPDLine">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PD_Line" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WorkDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCheckEmployeeWorkingTimeByPDLineResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCheckEmployeeWorkingTimeByPDLineResult" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfAnyType" nillable="true" type="tns:ArrayOfAnyType" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetEmployeeByGroupOTSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeByGroupOT" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeByGroupOTSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeByGroupOTResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerByDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetManpowerByDate" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerByDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetManpowerByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOTDataByDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOTDataByDate" />
+  </wsdl:message>
+  <wsdl:message name="GetOTDataByDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOTDataByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCheckEmployeeWorkingTime" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCheckEmployeeWorkingTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeByPDLineSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCheckEmployeeWorkingTimeByPDLine" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeByPDLineSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCheckEmployeeWorkingTimeByPDLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeByGroupOTHttpGetIn">
+    <wsdl:part name="GrpOT" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeByGroupOTHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerByDateHttpGetIn">
+    <wsdl:part name="pDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerByDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetOTDataByDateHttpGetIn">
+    <wsdl:part name="pDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOTDataByDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeHttpGetIn">
+    <wsdl:part name="EmpCode" type="s:string" />
+    <wsdl:part name="WorkDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeByPDLineHttpGetIn">
+    <wsdl:part name="PD_Line" type="s:string" />
+    <wsdl:part name="WorkDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeByPDLineHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeByGroupOTHttpPostIn">
+    <wsdl:part name="GrpOT" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeByGroupOTHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerByDateHttpPostIn">
+    <wsdl:part name="pDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetManpowerByDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetOTDataByDateHttpPostIn">
+    <wsdl:part name="pDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOTDataByDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeHttpPostIn">
+    <wsdl:part name="EmpCode" type="s:string" />
+    <wsdl:part name="WorkDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeByPDLineHttpPostIn">
+    <wsdl:part name="PD_Line" type="s:string" />
+    <wsdl:part name="WorkDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCheckEmployeeWorkingTimeByPDLineHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfAnyType" />
+  </wsdl:message>
+  <wsdl:portType name="PSNEmployeewebserviceSoap">
+    <wsdl:operation name="GetEmployeeByGroupOT">
+      <wsdl:input message="tns:GetEmployeeByGroupOTSoapIn" />
+      <wsdl:output message="tns:GetEmployeeByGroupOTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerByDate">
+      <wsdl:input message="tns:GetManpowerByDateSoapIn" />
+      <wsdl:output message="tns:GetManpowerByDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTDataByDate">
+      <wsdl:input message="tns:GetOTDataByDateSoapIn" />
+      <wsdl:output message="tns:GetOTDataByDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTime">
+      <wsdl:input message="tns:GetCheckEmployeeWorkingTimeSoapIn" />
+      <wsdl:output message="tns:GetCheckEmployeeWorkingTimeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTimeByPDLine">
+      <wsdl:input message="tns:GetCheckEmployeeWorkingTimeByPDLineSoapIn" />
+      <wsdl:output message="tns:GetCheckEmployeeWorkingTimeByPDLineSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PSNEmployeewebserviceHttpGet">
+    <wsdl:operation name="GetEmployeeByGroupOT">
+      <wsdl:input message="tns:GetEmployeeByGroupOTHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeByGroupOTHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerByDate">
+      <wsdl:input message="tns:GetManpowerByDateHttpGetIn" />
+      <wsdl:output message="tns:GetManpowerByDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTDataByDate">
+      <wsdl:input message="tns:GetOTDataByDateHttpGetIn" />
+      <wsdl:output message="tns:GetOTDataByDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTime">
+      <wsdl:input message="tns:GetCheckEmployeeWorkingTimeHttpGetIn" />
+      <wsdl:output message="tns:GetCheckEmployeeWorkingTimeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTimeByPDLine">
+      <wsdl:input message="tns:GetCheckEmployeeWorkingTimeByPDLineHttpGetIn" />
+      <wsdl:output message="tns:GetCheckEmployeeWorkingTimeByPDLineHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PSNEmployeewebserviceHttpPost">
+    <wsdl:operation name="GetEmployeeByGroupOT">
+      <wsdl:input message="tns:GetEmployeeByGroupOTHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeByGroupOTHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerByDate">
+      <wsdl:input message="tns:GetManpowerByDateHttpPostIn" />
+      <wsdl:output message="tns:GetManpowerByDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOTDataByDate">
+      <wsdl:input message="tns:GetOTDataByDateHttpPostIn" />
+      <wsdl:output message="tns:GetOTDataByDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTime">
+      <wsdl:input message="tns:GetCheckEmployeeWorkingTimeHttpPostIn" />
+      <wsdl:output message="tns:GetCheckEmployeeWorkingTimeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTimeByPDLine">
+      <wsdl:input message="tns:GetCheckEmployeeWorkingTimeByPDLineHttpPostIn" />
+      <wsdl:output message="tns:GetCheckEmployeeWorkingTimeByPDLineHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PSNEmployeewebserviceSoap" type="tns:PSNEmployeewebserviceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetEmployeeByGroupOT">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeByGroupOT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerByDate">
+      <soap:operation soapAction="http://tempuri.org/GetManpowerByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTDataByDate">
+      <soap:operation soapAction="http://tempuri.org/GetOTDataByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTime">
+      <soap:operation soapAction="http://tempuri.org/GetCheckEmployeeWorkingTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTimeByPDLine">
+      <soap:operation soapAction="http://tempuri.org/GetCheckEmployeeWorkingTimeByPDLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PSNEmployeewebserviceSoap12" type="tns:PSNEmployeewebserviceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetEmployeeByGroupOT">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeByGroupOT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerByDate">
+      <soap12:operation soapAction="http://tempuri.org/GetManpowerByDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTDataByDate">
+      <soap12:operation soapAction="http://tempuri.org/GetOTDataByDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTime">
+      <soap12:operation soapAction="http://tempuri.org/GetCheckEmployeeWorkingTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTimeByPDLine">
+      <soap12:operation soapAction="http://tempuri.org/GetCheckEmployeeWorkingTimeByPDLine" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PSNEmployeewebserviceHttpGet" type="tns:PSNEmployeewebserviceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetEmployeeByGroupOT">
+      <http:operation location="/GetEmployeeByGroupOT" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerByDate">
+      <http:operation location="/GetManpowerByDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTDataByDate">
+      <http:operation location="/GetOTDataByDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTime">
+      <http:operation location="/GetCheckEmployeeWorkingTime" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTimeByPDLine">
+      <http:operation location="/GetCheckEmployeeWorkingTimeByPDLine" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PSNEmployeewebserviceHttpPost" type="tns:PSNEmployeewebserviceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetEmployeeByGroupOT">
+      <http:operation location="/GetEmployeeByGroupOT" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetManpowerByDate">
+      <http:operation location="/GetManpowerByDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOTDataByDate">
+      <http:operation location="/GetOTDataByDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTime">
+      <http:operation location="/GetCheckEmployeeWorkingTime" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckEmployeeWorkingTimeByPDLine">
+      <http:operation location="/GetCheckEmployeeWorkingTimeByPDLine" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PSNEmployeewebservice">
+    <wsdl:port name="PSNEmployeewebserviceSoap" binding="tns:PSNEmployeewebserviceSoap">
+      <soap:address location="http://dcidmc.dci.daikin.co.jp/psnservice/PSNEmployeewebservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PSNEmployeewebserviceSoap12" binding="tns:PSNEmployeewebserviceSoap12">
+      <soap12:address location="http://dcidmc.dci.daikin.co.jp/psnservice/PSNEmployeewebservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PSNEmployeewebserviceHttpGet" binding="tns:PSNEmployeewebserviceHttpGet">
+      <http:address location="http://dcidmc.dci.daikin.co.jp/psnservice/PSNEmployeewebservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PSNEmployeewebserviceHttpPost" binding="tns:PSNEmployeewebserviceHttpPost">
+      <http:address location="http://dcidmc.dci.daikin.co.jp/psnservice/PSNEmployeewebservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
